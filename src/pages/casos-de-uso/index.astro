@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import Card from '../../components/Card.astro';
+
+const allNews = await getCollection('news');
+const sortedNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const categories = ['openai', 'anthropic', 'google', 'meta', 'investigacion', 'industria', 'otros'];
+---
+
+<BaseLayout title="Noticias IA" description="Últimas noticias y actualizaciones del mundo de la Inteligencia Artificial">
+  <Navigation />
+  
+  <main class="py-12">
+    <div class="container">
+      <div class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">📰 Noticias IA</h1>
+        <p class="text-xl text-gray-400">
+          Las últimas actualizaciones del mundo de la Inteligencia Artificial
+        </p>
+      </div>
+      
+      <!-- Category Filter -->
+      <div class="flex flex-wrap gap-3 mb-12">
+        <button class="px-4 py-2 rounded-lg bg-primary text-dark font-medium">
+          Todas
+        </button>
+        {categories.map(cat => (
+          <button class="px-4 py-2 rounded-lg bg-dark border border-gray-700 hover:border-primary transition-colors">
+            {cat}
+          </button>
+        ))}
+      </div>
+      
+      <!-- News Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedNews.map(post => (
+          <Card
+            title={post.data.title}
+            excerpt={post.data.description}
+            href={`/news/${post.slug}`}
+            date={post.data.date.toLocaleDateString('es-ES')}
+            category="Noticias"
+            image={post.data.image}
+          />
+        ))}
+      </div>
+      
+      {sortedNews.length === 0 && (
+        <div class="text-center py-20">
+          <p class="text-gray-400 text-lg">
+            Aún no hay noticias publicadas. ¡Vuelve pronto!
+          </p>
+        </div>
+      )}
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>

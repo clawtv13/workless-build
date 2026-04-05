@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Sobre Nosotros" description="Conoce más sobre WorkLess AI y nuestra misión">
+  <Navigation />
+  
+  <main class="py-20">
+    <div class="container max-w-4xl">
+      <h1 class="text-5xl font-display font-bold mb-8">Sobre WorkLess AI</h1>
+      
+      <div class="prose prose-invert prose-lg max-w-none">
+        <p class="text-xl text-gray-300 leading-relaxed mb-8">
+          WorkLess AI es la fuente definitiva de información sobre Inteligencia Artificial en español.
+        </p>
+        
+        <h2 class="text-3xl font-display font-bold mt-12 mb-4">🎯 Nuestra Misión</h2>
+        <p class="text-gray-300 mb-6">
+          Democratizar el acceso a información de calidad sobre IA en español. Creemos que el conocimiento sobre inteligencia artificial no debe estar limitado por barreras de idioma.
+        </p>
+        
+        <h2 class="text-3xl font-display font-bold mt-12 mb-4">💡 Qué Ofrecemos</h2>
+        <ul class="space-y-4 text-gray-300">
+          <li><strong class="text-primary">Noticias:</strong> Actualizaciones diarias sobre lanzamientos, investigación y tendencias</li>
+          <li><strong class="text-secondary">Tutoriales:</strong> Guías prácticas paso a paso para implementar IA</li>
+          <li><strong class="text-accent">Reviews:</strong> Análisis honestos de herramientas y servicios IA</li>
+          <li><strong class="text-primary">Casos de Uso:</strong> Historias reales de implementaciones exitosas</li>
+        </ul>
+        
+        <h2 class="text-3xl font-display font-bold mt-12 mb-4">📊 Nuestros Valores</h2>
+        <div class="grid md:grid-cols-2 gap-6 mt-6">
+          <div class="card">
+            <h3 class="font-display font-bold text-xl mb-2">🎯 Calidad</h3>
+            <p class="text-gray-400">Contenido verificado, bien investigado y útil</p>
+          </div>
+          <div class="card">
+            <h3 class="font-display font-bold text-xl mb-2">⚡ Velocidad</h3>
+            <p class="text-gray-400">Noticias y análisis en tiempo real</p>
+          </div>
+          <div class="card">
+            <h3 class="font-display font-bold text-xl mb-2">🔍 Transparencia</h3>
+            <p class="text-gray-400">Fuentes claras, links de afiliados identificados</p>
+          </div>
+          <div class="card">
+            <h3 class="font-display font-bold text-xl mb-2">🌍 Accesibilidad</h3>
+            <p class="text-gray-400">Contenido para todos los niveles</p>
+          </div>
+        </div>
+        
+        <h2 class="text-3xl font-display font-bold mt-12 mb-4">📧 Contacto</h2>
+        <p class="text-gray-300 mb-4">
+          ¿Preguntas, sugerencias o colaboraciones?
+        </p>
+        <a href="mailto:hola@workless.build" class="btn btn-primary inline-flex">
+          Contáctanos
+        </a>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>

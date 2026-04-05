@@ -1,0 +1,55 @@
+---
+interface Props {
+  title: string;
+  excerpt: string;
+  href: string;
+  date?: string;
+  category?: string;
+  image?: string;
+}
+
+const { title, excerpt, href, date, category, image } = Astro.props;
+---
+
+<article class="card group hover:shadow-xl hover:shadow-primary/10">
+  {image && (
+    <a href={href} class="block mb-4 overflow-hidden rounded-lg">
+      <img 
+        src={image} 
+        alt={title}
+        class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+    </a>
+  )}
+  
+  <div class="flex items-center gap-3 mb-3">
+    {category && (
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+        {category}
+      </span>
+    )}
+    {date && (
+      <time class="text-sm text-gray-400">{date}</time>
+    )}
+  </div>
+  
+  <h3 class="text-xl font-display font-bold mb-2">
+    <a href={href} class="hover:text-primary transition-colors">
+      {title}
+    </a>
+  </h3>
+  
+  <p class="text-gray-400 mb-4 line-clamp-2">
+    {excerpt}
+  </p>
+  
+  <a 
+    href={href} 
+    class="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium"
+  >
+    Leer más
+    <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </a>
+</article>

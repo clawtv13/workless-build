@@ -1,0 +1,70 @@
+---
+const navItems = [
+  { href: '/news', label: 'Noticias' },
+  { href: '/tutoriales', label: 'Tutoriales' },
+  { href: '/herramientas', label: 'Herramientas' },
+  { href: '/casos-de-uso', label: 'Casos de Uso' },
+  { href: '/recursos', label: 'Recursos' },
+];
+---
+
+<nav class="sticky top-0 z-50 bg-darker/95 backdrop-blur-lg border-b border-gray-800">
+  <div class="container">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-2">
+        <span class="text-2xl font-display font-bold">
+          <span class="text-primary">WorkLess</span>
+          <span class="text-white">AI</span>
+        </span>
+      </a>
+      
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center space-x-8">
+        {navItems.map(item => (
+          <a 
+            href={item.href} 
+            class="text-gray-300 hover:text-primary transition-colors duration-200"
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+      
+      <!-- CTA -->
+      <a href="/#newsletter" class="hidden md:block btn btn-primary text-sm">
+        Newsletter
+      </a>
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-button" class="md:hidden text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-gray-800">
+    <div class="container py-4 space-y-2">
+      {navItems.map(item => (
+        <a 
+          href={item.href} 
+          class="block py-2 text-gray-300 hover:text-primary transition-colors"
+        >
+          {item.label}
+        </a>
+      ))}
+      <a href="/#newsletter" class="block w-full btn btn-primary text-center mt-4">
+        Newsletter
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.getElementById('mobile-menu-button')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+  });
+</script>
