@@ -17,19 +17,19 @@ const categories = ['openai', 'anthropic', 'google', 'meta', 'investigacion', 'i
   <main class="py-12">
     <div class="container">
       <div class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">📰 Noticias IA</h1>
-        <p class="text-xl text-gray-400">
+        <h1 class="text-4xl md:text-5xl font-heading font-semibold mb-4 text-primary">Noticias IA</h1>
+        <p class="text-xl text-text-secondary">
           Las últimas actualizaciones del mundo de la Inteligencia Artificial
         </p>
       </div>
       
       <!-- Category Filter -->
       <div class="flex flex-wrap gap-3 mb-12">
-        <button class="px-4 py-2 rounded-lg bg-primary text-dark font-medium">
+        <button class="px-4 py-2 rounded-lg bg-accent text-accent-fg font-medium font-body">
           Todas
         </button>
         {categories.map(cat => (
-          <button class="px-4 py-2 rounded-lg bg-dark border border-gray-700 hover:border-primary transition-colors">
+          <button class="px-4 py-2 rounded-lg bg-surface border border-border hover:border-accent transition-colors text-text-secondary capitalize">
             {cat}
           </button>
         ))}
@@ -41,7 +41,7 @@ const categories = ['openai', 'anthropic', 'google', 'meta', 'investigacion', 'i
           <Card
             title={post.data.title}
             excerpt={post.data.description}
-            href={`/news/${post.slug}`}
+            href={`/news/${post.id}`}
             date={post.data.date.toLocaleDateString('es-ES')}
             category="Noticias"
             image={post.data.image}

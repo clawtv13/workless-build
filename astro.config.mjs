@@ -13,6 +13,7 @@ export default defineConfig({
   ],
   build: {
     inlineStylesheets: 'auto',
+    assets: 'assets',  // Avoid underscore prefix for GitHub Pages
   },
   vite: {
     build: {

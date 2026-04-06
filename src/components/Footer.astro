@@ -21,18 +21,18 @@ const links = {
 };
 ---
 
-<footer class="bg-dark border-t border-gray-800 mt-20">
+<footer class="bg-surface-variant border-t border-border mt-20">
   <div class="container py-12">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <!-- Brand -->
       <div class="md:col-span-2">
-        <a href="/" class="inline-block mb-4">
-          <span class="text-2xl font-display font-bold">
+        <a href="/" class="inline-block mb-4 no-underline">
+          <span class="text-2xl font-heading font-semibold">
             <span class="text-primary">WorkLess</span>
-            <span class="text-white">AI</span>
+            <span class="text-accent">AI</span>
           </span>
         </a>
-        <p class="text-gray-400 mb-4">
+        <p class="text-text-secondary mb-4">
           La fuente definitiva de IA en español. News, tutoriales, reviews y casos de uso actualizados diariamente.
         </p>
         <div class="flex space-x-4">
@@ -41,7 +41,7 @@ const links = {
               href={item.href} 
               target="_blank"
               rel="noopener noreferrer"
-              class="text-gray-400 hover:text-primary transition-colors"
+              class="text-text-secondary hover:text-accent transition-colors no-underline"
               aria-label={item.label}
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -62,11 +62,11 @@ const links = {
       
       <!-- Links Navegación -->
       <div>
-        <h3 class="font-display font-semibold text-white mb-4">Navegación</h3>
+        <h3 class="font-heading font-semibold text-primary mb-4">Navegación</h3>
         <ul class="space-y-2">
           {links.navegacion.map(item => (
             <li>
-              <a href={item.href} class="text-gray-400 hover:text-primary transition-colors">
+              <a href={item.href} class="text-text-secondary hover:text-accent transition-colors no-underline">
                 {item.label}
               </a>
             </li>
@@ -76,11 +76,11 @@ const links = {
       
       <!-- Links Legal -->
       <div>
-        <h3 class="font-display font-semibold text-white mb-4">Información</h3>
+        <h3 class="font-heading font-semibold text-primary mb-4">Información</h3>
         <ul class="space-y-2">
           {links.legal.map(item => (
             <li>
-              <a href={item.href} class="text-gray-400 hover:text-primary transition-colors">
+              <a href={item.href} class="text-text-secondary hover:text-accent transition-colors no-underline">
                 {item.label}
               </a>
             </li>
@@ -90,7 +90,7 @@ const links = {
     </div>
     
     <!-- Copyright -->
-    <div class="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+    <div class="mt-12 pt-8 border-t border-border text-center text-text-tertiary text-sm">
       <p>&copy; {currentYear} WorkLess AI. Todos los derechos reservados.</p>
     </div>
   </div>

@@ -52,21 +52,18 @@ const categories = [
   <Navigation />
   
   <!-- Hero -->
-  <section class="py-20 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10"></div>
+  <section id="main-content" class="py-20 md:py-32 relative">
     <div class="container relative">
       <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-5xl md:text-7xl font-display font-bold mb-6 leading-tight">
+        <h1 class="text-5xl md:text-7xl font-heading font-semibold mb-6 leading-tight">
           La fuente definitiva de
-          <span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            IA en español
-          </span>
+          <span class="text-accent">IA en español</span>
         </h1>
-        <p class="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+        <p class="text-xl md:text-2xl text-text-secondary mb-10 leading-relaxed max-w-3xl mx-auto">
           News, tutoriales, reviews y casos de uso actualizados diariamente
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#featured" class="btn btn-primary text-lg">
+          <a href="#featured" class="btn btn-accent text-lg">
             Explorar Contenido
           </a>
           <a href="#newsletter" class="btn btn-secondary text-lg">
@@ -78,69 +75,76 @@ const categories = [
   </section>
   
   <!-- Featured Posts -->
-  <section id="featured" class="py-16 bg-dark">
+  <section id="featured" class="py-16 bg-surface" aria-labelledby="featured-heading">
     <div class="container">
-      <h2 class="text-3xl md:text-4xl font-display font-bold mb-12">
-        📌 Destacados
+      <h2 id="featured-heading" class="text-3xl md:text-4xl font-heading font-semibold mb-12 text-primary">
+        Destacados
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
         {featuredPosts.map(post => (
-          <Card {...post} />
+          <div role="listitem">
+            <Card {...post} />
+          </div>
         ))}
       </div>
     </div>
   </section>
   
   <!-- Categories -->
-  <section class="py-16">
+  <section class="py-16 bg-surface-variant/30" aria-labelledby="categories-heading">
     <div class="container">
-      <h2 class="text-3xl md:text-4xl font-display font-bold mb-12 text-center">
-        🎯 Explora por Categoría
+      <h2 id="categories-heading" class="text-3xl md:text-4xl font-heading font-semibold mb-12 text-center text-primary">
+        Explora por Categoría
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <nav class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" aria-label="Categorías de contenido">
         {categories.map(cat => (
           <a 
             href={cat.href}
-            class="group card hover:scale-105 transition-transform duration-300"
+            class="group card hover:scale-[1.02] transition-all duration-200"
           >
-            <div class={`w-16 h-16 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center mb-4 text-3xl group-hover:scale-110 transition-transform`}>
+            <div class="w-16 h-16 rounded-xl bg-accent/10 flex items-center justify-center mb-4 text-3xl group-hover:bg-accent/20 transition-colors">
               {cat.icon}
             </div>
-            <h3 class="text-xl font-display font-bold mb-2 group-hover:text-primary transition-colors">
+            <h3 class="text-xl font-heading font-semibold mb-2 group-hover:text-accent transition-colors">
               {cat.title}
             </h3>
-            <p class="text-gray-400 text-sm">
+            <p class="text-text-secondary text-sm">
               {cat.description}
             </p>
           </a>
         ))}
-      </div>
+      </nav>
     </div>
   </section>
   
   <!-- Newsletter -->
-  <section id="newsletter" class="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
+  <section id="newsletter" class="py-20 bg-primary text-primary-fg">
     <div class="container">
       <div class="max-w-2xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">
-          📬 Newsletter Semanal
+        <h2 class="text-3xl md:text-4xl font-heading font-semibold mb-4">
+          Newsletter Semanal
         </h2>
-        <p class="text-xl text-gray-300 mb-8">
+        <p class="text-xl text-primary-fg/80 mb-8">
           Recibe lo mejor de la IA directamente en tu inbox. Sin spam, solo contenido valioso.
         </p>
-        <form class="flex flex-col sm:flex-row gap-4">
+        <form class="flex flex-col sm:flex-row gap-4" aria-label="Formulario de suscripción al newsletter">
+          <label for="email-input" class="sr-only">Correo electrónico</label>
           <input 
+            id="email-input"
             type="email" 
+            name="email"
             placeholder="tu@email.com" 
             required
-            class="flex-1 px-6 py-4 rounded-lg bg-dark border border-gray-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+            aria-required="true"
+            autocomplete="email"
+            class="flex-1 px-6 py-4 rounded-lg bg-surface text-text-primary border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all"
           />
-          <button type="submit" class="btn btn-primary text-lg whitespace-nowrap">
+          <button type="submit" class="btn btn-secondary text-lg whitespace-nowrap" aria-label="Suscribirse al newsletter">
             Suscribirme Gratis
           </button>
         </form>
-        <p class="text-sm text-gray-400 mt-4">
-          🔒 Tus datos están seguros. Cancelar cuando quieras.
+        <p class="text-sm text-primary-fg/60 mt-4">
+          Tus datos están seguros. Cancelar cuando quieras.
         </p>
       </div>
     </div>

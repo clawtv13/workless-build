@@ -11,41 +11,42 @@ interface Props {
 const { title, excerpt, href, date, category, image } = Astro.props;
 ---
 
-<article class="card group hover:shadow-xl hover:shadow-primary/10">
+<article class="card group" aria-labelledby={`article-title-${title.replace(/\s+/g, '-').toLowerCase()}`}>
   {image && (
-    <a href={href} class="block mb-4 overflow-hidden rounded-lg">
+    <a href={href} class="block mb-4 overflow-hidden rounded-lg aspect-video" tabindex="-1" aria-hidden="true">
       <img 
         src={image} 
-        alt={title}
-        class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+        alt=""
+        class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-[1.02]"
+        loading="lazy"
       />
     </a>
   )}
   
-  <div class="flex items-center gap-3 mb-3">
+  <div class="flex items-center gap-3 mb-3 text-sm">
     {category && (
-      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-body font-medium bg-accent/10 text-accent">
         {category}
       </span>
     )}
     {date && (
-      <time class="text-sm text-gray-400">{date}</time>
+      <time class="text-text-tertiary" datetime={date}>{date}</time>
     )}
   </div>
   
-  <h3 class="text-xl font-display font-bold mb-2">
-    <a href={href} class="hover:text-primary transition-colors">
+  <h3 id={`article-title-${title.replace(/\s+/g, '-').toLowerCase()}`} class="text-xl font-heading font-semibold mb-3 leading-snug">
+    <a href={href} class="hover:text-accent transition-colors no-underline" aria-label={`Leer artículo: ${title}`}>
       {title}
     </a>
   </h3>
   
-  <p class="text-gray-400 mb-4 line-clamp-2">
+  <p class="text-text-secondary mb-4 line-clamp-2 text-base leading-relaxed">
     {excerpt}
   </p>
   
   <a 
     href={href} 
-    class="inline-flex items-center text-primary hover:text-primary/80 transition-colors font-medium"
+    class="inline-flex items-center text-accent hover:text-accent-hover transition-colors font-body font-medium text-sm no-underline"
   >
     Leer más
     <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
