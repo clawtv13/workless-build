@@ -36,8 +36,13 @@ const navItems = [
         Newsletter
       </a>
       
-      <!-- Mobile Menu Button -->
-      <button id="mobile-menu-button" class="md:hidden text-primary" aria-label="Toggle menu">
+      <!-- Mobile Menu Button - 44x44px touch target -->
+      <button 
+        id="mobile-menu-button" 
+        class="md:hidden text-primary p-2 -mr-2 min-w-[44px] min-h-[44px] flex items-center justify-center" 
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -47,11 +52,11 @@ const navItems = [
   
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-surface">
-    <div class="container py-4 space-y-2">
+    <div class="container py-4 space-y-1">
       {navItems.map(item => (
         <a 
           href={item.href} 
-          class="block py-2 text-text-secondary hover:text-accent transition-colors no-underline"
+          class="block py-3 px-2 text-text-secondary hover:text-accent hover:bg-surface-variant/50 transition-colors rounded-lg no-underline min-h-[44px] flex items-center"
         >
           {item.label}
         </a>
@@ -64,7 +69,12 @@ const navItems = [
 </nav>
 
 <script>
-  document.getElementById('mobile-menu-button')?.addEventListener('click', () => {
-    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  menuButton?.addEventListener('click', () => {
+    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+    menuButton.setAttribute('aria-expanded', String(!isExpanded));
+    mobileMenu?.classList.toggle('hidden');
   });
 </script>

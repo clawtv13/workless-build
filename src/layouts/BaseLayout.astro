@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import ExitIntentPopup from '../components/ExitIntentPopup.astro';
 
 interface Props {
   title: string;
@@ -39,10 +40,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={new URL(image, Astro.site)} />
   
-  <!-- Fonts -->
+  <!-- Fonts - optimized loading with display=swap -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  </noscript>
   
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NK82TJD61G"></script>
@@ -60,5 +64,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </a>
   
   <slot />
+  
+  <!-- Exit Intent Popup -->
+  <ExitIntentPopup />
 </body>
 </html>

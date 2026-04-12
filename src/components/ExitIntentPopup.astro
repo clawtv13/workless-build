@@ -1,0 +1,254 @@
+---
+// Exit-intent popup for newsletter capture
+// Only triggers once per session when user moves cursor to leave page
+---
+
+<div id="exit-popup" class="exit-popup hidden" role="dialog" aria-labelledby="exit-popup-title" aria-modal="true">
+  <div class="exit-popup-overlay" aria-hidden="true"></div>
+  
+  <div class="exit-popup-content">
+    <button class="exit-popup-close" aria-label="Cerrar popup" id="close-popup">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <div class="text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/20 mb-4">
+        <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      </div>
+      
+      <h2 id="exit-popup-title" class="text-3xl font-heading font-semibold mb-3 text-primary">
+        ¡Espera un momento!
+      </h2>
+      
+      <p class="text-lg text-text-secondary mb-6 max-w-md mx-auto">
+        Únete a más de 50,000 profesionales que reciben nuestras noticias de IA semanales + recursos exclusivos
+      </p>
+      
+      <form class="newsletter-form-popup" id="popup-form">
+        <label for="popup-email" class="sr-only">Correo electrónico</label>
+        <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input 
+            id="popup-email"
+            type="email" 
+            name="email"
+            placeholder="tu@email.com" 
+            required
+            aria-required="true"
+            autocomplete="email"
+            class="flex-1 px-5 py-3 rounded-lg bg-surface text-text-primary border-2 border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+          />
+          <button 
+            type="submit" 
+            class="btn btn-accent px-6 py-3 whitespace-nowrap font-semibold" 
+          >
+            Suscribirme Gratis
+          </button>
+        </div>
+      </form>
+      
+      <div class="flex items-center justify-center gap-4 mt-4 text-sm text-text-tertiary">
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          Sin spam
+        </span>
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          Cancela siempre
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .exit-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fadeIn 0.2s ease-out;
+  }
+  
+  .exit-popup.hidden {
+    display: none;
+  }
+  
+  .exit-popup-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+  
+  .exit-popup-content {
+    position: relative;
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .exit-popup-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: #71717A;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+  
+  .exit-popup-close:hover {
+    background: #F4F4F5;
+    color: #18181B;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .exit-popup-content {
+      padding: 2rem 1.5rem;
+    }
+    
+    .newsletter-form-popup {
+      flex-direction: column;
+    }
+    
+    .newsletter-form-popup button {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Exit intent detection
+  let popupShown = false;
+  const STORAGE_KEY = 'workless-exit-popup-shown';
+  
+  // Check if popup was already shown in this session
+  if (sessionStorage.getItem(STORAGE_KEY)) {
+    popupShown = true;
+  }
+  
+  const popup = document.getElementById('exit-popup');
+  const closeBtn = document.getElementById('close-popup');
+  const form = document.getElementById('popup-form') as HTMLFormElement;
+  const overlay = document.querySelector('.exit-popup-overlay');
+  
+  function showPopup() {
+    if (!popupShown && popup) {
+      popup.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      popupShown = true;
+      sessionStorage.setItem(STORAGE_KEY, 'true');
+    }
+  }
+  
+  function hidePopup() {
+    if (popup) {
+      popup.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  }
+  
+  // Exit intent detection - trigger when mouse leaves viewport from top
+  document.addEventListener('mouseleave', (e) => {
+    if (e.clientY <= 0 && !popupShown) {
+      showPopup();
+    }
+  });
+  
+  // Close popup on button click
+  closeBtn?.addEventListener('click', hidePopup);
+  
+  // Close popup on overlay click
+  overlay?.addEventListener('click', hidePopup);
+  
+  // Close popup on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !popup?.classList.contains('hidden')) {
+      hidePopup();
+    }
+  });
+  
+  // Handle form submission
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    
+    if (!emailInput || !submitButton) return;
+    
+    const email = emailInput.value;
+    const originalButtonText = submitButton.textContent;
+    
+    // Visual feedback
+    submitButton.disabled = true;
+    submitButton.textContent = 'Suscribiendo...';
+    submitButton.classList.add('opacity-70');
+    
+    try {
+      // TODO: Replace with actual email service integration
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Success state
+      submitButton.textContent = '✓ ¡Suscrito!';
+      submitButton.classList.add('bg-green-600', 'hover:bg-green-700');
+      
+      // Close popup after success
+      setTimeout(() => {
+        hidePopup();
+      }, 1500);
+      
+      console.log('Newsletter signup (popup):', email);
+      
+    } catch (error) {
+      // Error state
+      submitButton.textContent = 'Error - Inténtalo de nuevo';
+      submitButton.classList.add('bg-red-600', 'hover:bg-red-700');
+      
+      setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+        submitButton.classList.remove('opacity-70', 'bg-red-600', 'hover:bg-red-700');
+      }, 3000);
+      
+      console.error('Newsletter signup error:', error);
+    }
+  });
+</script>
