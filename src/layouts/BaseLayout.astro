@@ -40,6 +40,31 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={new URL(image, Astro.site)} />
   
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "WorkLess AI",
+      "description": "La fuente definitiva de inteligencia artificial en español",
+      "url": "https://workless.build",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://workless.build/news?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "WorkLess AI",
+        "url": "https://workless.build",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://workless.build/og-image.png"
+        }
+      }
+    }
+  </script>
+  
   <!-- Fonts - optimized loading with display=swap -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

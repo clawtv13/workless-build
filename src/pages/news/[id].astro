@@ -22,6 +22,35 @@ const { Content } = await render(post);
   description={post.data.description}
   image={post.data.image}
 >
+  <!-- Article Structured Data (JSON-LD) -->
+  <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": `${post.data.title}`,
+      "description": `${post.data.description}`,
+      "image": `https://workless.build${post.data.image}`,
+      "datePublished": `${post.data.date.toISOString()}`,
+      "dateModified": `${post.data.date.toISOString()}`,
+      "author": {
+        "@type": "Organization",
+        "name": "WorkLess AI"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "WorkLess AI",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://workless.build/og-image.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `https://workless.build/news/${post.id}`
+      }
+    }
+  </script>
+
   <Navigation />
   
   <main class="py-8 md:py-12">
