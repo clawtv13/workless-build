@@ -8,7 +8,7 @@ import Card from '../../components/Card.astro';
 const allNews = await getCollection('news');
 const sortedNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const categories = ['openai', 'anthropic', 'google', 'meta', 'investigacion', 'industria', 'otros'];
+const categories = ['investigacion', 'comparativas', 'guias', 'tools', 'regulacion'];
 ---
 
 <BaseLayout title="Noticias IA" description="Últimas noticias y actualizaciones del mundo de la Inteligencia Artificial">

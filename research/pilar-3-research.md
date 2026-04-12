@@ -157,3 +157,98 @@
 **Research Date:** 2026-04-12 11:32-11:36 UTC
 **Sources:** Novantin, Javadex, Tubot, Avancia, IMEUSAL, IndesIA
 
+
+---
+
+## ADDITIONAL RESEARCH (11:47 UTC)
+
+### Casos Reales Adicionales:
+
+**Tienda Online Barcelona:**
+- **Sector:** E-commerce
+- **Problema:** Rupturas stock frecuentes
+- **Solución:** Automatización Make + Odoo
+- **Resultado:** Rupturas 18% → 2% (89% mejora)
+- **Fuente:** Ofertacular.com
+
+**Taller Mecánico Madrid:**
+- **Sector:** Servicios automotriz
+- **Problema:** Tiempo excesivo en facturación
+- **Solución:** Holded + IA
+- **Resultado:** +12 horas semanales ganadas
+- **Fuente:** Ofertacular.com
+
+**Resumen emails/PDF técnicos (genérico):**
+- **Solución:** IA generativa
+- **Resultado:** 70% ahorro tiempo
+- **Fuente:** Cámara Madrid
+
+**E-voluciona (casos clientes):**
+- **Resultados:** 20-25% mejora captación y venta
+- **Fuente:** El Economista (abril 2024)
+
+### Kit Digital Amounts (Actualizado 2026):
+
+**Segmentos:**
+- **Segmento I:** 10-50 empleados → **12,000€** subvención
+- **Segmento II:** 3-9 empleados → **6,000€** subvención
+- **Segmento III:** 1-2 empleados → **2,000€** subvención
+
+**Coverage:**
+- Empresa 15 empleados puede cubrir TODA inversión primer año con 12K€
+- Implementación profesional: 6,000-12,000€ (cubierto total o parcialmente)
+
+**Fuentes:** Javadex (marzo 2026), España Digital 2026
+
+### Adoption Data España 2026:
+
+**INE enero 2026:**
+- 99.8% tejido empresarial = PyMEs
+- Solo 12% ha integrado IA en procesos
+- 55% prevé ampliar uso IA próximos 12 meses
+- 80% espera incrementar inversión próximos años
+
+**Adopción IA > Cloud:**
+- 76% empresas usa IA vs 22% nube (El Español, marzo 2026)
+- Concentración: Automatización workflows, procesamiento docs, atención cliente, toma decisiones
+
+### Investment Ranges by Company Size:
+
+**<10 empleados:**
+- Inversión típica: 0-2,000€/mes
+- Kit Digital: 2,000-6,000€ cobertura
+- Herramientas: ChatGPT Plus, Claude Pro, Zapier, Notion AI
+
+**10-50 empleados:**
+- Inversión típica: 2,000-10,000€/mes
+- Kit Digital: 12,000€ cobertura
+- Soluciones: Agentes IA custom, automatización avanzada, CRM AI
+
+**50+ empleados:**
+- Inversión típica: 10,000-50,000€/mes
+- Soluciones enterprise, desarrollo custom
+
+### Implementation Tools Mentioned:
+
+**No-code automation:**
+- Make (ex-Integromat)
+- Zapier
+- n8n
+
+**ERP/CRM with AI:**
+- Odoo
+- Holded
+
+**Focus areas (most ROI):**
+- Automatización workflows
+- Procesamiento documentos
+- Atención cliente (chatbots)
+- Gestión stock/inventario
+- Facturación automatizada
+- Scraping licitaciones públicas
+
+---
+
+**Total research time:** 11:30-11:47 UTC (17 minutes)
+**Total sources:** 10+ (Novantin, Javadex, Tubot, Avancia, IMEUSAL, Ofertacular, Kacinka, Cámara Madrid, El Español, El Economista)
+

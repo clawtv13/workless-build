@@ -5,55 +5,44 @@ import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
 import Card from '../../components/Card.astro';
 
-const allNews = await getCollection('news');
-const sortedNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-
-const categories = ['openai', 'anthropic', 'google', 'meta', 'investigacion', 'industria', 'otros'];
+const allCases = await getCollection('casos-de-uso');
+const sortedCases = allCases.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<BaseLayout title="Noticias IA" description="Últimas noticias y actualizaciones del mundo de la Inteligencia Artificial">
+<BaseLayout title="Casos de Éxito IA" description="Ejemplos reales de empresas que implementaron IA">
   <Navigation />
   
   <main class="py-12">
     <div class="container">
       <div class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">📰 Noticias IA</h1>
-        <p class="text-xl text-gray-400">
-          Las últimas actualizaciones del mundo de la Inteligencia Artificial
+        <h1 class="text-4xl md:text-5xl font-heading font-semibold mb-4 text-primary">Casos de Éxito IA</h1>
+        <p class="text-xl text-text-secondary">
+          Ejemplos reales de empresas que implementaron IA
         </p>
       </div>
       
-      <!-- Category Filter -->
-      <div class="flex flex-wrap gap-3 mb-12">
-        <button class="px-4 py-2 rounded-lg bg-primary text-dark font-medium">
-          Todas
-        </button>
-        {categories.map(cat => (
-          <button class="px-4 py-2 rounded-lg bg-secondary/50 text-white border border-gray-700 hover:border-primary hover:bg-secondary transition-colors capitalize">
-            {cat}
-          </button>
-        ))}
-      </div>
-      
-      <!-- News Grid -->
+      <!-- Cases Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {sortedNews.map(post => (
+        {sortedCases.map(post => (
           <Card
             title={post.data.title}
             excerpt={post.data.description}
-            href={`/news/${post.slug}`}
+            href={`/casos-de-uso/${post.id}`}
             date={post.data.date.toLocaleDateString('es-ES')}
-            category="Noticias"
+            category="Casos de Éxito"
             image={post.data.image}
           />
         ))}
       </div>
       
-      {sortedNews.length === 0 && (
+      {sortedCases.length === 0 && (
         <div class="text-center py-20">
-          <p class="text-gray-400 text-lg">
-            Aún no hay noticias publicadas. ¡Vuelve pronto!
+          <p class="text-gray-400 text-lg mb-4">
+            Próximamente: casos de éxito de empresas españolas. Suscríbete para no perdértelo.
           </p>
+          <a href="/#newsletter" class="btn btn-primary">
+            Suscribirse
+          </a>
         </div>
       )}
     </div>
