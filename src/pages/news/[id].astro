@@ -24,25 +24,7 @@ const { Content } = await render(post);
   <Navigation />
   
   <main class="py-8 md:py-12">
-    <div class="container relative">
-      <!-- Table of Contents (will be populated by JS if article has 5+ H2 headings) -->
-      <aside id="toc-container" class="toc-sidebar hidden">
-        <div class="toc-wrapper">
-          <button id="toc-toggle" class="toc-toggle md:hidden">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-            <span>Contenido</span>
-          </button>
-          <div id="toc-content" class="toc-content">
-            <h4 class="toc-title">Contenido</h4>
-            <nav id="toc-list" class="toc-list">
-              <!-- TOC items will be inserted here by JavaScript -->
-            </nav>
-          </div>
-        </div>
-      </aside>
-
+    <div class="container">
       <!-- Article Header -->
       <header class="article-header max-w-3xl mx-auto mb-8">
         <div class="flex items-center gap-3 mb-4 text-sm">
@@ -58,9 +40,22 @@ const { Content } = await render(post);
           </time>
         </div>
         
-        <h1 class="text-3xl md:text-4xl lg:text-5xl font-heading font-semibold mb-4 text-primary leading-tight">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-heading font-semibold mb-6 text-primary leading-tight">
           {post.data.title}
         </h1>
+
+        <!-- Table of Contents (collapsible, inline) -->
+        <div id="toc-container" class="toc-inline hidden mb-6">
+          <button id="toc-toggle" class="toc-toggle-inline">
+            <svg id="toc-icon" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+            <span class="font-semibold">Contenido del artículo</span>
+          </button>
+          <nav id="toc-list" class="toc-list-inline hidden">
+            <!-- TOC items will be inserted here by JavaScript -->
+          </nav>
+        </div>
         
         {post.data.description && (
           <p class="text-lg md:text-xl text-text-secondary leading-relaxed">
@@ -358,144 +353,85 @@ const { Content } = await render(post);
     display: block;
   }
 
-  /* Table of Contents Styles */
-  .toc-sidebar {
-    position: fixed;
-    top: 120px;
-    right: max(calc((100vw - 1280px) / 2), 2rem);
-    width: 240px;
-    max-height: calc(100vh - 160px);
-    z-index: 40;
-  }
-
-  .toc-wrapper {
+  /* Table of Contents Inline Styles */
+  .toc-inline {
     background-color: #FAFAFA;
     border: 1px solid #E4E4E7;
     border-radius: 0.75rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
   }
 
-  .toc-toggle {
+  .toc-toggle-inline {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 1rem 1.25rem;
     font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 0.9375rem;
     color: #18181B;
-    background: none;
+    background-color: transparent;
     border: none;
     border-bottom: 1px solid #E4E4E7;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
+    text-align: left;
   }
 
-  .toc-toggle:hover {
+  .toc-toggle-inline:hover {
     background-color: rgba(236, 72, 153, 0.05);
   }
 
-  .toc-toggle.active svg {
-    transform: rotate(90deg);
+  .toc-toggle-inline svg {
+    flex-shrink: 0;
+    color: #71717A;
   }
 
-  .toc-content {
-    padding: 1rem;
-    overflow-y: auto;
-    max-height: calc(100vh - 220px);
+  .toc-toggle-inline.active svg {
+    transform: rotate(180deg);
   }
 
-  .toc-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #18181B;
-    margin-bottom: 0.75rem;
-  }
-
-  .toc-list {
+  .toc-list-inline {
+    padding: 1rem 1.25rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
   }
 
-  .toc-list a {
+  .toc-list-inline.open {
+    max-height: 600px;
+    opacity: 1;
+  }
+
+  .toc-list-inline a {
     display: block;
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;
-    line-height: 1.4;
+    line-height: 1.5;
     color: #52525B;
     text-decoration: none;
-    padding: 0.375rem 0.5rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 0.375rem;
     transition: all 0.2s;
+    border-left: 2px solid transparent;
   }
 
-  .toc-list a:hover {
+  .toc-list-inline a:hover {
     color: #EC4899;
     background-color: rgba(236, 72, 153, 0.08);
+    border-left-color: #EC4899;
   }
 
-  .toc-list a.active {
+  .toc-list-inline a.active {
     color: #EC4899;
     background-color: rgba(236, 72, 153, 0.12);
     font-weight: 500;
-  }
-
-  /* Mobile: collapsible TOC at top */
-  @media (max-width: 1023px) {
-    .toc-sidebar {
-      position: relative;
-      top: auto;
-      right: auto;
-      width: 100%;
-      max-width: 100%;
-      margin-bottom: 2rem;
-    }
-
-    .toc-content {
-      display: none;
-      max-height: 400px;
-    }
-
-    .toc-content.open {
-      display: block;
-    }
-
-    .toc-title {
-      display: none;
-    }
-  }
-
-  /* Desktop: always visible sidebar */
-  @media (min-width: 1024px) {
-    .toc-toggle {
-      display: none;
-    }
-
-    .toc-content {
-      display: block !important;
-    }
-
-    /* Adjust article wrapper to make room for TOC */
-    .article-wrapper {
-      margin-right: 0;
-    }
-  }
-
-  /* Hide TOC on medium screens (tablets/small laptops) where sidebar doesn't fit well */
-  @media (min-width: 1024px) and (max-width: 1400px) {
-    .toc-sidebar {
-      display: none !important;
-    }
-  }
-
-  /* On mobile, show TOC as collapsible element above content */
-  @media (max-width: 1023px) {
-    .toc-sidebar {
-      display: block !important;
-    }
+    border-left-color: #EC4899;
   }
 
   /* Smooth scrolling */
@@ -511,9 +447,9 @@ const { Content } = await render(post);
     const tocContainer = document.getElementById('toc-container');
     const tocList = document.getElementById('toc-list');
     const tocToggle = document.getElementById('toc-toggle');
-    const tocContent = document.getElementById('toc-content');
+    const tocIcon = document.getElementById('toc-icon');
 
-    if (!articleContent || !tocContainer || !tocList) return;
+    if (!articleContent || !tocContainer || !tocList || !tocToggle) return;
 
     // Extract all H2 headings
     const headings = Array.from(articleContent.querySelectorAll('h2'));
@@ -559,12 +495,6 @@ const { Content } = await render(post);
             top: offsetPosition,
             behavior: 'smooth'
           });
-
-          // Close mobile TOC after clicking
-          if (window.innerWidth < 1024) {
-            tocContent?.classList.remove('open');
-            tocToggle?.classList.remove('active');
-          }
         }
       });
 
@@ -574,9 +504,9 @@ const { Content } = await render(post);
     // Show TOC container
     tocContainer.classList.remove('hidden');
 
-    // Mobile toggle functionality
-    tocToggle?.addEventListener('click', () => {
-      tocContent?.classList.toggle('open');
+    // Toggle functionality for inline TOC
+    tocToggle.addEventListener('click', () => {
+      tocList.classList.toggle('open');
       tocToggle.classList.toggle('active');
     });
 
