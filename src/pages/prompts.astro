@@ -1,0 +1,508 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
+
+// Load prompts data from file system (works in both dev and build)
+const promptsPath = join(process.cwd(), 'public', 'data', 'prompts-database.json');
+const promptsData = await readFile(promptsPath, 'utf-8');
+const prompts = JSON.parse(promptsData);
+
+// Extract unique values for filters
+const categories = [...new Set(prompts.map((p: any) => p.category))];
+const sectors = [...new Set(prompts.map((p: any) => p.sector))];
+const llms = ['Todos', 'ChatGPT', 'Claude', 'Gemini'];
+const difficulties = ['todos', 'básico', 'intermedio', 'avanzado'];
+
+// Stats
+const totalPrompts = prompts.length;
+const uniqueCategories = categories.length;
+const lastUpdated = '2026-04-12';
+---
+
+<BaseLayout title="Base de Datos de Prompts" description="Más de 500 prompts profesionales para marketing, legal, retail y más. Filtra por categoría, sector, LLM y dificultad.">
+  <Navigation />
+  
+  <main class="py-12" id="main-content">
+    <div class="container">
+      <!-- Header with Stats -->
+      <div class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-heading font-semibold mb-4 text-primary">
+          Base de Datos de Prompts
+        </h1>
+        <p class="text-xl text-text-secondary mb-6">
+          Prompts profesionales listos para usar. Filtra, explora y copia al instante.
+        </p>
+        
+        <!-- Stats -->
+        <div class="flex flex-wrap gap-4 text-sm">
+          <div class="flex items-center gap-2 bg-surface px-4 py-2 rounded-lg border border-border">
+            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span class="font-medium text-primary"><span id="total-count">{totalPrompts}</span>+ prompts</span>
+          </div>
+          <div class="flex items-center gap-2 bg-surface px-4 py-2 rounded-lg border border-border">
+            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+            </svg>
+            <span class="font-medium text-primary">{uniqueCategories} categorías</span>
+          </div>
+          <div class="flex items-center gap-2 bg-surface px-4 py-2 rounded-lg border border-border">
+            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="font-medium text-primary">Actualizado {lastUpdated}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Filters Sidebar -->
+        <aside class="lg:col-span-1">
+          <div class="sticky top-4 bg-surface rounded-xl p-6 border border-border space-y-6">
+            <h2 class="text-lg font-heading font-semibold text-primary mb-4">Filtros</h2>
+            
+            <!-- Search -->
+            <div>
+              <label for="search" class="block text-sm font-medium text-primary mb-2">Buscar</label>
+              <input 
+                type="text" 
+                id="search" 
+                placeholder="Buscar prompts..."
+                class="w-full px-4 py-2 rounded-lg border border-border bg-background text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+            </div>
+
+            <!-- Category Filter -->
+            <div>
+              <label for="category-filter" class="block text-sm font-medium text-primary mb-2">Categoría</label>
+              <select 
+                id="category-filter"
+                class="w-full px-4 py-2 rounded-lg border border-border bg-background text-text-primary focus:outline-none focus:ring-2 focus:ring-accent capitalize"
+              >
+                <option value="all">Todas</option>
+                {categories.map(cat => (
+                  <option value={cat} class="capitalize">{cat}</option>
+                ))}
+              </select>
+            </div>
+
+            <!-- Sector Filter -->
+            <div>
+              <label for="sector-filter" class="block text-sm font-medium text-primary mb-2">Sector</label>
+              <select 
+                id="sector-filter"
+                class="w-full px-4 py-2 rounded-lg border border-border bg-background text-text-primary focus:outline-none focus:ring-2 focus:ring-accent capitalize"
+              >
+                <option value="all">Todos</option>
+                {sectors.map(sector => (
+                  <option value={sector} class="capitalize">{sector}</option>
+                ))}
+              </select>
+            </div>
+
+            <!-- LLM Filter -->
+            <div>
+              <label for="llm-filter" class="block text-sm font-medium text-primary mb-2">LLM</label>
+              <select 
+                id="llm-filter"
+                class="w-full px-4 py-2 rounded-lg border border-border bg-background text-text-primary focus:outline-none focus:ring-2 focus:ring-accent"
+              >
+                {llms.map(llm => (
+                  <option value={llm.toLowerCase()}>{llm}</option>
+                ))}
+              </select>
+            </div>
+
+            <!-- Difficulty Filter -->
+            <div>
+              <label class="block text-sm font-medium text-primary mb-2">Dificultad</label>
+              <div class="flex flex-wrap gap-2">
+                {difficulties.map(diff => (
+                  <button 
+                    data-difficulty={diff}
+                    class={`difficulty-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                      diff === 'todos' 
+                        ? 'bg-accent text-accent-fg' 
+                        : 'bg-surface border border-border hover:border-accent text-text-secondary'
+                    }`}
+                  >
+                    {diff.charAt(0).toUpperCase() + diff.slice(1)}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <!-- Reset Filters -->
+            <button 
+              id="reset-filters"
+              class="w-full px-4 py-2 rounded-lg border border-border text-text-secondary hover:bg-surface hover:text-primary transition-colors text-sm font-medium"
+            >
+              Resetear filtros
+            </button>
+
+            <!-- Results Count -->
+            <div class="pt-4 border-t border-border">
+              <p class="text-sm text-text-secondary">
+                Mostrando <span id="results-count" class="font-semibold text-primary">{totalPrompts}</span> prompts
+              </p>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Prompts Grid -->
+        <div class="lg:col-span-3">
+          <div id="prompts-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Prompts will be rendered here by JavaScript -->
+          </div>
+
+          <!-- No Results Message -->
+          <div id="no-results" class="hidden text-center py-20">
+            <svg class="w-16 h-16 mx-auto text-text-tertiary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="text-text-secondary text-lg">
+              No se encontraron prompts con esos filtros.
+            </p>
+            <button 
+              onclick="document.getElementById('reset-filters').click()"
+              class="mt-4 px-6 py-2 rounded-lg bg-accent text-accent-fg hover:bg-accent-hover transition-colors font-medium"
+            >
+              Resetear búsqueda
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal for expanded prompt -->
+  <div id="prompt-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-surface rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-border">
+      <div class="sticky top-0 bg-surface border-b border-border p-6 flex justify-between items-start">
+        <h3 id="modal-title" class="text-2xl font-heading font-semibold text-primary pr-8"></h3>
+        <button id="close-modal" class="text-text-tertiary hover:text-primary transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="p-6 space-y-6">
+        <div id="modal-badges" class="flex flex-wrap gap-2"></div>
+        
+        <div>
+          <h4 class="text-sm font-semibold text-primary mb-2 uppercase tracking-wide">Prompt</h4>
+          <div class="relative">
+            <pre id="modal-prompt" class="bg-background p-4 rounded-lg text-sm text-text-primary whitespace-pre-wrap font-mono border border-border"></pre>
+            <button 
+              id="copy-prompt"
+              class="absolute top-2 right-2 px-3 py-1.5 rounded-lg bg-accent text-accent-fg hover:bg-accent-hover transition-all text-sm font-medium flex items-center gap-2"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              Copiar
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-semibold text-primary mb-2 uppercase tracking-wide">Caso de Uso</h4>
+          <p id="modal-use-case" class="text-text-secondary"></p>
+        </div>
+
+        <div>
+          <h4 class="text-sm font-semibold text-primary mb-2 uppercase tracking-wide">Ejemplo de Salida</h4>
+          <pre id="modal-example" class="bg-background p-4 rounded-lg text-sm text-text-secondary whitespace-pre-wrap border border-border"></pre>
+        </div>
+
+        <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>
+
+<script define:vars={{ prompts }}>
+  // State
+  let currentPrompts = [...prompts];
+  let selectedDifficulty = 'todos';
+  let searchTimeout;
+
+  // DOM Elements
+  const searchInput = document.getElementById('search');
+  const categoryFilter = document.getElementById('category-filter');
+  const sectorFilter = document.getElementById('sector-filter');
+  const llmFilter = document.getElementById('llm-filter');
+  const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+  const resetBtn = document.getElementById('reset-filters');
+  const promptsGrid = document.getElementById('prompts-grid');
+  const resultsCount = document.getElementById('results-count');
+  const noResults = document.getElementById('no-results');
+  const modal = document.getElementById('prompt-modal');
+  const closeModal = document.getElementById('close-modal');
+  const copyBtn = document.getElementById('copy-prompt');
+
+  // Badge colors
+  const categoryColors = {
+    marketing: 'bg-blue-500/10 text-blue-600 border border-blue-500/20',
+    legal: 'bg-purple-500/10 text-purple-600 border border-purple-500/20',
+    retail: 'bg-green-500/10 text-green-600 border border-green-500/20',
+    servicios: 'bg-orange-500/10 text-orange-600 border border-orange-500/20',
+    hostelería: 'bg-pink-500/10 text-pink-600 border border-pink-500/20',
+  };
+
+  const difficultyColors = {
+    básico: 'bg-green-500/10 text-green-600',
+    intermedio: 'bg-yellow-500/10 text-yellow-600',
+    avanzado: 'bg-red-500/10 text-red-600',
+  };
+
+  // Render prompts
+  function renderPrompts(promptsToRender) {
+    if (promptsToRender.length === 0) {
+      promptsGrid.innerHTML = '';
+      promptsGrid.classList.add('hidden');
+      noResults.classList.remove('hidden');
+      resultsCount.textContent = '0';
+      return;
+    }
+
+    promptsGrid.classList.remove('hidden');
+    noResults.classList.add('hidden');
+    resultsCount.textContent = promptsToRender.length;
+
+    // Show first 50 prompts
+    const promptsToShow = promptsToRender.slice(0, 50);
+    
+    promptsGrid.innerHTML = promptsToShow.map(prompt => `
+      <article 
+        class="prompt-card bg-surface rounded-xl p-6 border border-border hover:border-accent/30 transition-all cursor-pointer group"
+        data-prompt-id="${prompt.id}"
+      >
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="px-2.5 py-1 rounded-full text-xs font-medium capitalize ${categoryColors[prompt.category] || 'bg-gray-500/10 text-gray-600'}">
+            ${prompt.category}
+          </span>
+          <span class="px-2.5 py-1 rounded-full text-xs font-medium capitalize ${difficultyColors[prompt.difficulty] || 'bg-gray-500/10 text-gray-600'}">
+            ${prompt.difficulty}
+          </span>
+          <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent">
+            ${prompt.llm}
+          </span>
+        </div>
+        
+        <h3 class="text-lg font-heading font-semibold mb-3 text-primary group-hover:text-accent transition-colors">
+          ${prompt.title}
+        </h3>
+        
+        <p class="text-text-secondary text-sm line-clamp-3 mb-4">
+          ${prompt.prompt}
+        </p>
+        
+        <div class="flex items-center text-accent text-sm font-medium">
+          Ver detalles
+          <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </article>
+    `).join('');
+
+    // Add click listeners
+    document.querySelectorAll('.prompt-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const promptId = parseInt(card.dataset.promptId);
+        openModal(prompts.find(p => p.id === promptId));
+      });
+    });
+  }
+
+  // Filter prompts
+  function filterPrompts() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    const category = categoryFilter.value;
+    const sector = sectorFilter.value;
+    const llm = llmFilter.value;
+
+    currentPrompts = prompts.filter(prompt => {
+      // Search
+      const matchesSearch = !searchTerm || 
+        prompt.title.toLowerCase().includes(searchTerm) ||
+        prompt.prompt.toLowerCase().includes(searchTerm) ||
+        prompt.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+
+      // Category
+      const matchesCategory = category === 'all' || prompt.category === category;
+
+      // Sector
+      const matchesSector = sector === 'all' || prompt.sector === sector;
+
+      // LLM
+      const matchesLLM = llm === 'todos' || prompt.llm.toLowerCase() === llm.toLowerCase();
+
+      // Difficulty
+      const matchesDifficulty = selectedDifficulty === 'todos' || prompt.difficulty === selectedDifficulty;
+
+      return matchesSearch && matchesCategory && matchesSector && matchesLLM && matchesDifficulty;
+    });
+
+    renderPrompts(currentPrompts);
+  }
+
+  // Open modal
+  function openModal(prompt) {
+    document.getElementById('modal-title').textContent = prompt.title;
+    document.getElementById('modal-prompt').textContent = prompt.prompt;
+    document.getElementById('modal-use-case').textContent = prompt.use_case;
+    document.getElementById('modal-example').textContent = prompt.example_output;
+
+    // Badges
+    document.getElementById('modal-badges').innerHTML = `
+      <span class="px-3 py-1 rounded-full text-sm font-medium capitalize ${categoryColors[prompt.category] || 'bg-gray-500/10 text-gray-600'}">
+        ${prompt.category}
+      </span>
+      <span class="px-3 py-1 rounded-full text-sm font-medium capitalize ${difficultyColors[prompt.difficulty] || 'bg-gray-500/10 text-gray-600'}">
+        ${prompt.difficulty}
+      </span>
+      <span class="px-3 py-1 rounded-full text-sm font-medium bg-accent/10 text-accent">
+        ${prompt.llm}
+      </span>
+      <span class="px-3 py-1 rounded-full text-sm font-medium capitalize bg-surface border border-border">
+        ${prompt.sector}
+      </span>
+    `;
+
+    // Tags
+    document.getElementById('modal-tags').innerHTML = prompt.tags.map(tag => `
+      <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-background text-text-secondary border border-border">
+        #${tag}
+      </span>
+    `).join('');
+
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    // Store current prompt for copy
+    copyBtn.dataset.prompt = prompt.prompt;
+  }
+
+  // Close modal
+  function closeModalFn() {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  // Copy to clipboard
+  async function copyToClipboard() {
+    const promptText = copyBtn.dataset.prompt;
+    try {
+      await navigator.clipboard.writeText(promptText);
+      const originalText = copyBtn.innerHTML;
+      copyBtn.innerHTML = `
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        ¡Copiado!
+      `;
+      setTimeout(() => {
+        copyBtn.innerHTML = originalText;
+      }, 2000);
+    } catch (err) {
+      console.error('Error copying:', err);
+    }
+  }
+
+  // Event listeners
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(filterPrompts, 300);
+  });
+
+  categoryFilter.addEventListener('change', filterPrompts);
+  sectorFilter.addEventListener('change', filterPrompts);
+  llmFilter.addEventListener('change', filterPrompts);
+
+  difficultyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update selected difficulty
+      selectedDifficulty = btn.dataset.difficulty;
+      
+      // Update button styles
+      difficultyBtns.forEach(b => {
+        if (b.dataset.difficulty === selectedDifficulty) {
+          b.className = 'difficulty-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all bg-accent text-accent-fg';
+        } else {
+          b.className = 'difficulty-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all bg-surface border border-border hover:border-accent text-text-secondary';
+        }
+      });
+
+      filterPrompts();
+    });
+  });
+
+  resetBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    categoryFilter.value = 'all';
+    sectorFilter.value = 'all';
+    llmFilter.value = 'todos';
+    selectedDifficulty = 'todos';
+    
+    // Reset difficulty buttons
+    difficultyBtns.forEach(b => {
+      if (b.dataset.difficulty === 'todos') {
+        b.className = 'difficulty-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all bg-accent text-accent-fg';
+      } else {
+        b.className = 'difficulty-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all bg-surface border border-border hover:border-accent text-text-secondary';
+      }
+    });
+
+    filterPrompts();
+  });
+
+  closeModal.addEventListener('click', closeModalFn);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModalFn();
+  });
+  copyBtn.addEventListener('click', copyToClipboard);
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeModalFn();
+    }
+  });
+
+  // Initial render
+  renderPrompts(currentPrompts);
+</script>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  #prompt-modal {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .prompt-card:hover {
+    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 0.08);
+  }
+</style>
