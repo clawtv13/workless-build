@@ -1,0 +1,522 @@
+[
+  {
+    "id": 1,
+    "name": "ChatGPT",
+    "provider": "OpenAI",
+    "category": "Conversacional",
+    "description": "LLM todoterreno más popular. GPT-5.4 flagship, ecosistema plugins masivo.",
+    "pricing": {
+      "free": "GPT-5 mini limitado + GPT-4o mini ilimitado",
+      "paid": "$20/mes (ChatGPT Plus - GPT-5.4)",
+      "api": "$5/$15 por 1M tokens (input/output)"
+    },
+    "pros": ["Ecosistema más grande", "Plugins y GPTs", "Multimodal completo", "Mejor documentación"],
+    "cons": ["Censura más agresiva", "Free tier limitado", "Más caro API"],
+    "best_for": "Uso general, automatizaciones, integraciones",
+    "spanish_quality": "9/10",
+    "speed": "8/10",
+    "free_tier": "7/10",
+    "url": "https://chat.openai.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 2,
+    "name": "Claude",
+    "provider": "Anthropic",
+    "category": "Conversacional",
+    "description": "Mejor para coding y escritura. Opus 4.6 lidera en prosa natural.",
+    "pricing": {
+      "free": "Sonnet 4.5 + Haiku 4.5 (limitado mensajes)",
+      "paid": "$20/mes (Claude Pro - Opus 4.6)",
+      "api": "$15/$75 por 1M tokens (Opus)"
+    },
+    "pros": ["Mejor coding", "Prosa más natural", "200K tokens contexto", "Menos censurado"],
+    "cons": ["Free tier muy limitado", "Sin plugins", "API más caro"],
+    "best_for": "Programación, escritura profesional, análisis documentos",
+    "spanish_quality": "9.5/10",
+    "speed": "7/10",
+    "free_tier": "6/10",
+    "url": "https://claude.ai",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 3,
+    "name": "Gemini",
+    "provider": "Google",
+    "category": "Conversacional",
+    "description": "Razonamiento profundo líder. Mejor multimodal (video largo ilimitado).",
+    "pricing": {
+      "free": "2.5 Flash ilimitado + 2.5 Pro (1M tokens)",
+      "paid": "$20/mes (Gemini Advanced - 3.1 Pro)",
+      "api": "$0.075/$0.30 por 1M tokens (Flash)"
+    },
+    "pros": ["Free tier más generoso", "Video largo ilimitado", "Integración Google Workspace", "API más barato"],
+    "cons": ["Menor ecosistema", "UI menos pulida", "A veces verboso"],
+    "best_for": "Análisis video, research profundo, Google users, budget limitado",
+    "spanish_quality": "8.5/10",
+    "speed": "9/10",
+    "free_tier": "10/10",
+    "url": "https://gemini.google.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 4,
+    "name": "DeepSeek",
+    "provider": "DeepSeek AI",
+    "category": "Conversacional",
+    "description": "Open source chino que superó Claude en benchmarks. Gratis y potente.",
+    "pricing": {
+      "free": "V3.2 ilimitado",
+      "paid": "N/A (gratis)",
+      "api": "$0.14/$0.28 por 1M tokens (económico)"
+    },
+    "pros": ["Gratis ilimitado", "Razonamiento excepcional", "Open source", "API económica"],
+    "cons": ["Chino (concerns privacidad)", "Menor español que GPT/Claude", "Sin UI pulida"],
+    "best_for": "Matemáticas, razonamiento, coding, experimentación gratis",
+    "spanish_quality": "7/10",
+    "speed": "8/10",
+    "free_tier": "10/10",
+    "url": "https://chat.deepseek.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 5,
+    "name": "Perplexity",
+    "provider": "Perplexity AI",
+    "category": "Search & Research",
+    "description": "Search engine IA con fuentes verificables. Mejor para research.",
+    "pricing": {
+      "free": "Búsquedas ilimitadas (GPT-4o + Sonar)",
+      "paid": "$20/mes (Pro - GPT-5, Claude, file upload)",
+      "api": "$5/$15 por 1M tokens"
+    },
+    "pros": ["Fuentes verificables", "Research rápido", "Citations inline", "Free tier generoso"],
+    "cons": ["No conversación profunda", "Respuestas cortas", "Menos control"],
+    "best_for": "Research rápido, fact-checking, news updates",
+    "spanish_quality": "8/10",
+    "speed": "10/10",
+    "free_tier": "9/10",
+    "url": "https://perplexity.ai",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 6,
+    "name": "Midjourney",
+    "provider": "Midjourney",
+    "category": "Generación Imágenes",
+    "description": "Mejor calidad imágenes artísticas. Requiere Discord.",
+    "pricing": {
+      "free": "N/A (descontinuado)",
+      "paid": "$10/mes (Basic - 200 imgs), $30/mes (Standard - ilimitado fast)",
+      "api": "N/A"
+    },
+    "pros": ["Calidad artística superior", "Estilos únicos", "Comunidad grande", "V7 alpha impresionante"],
+    "cons": ["Sin free tier", "Requiere Discord", "Sin API pública", "Learning curve"],
+    "best_for": "Arte digital, ilustraciones, conceptos visuales creativos",
+    "spanish_quality": "N/A (prompts inglés mejor)",
+    "speed": "7/10",
+    "free_tier": "0/10",
+    "url": "https://midjourney.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 7,
+    "name": "DALL-E 3",
+    "provider": "OpenAI",
+    "category": "Generación Imágenes",
+    "description": "Integrado ChatGPT. Mejor para prompts simples, seguimiento instrucciones.",
+    "pricing": {
+      "free": "2 imgs/día en ChatGPT Free",
+      "paid": "Incluido ChatGPT Plus ($20/mes)",
+      "api": "$0.04-0.08 por imagen"
+    },
+    "pros": ["Integrado ChatGPT", "Sigue instrucciones exactas", "Fácil uso", "Text rendering mejor"],
+    "cons": ["Menos artístico que Midjourney", "Censura fuerte", "Resolución limitada"],
+    "best_for": "Imágenes rápidas, conceptos, ilustraciones artículos blog",
+    "spanish_quality": "9/10 (entiende prompts español)",
+    "speed": "9/10",
+    "free_tier": "5/10",
+    "url": "https://openai.com/dall-e-3",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 8,
+    "name": "Stable Diffusion",
+    "provider": "Stability AI",
+    "category": "Generación Imágenes",
+    "description": "Open source. Instalación local o web (DreamStudio). SD 3.5 Turbo.",
+    "pricing": {
+      "free": "Local ilimitado (GPU potente needed)",
+      "paid": "$10/mes DreamStudio (5,000 créditos)",
+      "api": "$0.003-0.04 por imagen"
+    },
+    "pros": ["Open source", "100% privacidad local", "Sin censura", "API más barato"],
+    "cons": ["Requiere GPU (local)", "Learning curve técnico", "Calidad menor que MJ"],
+    "best_for": "Generación masiva, privacidad, customización extrema",
+    "spanish_quality": "7/10",
+    "speed": "8/10 (local con GPU)",
+    "free_tier": "10/10 (si tienes GPU)",
+    "url": "https://stability.ai",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 9,
+    "name": "Notion AI",
+    "provider": "Notion",
+    "category": "Productividad",
+    "description": "IA integrada en Notion. Perfecto para quien ya usa Notion workspace.",
+    "pricing": {
+      "free": "20 respuestas/mes (usuarios free Notion)",
+      "paid": "$10/mes (ilimitado)",
+      "api": "N/A"
+    },
+    "pros": ["Integración nativa Notion", "Contexto workspace", "Summaries docs", "Writing assistant"],
+    "cons": ["Solo funciona en Notion", "Limitado free", "LLM no especificado"],
+    "best_for": "Usuarios Notion power users, documentación equipos",
+    "spanish_quality": "8/10",
+    "speed": "9/10",
+    "free_tier": "4/10",
+    "url": "https://notion.so/product/ai",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 10,
+    "name": "Jasper",
+    "provider": "Jasper AI",
+    "category": "Copywriting",
+    "description": "Plataforma marketing copy. Templates para ads, emails, blogs.",
+    "pricing": {
+      "free": "N/A (trial 7 días)",
+      "paid": "$49/mes (Creator), $125/mes (Teams)",
+      "api": "Incluido en plan"
+    },
+    "pros": ["Templates probados", "Brand voice training", "SEO mode", "Plagiarism checker"],
+    "cons": ["Caro vs ChatGPT Plus", "Sin free tier", "Limitado uso general"],
+    "best_for": "Agencias marketing, e-commerce, content at scale",
+    "spanish_quality": "8/10",
+    "speed": "9/10",
+    "free_tier": "0/10",
+    "url": "https://jasper.ai",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 11,
+    "name": "Copy.ai",
+    "provider": "Copy.ai",
+    "category": "Copywriting",
+    "description": "Similar Jasper pero más barato. Enfoque SMB.",
+    "pricing": {
+      "free": "2,000 palabras/mes",
+      "paid": "$49/mes (ilimitado)",
+      "api": "N/A"
+    },
+    "pros": ["Free tier útil", "Templates variados", "Más barato que Jasper", "Workflows"],
+    "cons": ["Calidad menor que GPT-5", "UI menos pulida", "Español aceptable (no excelente)"],
+    "best_for": "PyMEs necesitando copy rápido, presupuesto limitado",
+    "spanish_quality": "7/10",
+    "speed": "9/10",
+    "free_tier": "6/10",
+    "url": "https://copy.ai",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 12,
+    "name": "Grammarly",
+    "provider": "Grammarly",
+    "category": "Escritura",
+    "description": "Corrección gramatical + sugerencias IA. Ahora con generación.",
+    "pricing": {
+      "free": "Corrección básica",
+      "paid": "$12/mes (Premium), $15/mes (+ IA generativa)",
+      "api": "N/A"
+    },
+    "pros": ["Corrección tiempo real", "Plugin Chrome/Word", "Tone suggestions", "Plagio detector"],
+    "cons": ["Español limitado (mejor inglés)", "Free muy básico", "Generación limitada vs ChatGPT"],
+    "best_for": "Escritura inglés profesional, corrección emails",
+    "spanish_quality": "5/10 (enfocado inglés)",
+    "speed": "10/10",
+    "free_tier": "5/10",
+    "url": "https://grammarly.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 13,
+    "name": "Canva AI",
+    "provider": "Canva",
+    "category": "Diseño",
+    "description": "Diseño gráfico con Magic Design, text-to-image, background remover.",
+    "pricing": {
+      "free": "Magic Design limitado (5/mes)",
+      "paid": "$15/mes (Pro - ilimitado AI features)",
+      "api": "N/A"
+    },
+    "pros": ["Fácil uso", "Templates miles", "Brand kit", "Colaboración equipo"],
+    "cons": ["IA no tan potente (usa DALL-E/SD)", "Free tier limitado IA", "Diseños a veces genéricos"],
+    "best_for": "Social media, presentaciones, marketing materials",
+    "spanish_quality": "9/10 (interfaz español completo)",
+    "speed": "9/10",
+    "free_tier": "6/10",
+    "url": "https://canva.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 14,
+    "name": "Runway",
+    "provider": "Runway",
+    "category": "Video AI",
+    "description": "Generación y edición video con IA. Gen-4 Turbo líder calidad.",
+    "pricing": {
+      "free": "125 créditos (5 videos 5s)",
+      "paid": "$15/mes (625 créditos), $35/mes (2,250 créditos)",
+      "api": "Enterprise only"
+    },
+    "pros": ["Mejor calidad video AI", "Text-to-video + image-to-video", "Edición avanzada", "Motion brush"],
+    "cons": ["Caro por segundo", "Free tier mínimo", "Rendering lento"],
+    "best_for": "Creadores contenido, marketing video, prototipos",
+    "spanish_quality": "7/10 (prompts inglés mejor)",
+    "speed": "5/10 (rendering takes time)",
+    "free_tier": "3/10",
+    "url": "https://runwayml.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 15,
+    "name": "ElevenLabs",
+    "provider": "ElevenLabs",
+    "category": "Voice AI",
+    "description": "Text-to-speech más realista. Clonación voz, multilenguaje.",
+    "pricing": {
+      "free": "10,000 caracteres/mes",
+      "paid": "$5/mes (30K chars), $22/mes (100K chars)",
+      "api": "$0.18-0.30 por 1K caracteres"
+    },
+    "pros": ["Voces hiper-realistas", "Clonación voz instant", "29 idiomas", "Emociones controlables"],
+    "cons": ["Free tier muy limitado", "Caro para volumen", "Ocasional artifacts"],
+    "best_for": "Audiobooks, podcasts, video narración, voiceovers",
+    "spanish_quality": "9/10 (voces español nativas excelentes)",
+    "speed": "8/10",
+    "free_tier": "5/10",
+    "url": "https://elevenlabs.io",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 16,
+    "name": "Zapier",
+    "provider": "Zapier",
+    "category": "Automatización",
+    "description": "Automatización no-code. 7,000+ apps conectadas. Ahora con AI actions.",
+    "pricing": {
+      "free": "100 tasks/mes (5 Zaps)",
+      "paid": "$30/mes (750 tasks), $75/mes (2K tasks)",
+      "api": "N/A"
+    },
+    "pros": ["Ecosistema masivo", "No-code total", "AI actions integradas", "Probado batallado"],
+    "cons": ["Caro para volumen", "Free tier muy limitado", "A veces lento"],
+    "best_for": "Automatizaciones business, integraciones SaaS",
+    "spanish_quality": "8/10 (interfaz español)",
+    "speed": "7/10",
+    "free_tier": "4/10",
+    "url": "https://zapier.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 17,
+    "name": "Make",
+    "provider": "Make (ex-Integromat)",
+    "category": "Automatización",
+    "description": "Alternativa Zapier más visual. Mejor para workflows complejos.",
+    "pricing": {
+      "free": "1,000 operations/mes",
+      "paid": "$9/mes (10K ops), $16/mes (40K ops)",
+      "api": "Incluido"
+    },
+    "pros": ["Más barato que Zapier", "Visual flow builder", "Free tier generoso", "Powerful router"],
+    "cons": ["Menor ecosistema vs Zapier", "Curva aprendizaje mayor", "Docs en inglés"],
+    "best_for": "Automatizaciones complejas, PyMEs budget-conscious",
+    "spanish_quality": "7/10 (interfaz español parcial)",
+    "speed": "8/10",
+    "free_tier": "7/10",
+    "url": "https://make.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 18,
+    "name": "n8n",
+    "provider": "n8n",
+    "category": "Automatización",
+    "description": "Open source alternativa Zapier. Self-hosted o cloud.",
+    "pricing": {
+      "free": "Self-hosted ilimitado",
+      "paid": "$20/mes (Cloud - 2,500 executions)",
+      "api": "Self-hosted = gratis"
+    },
+    "pros": ["Open source", "Self-hosted gratis", "Sin límites local", "Customizable"],
+    "cons": ["Requiere setup técnico", "Menor ecosistema", "Cloud no competitivo precio"],
+    "best_for": "Developers, empresas privacidad-first, volumen masivo",
+    "spanish_quality": "7/10",
+    "speed": "9/10 (self-hosted)",
+    "free_tier": "10/10 (self-hosted)",
+    "url": "https://n8n.io",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 19,
+    "name": "Cursor",
+    "provider": "Cursor",
+    "category": "Coding AI",
+    "description": "VS Code fork con IA integrada. Mejor IDE para AI-assisted coding.",
+    "pricing": {
+      "free": "2,000 completions/mes",
+      "paid": "$20/mes (ilimitado slow, 500 fast)",
+      "api": "N/A"
+    },
+    "pros": ["Mejor coding experience", "Context-aware", "Multi-file edits", "Composer mode"],
+    "cons": ["Solo coding", "Free tier limitado", "Requiere cambiar IDE"],
+    "best_for": "Developers full-time, coding AI-heavy",
+    "spanish_quality": "9/10 (entiende español comentarios)",
+    "speed": "10/10",
+    "free_tier": "6/10",
+    "url": "https://cursor.sh",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 20,
+    "name": "GitHub Copilot",
+    "provider": "GitHub/Microsoft",
+    "category": "Coding AI",
+    "description": "Autocomplete código en IDE. Workspace context awareness.",
+    "pricing": {
+      "free": "N/A",
+      "paid": "$10/mes (Individual), $19/mes (Business)",
+      "api": "Incluido GitHub Enterprise"
+    },
+    "pros": ["Integración GitHub", "Workspace context", "Chat + autocomplete", "Claude 4.6 backend"],
+    "cons": ["Sin free tier", "Menos potente que Cursor", "Requiere GitHub account"],
+    "best_for": "Developers en ecosistema GitHub/Microsoft",
+    "spanish_quality": "8/10",
+    "speed": "9/10",
+    "free_tier": "0/10",
+    "url": "https://github.com/features/copilot",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 21,
+    "name": "Descript",
+    "provider": "Descript",
+    "category": "Audio/Video Editing",
+    "description": "Edición video/audio text-based. Transcripción + overdub IA.",
+    "pricing": {
+      "free": "1 hora transcripción/mes",
+      "paid": "$15/mes (Creator - 10h), $30/mes (Pro - 30h)",
+      "api": "N/A"
+    },
+    "pros": ["Edición text-based revolucionaria", "Transcripción precisa", "Voice cloning", "Filler words removal"],
+    "cons": ["Free tier limitado", "Curva aprendizaje", "Español transcripción 85% accuracy (no 95% inglés)"],
+    "best_for": "Podcasters, video creators, content repurposing",
+    "spanish_quality": "7/10 (transcripción español acceptable)",
+    "speed": "8/10",
+    "free_tier": "5/10",
+    "url": "https://descript.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 22,
+    "name": "Otter.ai",
+    "provider": "Otter.ai",
+    "category": "Transcripción",
+    "description": "Transcripción meetings en tiempo real. Notes + summaries automáticas.",
+    "pricing": {
+      "free": "300 min/mes",
+      "paid": "$10/mes (1,200 min), $20/mes (6,000 min)",
+      "api": "$0.01-0.02 por minuto"
+    },
+    "pros": ["Transcripción real-time", "Meeting summaries", "Speaker identification", "Integración Zoom/Teams"],
+    "cons": ["Solo inglés buena calidad", "Español limitado", "Summaries en inglés"],
+    "best_for": "Meetings inglés, transcripción rápida",
+    "spanish_quality": "4/10 (enfocado inglés)",
+    "speed": "10/10",
+    "free_tier": "8/10",
+    "url": "https://otter.ai",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 23,
+    "name": "Lumen5",
+    "provider": "Lumen5",
+    "category": "Video Marketing",
+    "description": "Blog post → video social media automático. Templates masivos.",
+    "pricing": {
+      "free": "5 videos/mes (watermark)",
+      "paid": "$29/mes (Starter), $79/mes (Professional)",
+      "api": "N/A"
+    },
+    "pros": ["Blog-to-video automático", "Templates por industria", "Media library masiva", "Branding"],
+    "cons": ["Watermark free tier", "Videos genéricos look", "Limited español assets"],
+    "best_for": "Content repurposing, social media at scale",
+    "spanish_quality": "6/10",
+    "speed": "9/10",
+    "free_tier": "6/10",
+    "url": "https://lumen5.com",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 24,
+    "name": "Synthesia",
+    "provider": "Synthesia",
+    "category": "Video AI Avatars",
+    "description": "Generación videos con avatares IA. Text → video presentador virtual.",
+    "pricing": {
+      "free": "N/A (demo only)",
+      "paid": "$29/mes (Starter - 10 min), $89/mes (Creator - 30 min)",
+      "api": "Enterprise"
+    },
+    "pros": ["Avatares realistas", "140+ idiomas", "Custom avatars", "No cámara needed"],
+    "cons": ["Caro", "Sin free tier", "Uncanny valley ocasional", "Videos corporate feel"],
+    "best_for": "Training videos, presentaciones, L&D corporativo",
+    "spanish_quality": "8/10 (avatares español nativos)",
+    "speed": "7/10",
+    "free_tier": "0/10",
+    "url": "https://synthesia.io",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 25,
+    "name": "Fireflies.ai",
+    "provider": "Fireflies.ai",
+    "category": "Meeting Assistant",
+    "description": "Notetaker IA para meetings. Graba, transcribe, resume, action items.",
+    "pricing": {
+      "free": "800 min/mes + basic features",
+      "paid": "$10/mes (Pro - ilimitado), $19/mes (Business)",
+      "api": "$0.01 por minuto"
+    },
+    "pros": ["Free tier generoso", "Action items auto", "Integración todos (Zoom, Meet, Teams)", "Search conversations"],
+    "cons": ["Español transcripción 80% accuracy", "Summaries mejor inglés", "Privacy concerns (graba todo)"],
+    "best_for": "Teams remotos, meetings frecuentes, seguimiento compromisos",
+    "spanish_quality": "6/10",
+    "speed": "9/10",
+    "free_tier": "8/10",
+    "url": "https://fireflies.ai",
+    "updated": "2026-04-12"
+  },
+  {
+    "id": 25,
+    "name": "HeyGen",
+    "provider": "HeyGen",
+    "category": "Video AI Avatars",
+    "description": "Similar Synthesia. Avatares talking head con voice cloning.",
+    "pricing": {
+      "free": "1 min/mes (watermark)",
+      "paid": "$29/mes (Creator - 15 min), $89/mes (Business - 90 min)",
+      "api": "Enterprise"
+    },
+    "pros": ["Voice cloning incluido", "Avatares custom desde 1 foto", "Multi-scene", "140+ idiomas"],
+    "cons": ["Free tier anecdótico", "Uncanny valley", "Caro para volumen"],
+    "best_for": "Marketing videos, personalized outreach, L&D",
+    "spanish_quality": "8/10",
+    "speed": "7/10",
+    "free_tier": "2/10",
+    "url": "https://heygen.com",
+    "updated": "2026-04-12"
+  }
+]

@@ -1,0 +1,1278 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+
+// Load tools data
+const toolsData = await fetch(new URL('/data/tools-comparison.json', Astro.site).href)
+  .then(res => res.json())
+  .catch(() => []);
+
+// Calculate stats
+const totalTools = toolsData.length;
+const categories = [...new Set(toolsData.map(t => t.category))];
+const freeOptions = toolsData.filter(t => t.free_tier && parseInt(t.free_tier) >= 6).length;
+const lastUpdated = '2026-04-12';
+---
+
+<BaseLayout 
+  title="Comparador de Herramientas IA" 
+  description="Compara las mejores herramientas de IA del mercado. Filtros por categoría, precio, español y free tier. ChatGPT, Claude, Gemini y 25+ herramientas."
+>
+  <Navigation />
+  
+  <main id="main-content" class="tools-page">
+    <!-- Header Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Comparador de Herramientas IA</h1>
+        <p class="lead">Las mejores herramientas IA comparadas lado a lado. Filtra por categoría, precio, calidad español y free tier.</p>
+        
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+          <div class="stat">
+            <span class="stat-number">{totalTools}</span>
+            <span class="stat-label">Herramientas</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">{categories.length}</span>
+            <span class="stat-label">Categorías</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">{freeOptions}</span>
+            <span class="stat-label">Con Free Tier</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Actualizado</span>
+            <span class="stat-number">{lastUpdated}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Recommendations -->
+    <section class="recommendations">
+      <div class="container">
+        <h2>Recomendaciones Rápidas</h2>
+        <div class="rec-grid">
+          <div class="rec-card">
+            <div class="rec-icon">💻</div>
+            <div class="rec-content">
+              <h3>Desarrollador</h3>
+              <p><strong>Cursor + Claude</strong><br>Mejor combinación para coding AI-assisted</p>
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-icon">💰</div>
+            <div class="rec-content">
+              <h3>Presupuesto Limitado</h3>
+              <p><strong>Gemini + Make</strong><br>Free tier generoso + automatización económica</p>
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-icon">📱</div>
+            <div class="rec-content">
+              <h3>Marketing</h3>
+              <p><strong>ChatGPT + Canva</strong><br>Copy + diseño con ecosistema maduro</p>
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-icon">🎨</div>
+            <div class="rec-content">
+              <h3>Contenido Visual</h3>
+              <p><strong>Midjourney + Runway</strong><br>Imágenes artísticas + video AI líder</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+      <div class="container">
+        <h2>Filtros</h2>
+        
+        <!-- Category Filters -->
+        <div class="filter-group">
+          <label>Categoría</label>
+          <div class="category-buttons" id="categoryFilters">
+            <button class="filter-btn active" data-category="all">Todos</button>
+            <button class="filter-btn" data-category="Conversacional">Conversacional</button>
+            <button class="filter-btn" data-category="Generación Imágenes">Imágenes</button>
+            <button class="filter-btn" data-category="Video AI">Video</button>
+            <button class="filter-btn" data-category="Coding AI">Coding</button>
+            <button class="filter-btn" data-category="Productividad">Productividad</button>
+            <button class="filter-btn" data-category="Automatización">Automatización</button>
+          </div>
+        </div>
+
+        <!-- Additional Filters -->
+        <div class="filter-row">
+          <div class="filter-item">
+            <label>
+              <input type="checkbox" id="freeTierFilter">
+              <span>Solo con Free Tier Bueno (≥6/10)</span>
+            </label>
+          </div>
+          
+          <div class="filter-item">
+            <label>
+              <input type="checkbox" id="spanishFilter">
+              <span>Español de Calidad (>7/10)</span>
+            </label>
+          </div>
+
+          <div class="filter-item price-filter">
+            <label for="priceRange">Precio máximo (mensual)</label>
+            <div class="price-slider">
+              <input type="range" id="priceRange" min="0" max="100" value="100" step="5">
+              <span id="priceValue">$100/mes</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-results">
+          Mostrando <strong id="resultCount">{totalTools}</strong> herramientas
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="table-section">
+      <div class="container">
+        
+        <!-- Desktop Table View -->
+        <div class="table-wrapper desktop-only">
+          <table class="comparison-table" id="comparisonTable">
+            <thead>
+              <tr>
+                <th class="sortable" data-sort="name">
+                  Herramienta <span class="sort-icon">⬍</span>
+                </th>
+                <th class="sortable" data-sort="provider">
+                  Proveedor <span class="sort-icon">⬍</span>
+                </th>
+                <th class="sortable" data-sort="category">
+                  Categoría <span class="sort-icon">⬍</span>
+                </th>
+                <th>Precios</th>
+                <th>Ventajas</th>
+                <th>Mejor Para</th>
+                <th class="sortable" data-sort="spanish_quality">
+                  Español <span class="sort-icon">⬍</span>
+                </th>
+                <th class="sortable" data-sort="free_tier">
+                  Free Tier <span class="sort-icon">⬍</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              {toolsData.map((tool) => (
+                <tr class="tool-row" data-tool-id={tool.id} data-category={tool.category} 
+                    data-spanish={tool.spanish_quality} data-free-tier={tool.free_tier}
+                    data-price={tool.pricing.paid}>
+                  <td class="tool-name">
+                    <strong>{tool.name}</strong>
+                  </td>
+                  <td>{tool.provider}</td>
+                  <td>
+                    <span class="badge badge-category">{tool.category}</span>
+                  </td>
+                  <td class="pricing-cell">
+                    <div class="pricing-compact">
+                      {tool.pricing.free !== 'N/A' && (
+                        <span class="price-badge free">Free: {tool.pricing.free}</span>
+                      )}
+                      {tool.pricing.paid !== 'N/A' && (
+                        <span class="price-badge paid">{tool.pricing.paid}</span>
+                      )}
+                    </div>
+                  </td>
+                  <td class="pros-cell">
+                    <ul class="pros-compact">
+                      {tool.pros.slice(0, 2).map(pro => (
+                        <li>{pro}</li>
+                      ))}
+                    </ul>
+                  </td>
+                  <td class="best-for-cell">{tool.best_for}</td>
+                  <td class="rating-cell">
+                    <span class="rating">{tool.spanish_quality}</span>
+                  </td>
+                  <td class="rating-cell">
+                    <span class="rating">{tool.free_tier}</span>
+                  </td>
+                </tr>
+                <tr class="expanded-row" id={`expanded-${tool.id}`}>
+                  <td colspan="8">
+                    <div class="expanded-content">
+                      <div class="expanded-grid">
+                        <div class="expanded-section">
+                          <h4>Descripción</h4>
+                          <p>{tool.description}</p>
+                        </div>
+                        
+                        <div class="expanded-section">
+                          <h4>Precios Detallados</h4>
+                          <ul>
+                            <li><strong>Free:</strong> {tool.pricing.free}</li>
+                            <li><strong>Paid:</strong> {tool.pricing.paid}</li>
+                            <li><strong>API:</strong> {tool.pricing.api}</li>
+                          </ul>
+                        </div>
+
+                        <div class="expanded-section">
+                          <h4>Ventajas</h4>
+                          <ul class="pros-list">
+                            {tool.pros.map(pro => (
+                              <li>✓ {pro}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div class="expanded-section">
+                          <h4>Desventajas</h4>
+                          <ul class="cons-list">
+                            {tool.cons.map(con => (
+                              <li>✗ {con}</li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div class="expanded-section">
+                          <h4>Ratings</h4>
+                          <div class="ratings-grid">
+                            <div class="rating-item">
+                              <span class="rating-label">Español:</span>
+                              <span class="rating-value">{tool.spanish_quality}</span>
+                            </div>
+                            <div class="rating-item">
+                              <span class="rating-label">Velocidad:</span>
+                              <span class="rating-value">{tool.speed}</span>
+                            </div>
+                            <div class="rating-item">
+                              <span class="rating-label">Free Tier:</span>
+                              <span class="rating-value">{tool.free_tier}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="expanded-section">
+                          <a href={tool.url} target="_blank" rel="noopener noreferrer" class="tool-link">
+                            Visitar {tool.name} →
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Card View -->
+        <div class="mobile-cards mobile-only" id="mobileCards">
+          {toolsData.map((tool) => (
+            <div class="tool-card" data-tool-id={tool.id} data-category={tool.category} 
+                 data-spanish={tool.spanish_quality} data-free-tier={tool.free_tier}
+                 data-price={tool.pricing.paid}>
+              <div class="card-header">
+                <h3>{tool.name}</h3>
+                <span class="badge badge-category">{tool.category}</span>
+              </div>
+              
+              <div class="card-body">
+                <p class="tool-description">{tool.description}</p>
+                
+                <div class="card-section">
+                  <h4>Precios</h4>
+                  <div class="pricing-mobile">
+                    {tool.pricing.free !== 'N/A' && (
+                      <div><strong>Free:</strong> {tool.pricing.free}</div>
+                    )}
+                    {tool.pricing.paid !== 'N/A' && (
+                      <div><strong>Paid:</strong> {tool.pricing.paid}</div>
+                    )}
+                  </div>
+                </div>
+
+                <div class="card-section">
+                  <h4>Ventajas</h4>
+                  <ul class="pros-list">
+                    {tool.pros.slice(0, 2).map(pro => (
+                      <li>✓ {pro}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="ratings-row">
+                  <div class="rating-badge">
+                    <span>Español</span>
+                    <strong>{tool.spanish_quality}</strong>
+                  </div>
+                  <div class="rating-badge">
+                    <span>Free Tier</span>
+                    <strong>{tool.free_tier}</strong>
+                  </div>
+                </div>
+
+                <button class="expand-btn" data-mobile-id={tool.id}>Ver detalles</button>
+                
+                <div class="mobile-expanded" id={`mobile-expanded-${tool.id}`}>
+                  <div class="card-section">
+                    <h4>Todas las Ventajas</h4>
+                    <ul class="pros-list">
+                      {tool.pros.map(pro => (
+                        <li>✓ {pro}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div class="card-section">
+                    <h4>Desventajas</h4>
+                    <ul class="cons-list">
+                      {tool.cons.map(con => (
+                        <li>✗ {con}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div class="card-section">
+                    <h4>Mejor Para</h4>
+                    <p>{tool.best_for}</p>
+                  </div>
+
+                  <a href={tool.url} target="_blank" rel="noopener noreferrer" class="tool-link-mobile">
+                    Visitar {tool.name} →
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* === VARIABLES === */
+  :root {
+    --primary: #2c3e50;
+    --secondary: #3498db;
+    --accent: #e74c3c;
+    --success: #27ae60;
+    --warning: #f39c12;
+    --bg-light: #f8f9fa;
+    --bg-white: #ffffff;
+    --text-dark: #2c3e50;
+    --text-muted: #7f8c8d;
+    --border: #e1e8ed;
+    --shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-lg: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  /* === LAYOUT === */
+  .tools-page {
+    background: var(--bg-light);
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* === HERO SECTION === */
+  .hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 0 3rem;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: 'Libre Baskerville', serif;
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+  }
+
+  /* Stats Bar */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 900px;
+    margin: 2rem auto 0;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* === RECOMMENDATIONS === */
+  .recommendations {
+    padding: 3rem 0;
+    background: var(--bg-white);
+  }
+
+  .recommendations h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--primary);
+  }
+
+  .rec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .rec-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--bg-light);
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .rec-card:hover {
+    border-color: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .rec-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .rec-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+  }
+
+  .rec-content p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* === FILTERS === */
+  .filters-section {
+    padding: 3rem 0 2rem;
+    background: var(--bg-white);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .filters-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+  }
+
+  .filter-group {
+    margin-bottom: 2rem;
+  }
+
+  .filter-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-dark);
+  }
+
+  .category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .filter-btn {
+    padding: 0.65rem 1.25rem;
+    border: 2px solid var(--border);
+    background: white;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-dark);
+  }
+
+  .filter-btn:hover {
+    border-color: var(--secondary);
+    background: rgba(52, 152, 219, 0.05);
+  }
+
+  .filter-btn.active {
+    background: var(--secondary);
+    color: white;
+    border-color: var(--secondary);
+  }
+
+  .filter-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-item label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: normal;
+  }
+
+  .filter-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  .price-filter {
+    grid-column: span 2;
+  }
+
+  .price-slider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .price-slider input[type="range"] {
+    flex: 1;
+    height: 6px;
+  }
+
+  #priceValue {
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--secondary);
+    min-width: 80px;
+    text-align: right;
+  }
+
+  .filter-results {
+    padding: 1rem;
+    background: var(--bg-light);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-muted);
+  }
+
+  .filter-results strong {
+    color: var(--secondary);
+    font-size: 1.2rem;
+  }
+
+  /* === TABLE === */
+  .table-section {
+    padding: 2rem 0 4rem;
+  }
+
+  .table-wrapper {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .comparison-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .comparison-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .comparison-table th.sortable {
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .comparison-table th.sortable:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .sort-icon {
+    margin-left: 0.5rem;
+    opacity: 0.6;
+    font-size: 0.8rem;
+  }
+
+  .comparison-table tbody tr.tool-row {
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .comparison-table tbody tr.tool-row:nth-child(4n+1) {
+    background: var(--bg-light);
+  }
+
+  .comparison-table tbody tr.tool-row:hover {
+    background: rgba(52, 152, 219, 0.08);
+  }
+
+  .comparison-table td {
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+  }
+
+  .tool-name strong {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .badge-category {
+    background: var(--secondary);
+    color: white;
+  }
+
+  .price-badge {
+    display: block;
+    padding: 0.25rem 0.5rem;
+    background: var(--bg-light);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin: 0.25rem 0;
+  }
+
+  .price-badge.free {
+    background: #d4edda;
+    color: #155724;
+    font-weight: 600;
+  }
+
+  .price-badge.paid {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  .pros-compact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .pros-compact li {
+    padding: 0.2rem 0;
+  }
+
+  .pros-compact li:before {
+    content: "✓ ";
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .rating {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    background: var(--secondary);
+    color: white;
+    border-radius: 6px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Expanded Row */
+  .expanded-row {
+    display: none;
+    background: #f8f9fb;
+  }
+
+  .expanded-row.active {
+    display: table-row;
+  }
+
+  .expanded-content {
+    padding: 2rem;
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .expanded-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .expanded-section h4 {
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .pros-list, .cons-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .pros-list li {
+    padding: 0.4rem 0;
+    color: var(--success);
+  }
+
+  .cons-list li {
+    padding: 0.4rem 0;
+    color: var(--accent);
+  }
+
+  .ratings-grid {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .rating-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 6px;
+  }
+
+  .rating-value {
+    font-weight: 700;
+    color: var(--secondary);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tool-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--secondary);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .tool-link:hover {
+    background: #2980b9;
+    transform: translateX(4px);
+  }
+
+  /* === MOBILE CARDS === */
+  .mobile-cards {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .tool-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .tool-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .card-header h3 {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .tool-description {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .card-section {
+    margin: 1.25rem 0;
+  }
+
+  .card-section h4 {
+    font-size: 0.95rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .pricing-mobile div {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .ratings-row {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .rating-badge {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--bg-light);
+    border-radius: 8px;
+  }
+
+  .rating-badge span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .rating-badge strong {
+    font-size: 1.5rem;
+    color: var(--secondary);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 0.25rem;
+  }
+
+  .expand-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 1rem;
+  }
+
+  .expand-btn:hover {
+    background: #2980b9;
+  }
+
+  .mobile-expanded {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--border);
+  }
+
+  .mobile-expanded.active {
+    display: block;
+    animation: slideDown 0.3s ease;
+  }
+
+  .tool-link-mobile {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--secondary);
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+
+  /* === RESPONSIVE === */
+  .desktop-only {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  @media (max-width: 968px) {
+    .desktop-only {
+      display: none;
+    }
+
+    .mobile-only {
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .lead {
+      font-size: 1.1rem;
+    }
+
+    .stats-bar {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+
+    .rec-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .filter-row {
+      grid-template-columns: 1fr;
+    }
+
+    .price-filter {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .hero {
+      padding: 3rem 0 2rem;
+    }
+
+    .category-buttons {
+      flex-direction: column;
+    }
+
+    .filter-btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .stats-bar {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Load tools data
+  const toolsData = await fetch('/data/tools-comparison.json').then(res => res.json());
+
+  // State
+  let currentSort = { column: null, ascending: true };
+  let filters = {
+    category: 'all',
+    freeTier: false,
+    spanish: false,
+    maxPrice: 100
+  };
+
+  // Elements
+  const categoryButtons = document.querySelectorAll('.filter-btn');
+  const freeTierCheckbox = document.getElementById('freeTierFilter') as HTMLInputElement;
+  const spanishCheckbox = document.getElementById('spanishFilter') as HTMLInputElement;
+  const priceRange = document.getElementById('priceRange') as HTMLInputElement;
+  const priceValue = document.getElementById('priceValue');
+  const resultCount = document.getElementById('resultCount');
+  const tableBody = document.getElementById('tableBody');
+  const mobileCards = document.getElementById('mobileCards');
+
+  // === FILTERING ===
+  function extractPrice(priceString: string): number {
+    if (!priceString || priceString === 'N/A') return 999;
+    const match = priceString.match(/\$(\d+)/);
+    return match ? parseInt(match[1]) : 999;
+  }
+
+  function extractRating(ratingString: string): number {
+    if (!ratingString || ratingString === 'N/A') return 0;
+    const match = ratingString.match(/(\d+)/);
+    return match ? parseInt(match[1]) : 0;
+  }
+
+  function applyFilters() {
+    let visibleCount = 0;
+
+    // Desktop table
+    const tableRows = tableBody?.querySelectorAll('.tool-row');
+    tableRows?.forEach((row: Element) => {
+      const htmlRow = row as HTMLElement;
+      const category = htmlRow.dataset.category || '';
+      const spanish = extractRating(htmlRow.dataset.spanish || '0');
+      const freeTier = extractRating(htmlRow.dataset.freeTier || '0');
+      const price = extractPrice(htmlRow.dataset.price || '');
+
+      let visible = true;
+
+      // Category filter
+      if (filters.category !== 'all' && category !== filters.category) {
+        visible = false;
+      }
+
+      // Free tier filter
+      if (filters.freeTier && freeTier < 6) {
+        visible = false;
+      }
+
+      // Spanish quality filter
+      if (filters.spanish && spanish <= 7) {
+        visible = false;
+      }
+
+      // Price filter
+      if (price > filters.maxPrice) {
+        visible = false;
+      }
+
+      htmlRow.style.display = visible ? '' : 'none';
+      if (visible) visibleCount++;
+    });
+
+    // Mobile cards
+    const cards = mobileCards?.querySelectorAll('.tool-card');
+    cards?.forEach((card: Element) => {
+      const htmlCard = card as HTMLElement;
+      const category = htmlCard.dataset.category || '';
+      const spanish = extractRating(htmlCard.dataset.spanish || '0');
+      const freeTier = extractRating(htmlCard.dataset.freeTier || '0');
+      const price = extractPrice(htmlCard.dataset.price || '');
+
+      let visible = true;
+
+      if (filters.category !== 'all' && category !== filters.category) visible = false;
+      if (filters.freeTier && freeTier < 6) visible = false;
+      if (filters.spanish && spanish <= 7) visible = false;
+      if (price > filters.maxPrice) visible = false;
+
+      htmlCard.style.display = visible ? '' : 'none';
+    });
+
+    // Update count
+    if (resultCount) {
+      resultCount.textContent = visibleCount.toString();
+    }
+  }
+
+  // === SORTING ===
+  function sortTable(column: string) {
+    const rows = Array.from(tableBody?.querySelectorAll('.tool-row') || []);
+    
+    // Toggle sort direction
+    if (currentSort.column === column) {
+      currentSort.ascending = !currentSort.ascending;
+    } else {
+      currentSort.column = column;
+      currentSort.ascending = true;
+    }
+
+    rows.sort((a, b) => {
+      const aRow = a as HTMLElement;
+      const bRow = b as HTMLElement;
+      let aValue: any, bValue: any;
+
+      switch(column) {
+        case 'name':
+          aValue = aRow.querySelector('.tool-name strong')?.textContent || '';
+          bValue = bRow.querySelector('.tool-name strong')?.textContent || '';
+          break;
+        case 'provider':
+          aValue = aRow.children[1]?.textContent || '';
+          bValue = bRow.children[1]?.textContent || '';
+          break;
+        case 'category':
+          aValue = aRow.dataset.category || '';
+          bValue = bRow.dataset.category || '';
+          break;
+        case 'spanish_quality':
+          aValue = extractRating(aRow.dataset.spanish || '0');
+          bValue = extractRating(bRow.dataset.spanish || '0');
+          break;
+        case 'free_tier':
+          aValue = extractRating(aRow.dataset.freeTier || '0');
+          bValue = extractRating(bRow.dataset.freeTier || '0');
+          break;
+        default:
+          return 0;
+      }
+
+      if (typeof aValue === 'string') {
+        return currentSort.ascending 
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      } else {
+        return currentSort.ascending 
+          ? aValue - bValue
+          : bValue - aValue;
+      }
+    });
+
+    // Reorder DOM
+    rows.forEach(row => {
+      const expandedRow = document.getElementById(`expanded-${(row as HTMLElement).dataset.toolId}`);
+      tableBody?.appendChild(row);
+      if (expandedRow) tableBody?.appendChild(expandedRow);
+    });
+
+    // Update sort icons
+    document.querySelectorAll('.sort-icon').forEach(icon => {
+      icon.textContent = '⬍';
+    });
+    const activeHeader = document.querySelector(`[data-sort="${column}"] .sort-icon`);
+    if (activeHeader) {
+      activeHeader.textContent = currentSort.ascending ? '▲' : '▼';
+    }
+  }
+
+  // === EVENT LISTENERS ===
+
+  // Category filters
+  categoryButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      categoryButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filters.category = btn.dataset.category || 'all';
+      applyFilters();
+    });
+  });
+
+  // Checkboxes
+  freeTierCheckbox?.addEventListener('change', () => {
+    filters.freeTier = freeTierCheckbox.checked;
+    applyFilters();
+  });
+
+  spanishCheckbox?.addEventListener('change', () => {
+    filters.spanish = spanishCheckbox.checked;
+    applyFilters();
+  });
+
+  // Price range
+  priceRange?.addEventListener('input', () => {
+    filters.maxPrice = parseInt(priceRange.value);
+    if (priceValue) {
+      priceValue.textContent = `$${filters.maxPrice}/mes`;
+    }
+    applyFilters();
+  });
+
+  // Sorting
+  document.querySelectorAll('.sortable').forEach(header => {
+    header.addEventListener('click', () => {
+      const column = (header as HTMLElement).dataset.sort;
+      if (column) sortTable(column);
+    });
+  });
+
+  // Row expansion (desktop)
+  tableBody?.querySelectorAll('.tool-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const toolId = (row as HTMLElement).dataset.toolId;
+      const expandedRow = document.getElementById(`expanded-${toolId}`);
+      
+      // Close all other expanded rows
+      document.querySelectorAll('.expanded-row.active').forEach(er => {
+        if (er !== expandedRow) er.classList.remove('active');
+      });
+
+      // Toggle current
+      expandedRow?.classList.toggle('active');
+    });
+  });
+
+  // Mobile card expansion
+  document.querySelectorAll('.expand-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const toolId = (btn as HTMLElement).dataset.mobileId;
+      const expandedSection = document.getElementById(`mobile-expanded-${toolId}`);
+      
+      expandedSection?.classList.toggle('active');
+      
+      const btnText = expandedSection?.classList.contains('active') 
+        ? 'Ocultar detalles' 
+        : 'Ver detalles';
+      btn.textContent = btnText;
+    });
+  });
+
+  // Initial render
+  applyFilters();
+</script>
