@@ -1,0 +1,850 @@
+[
+  {
+    "id": 1,
+    "title": "Email bienvenida automatizado",
+    "prompt": "Crea un email de bienvenida para nuevos suscriptores de [NEGOCIO]. Tono [formal/cercano]. Incluye: bienvenida, propuesta de valor, CTA claro. Objetivo: [construir relación/primera venta].",
+    "category": "marketing",
+    "subcategory": "email",
+    "sector": "ecommerce",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "email",
+      "automatización",
+      "bienvenida"
+    ],
+    "use_case": "Primera impresión automatizada",
+    "example_output": ""
+  },
+  {
+    "id": 2,
+    "title": "Post LinkedIn viral B2B",
+    "prompt": "Escribe post LinkedIn sobre [TEMA] para audiencia B2B [INDUSTRIA]. Hook potente primera línea. Storytelling personal. Incluye estadística sorprendente. CTA al final. Máximo 1,300 caracteres.",
+    "category": "marketing",
+    "subcategory": "social_media",
+    "sector": "saas",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "linkedin",
+      "b2b",
+      "storytelling"
+    ],
+    "use_case": "Visibilidad profesional",
+    "example_output": ""
+  },
+  {
+    "id": 3,
+    "title": "Meta description SEO optimizada",
+    "prompt": "Crea meta description para artículo '[TÍTULO]' en sitio [INDUSTRIA]. Incluye keyword principal '[KEYWORD]'. Entre 150-160 caracteres. Call-to-action sutil. Orientado a CTR alto en Google.",
+    "category": "marketing",
+    "subcategory": "seo",
+    "sector": "contenido",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "seo",
+      "meta",
+      "ctr"
+    ],
+    "use_case": "Mejorar CTR orgánico",
+    "example_output": ""
+  },
+  {
+    "id": 4,
+    "title": "Copy anuncio Facebook e-commerce",
+    "prompt": "Escribe copy para anuncio Facebook Ads vendiendo [PRODUCTO]. Público objetivo: [DEMOGRAFÍA]. Hook con problema específico. Beneficios (no características). Urgencia sutil. CTA potente. Incluye 3 variantes.",
+    "category": "marketing",
+    "subcategory": "ads_copy",
+    "sector": "ecommerce",
+    "llm": "Gemini",
+    "difficulty": "intermedio",
+    "tags": [
+      "facebook",
+      "ads",
+      "conversión"
+    ],
+    "use_case": "Aumentar ventas directas",
+    "example_output": ""
+  },
+  {
+    "id": 5,
+    "title": "Newsletter semanal contenido curado",
+    "prompt": "Crea estructura newsletter semanal para [INDUSTRIA]. Secciones: intro breve, 3 artículos curados con comentario, herramienta destacada, quote inspiracional. Tono [profesional/casual]. 500 palabras max.",
+    "category": "marketing",
+    "subcategory": "email",
+    "sector": "contenido",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "newsletter",
+      "contenido",
+      "engagement"
+    ],
+    "use_case": "Mantener audiencia engaged",
+    "example_output": ""
+  },
+  {
+    "id": 6,
+    "title": "Informe mensual cliente gestoría",
+    "prompt": "Genera estructura informe mensual para cliente de gestoría. Incluye: resumen ejecutivo, métricas clave (facturación, gastos), obligaciones fiscales próximas, recomendaciones específicas. Tono profesional. Formato ejecutivo.",
+    "category": "servicios",
+    "subcategory": "informes",
+    "sector": "gestoria",
+    "llm": "ChatGPT",
+    "difficulty": "intermedio",
+    "tags": [
+      "informe",
+      "gestión",
+      "fiscal"
+    ],
+    "use_case": "Automatizar informes mensuales",
+    "example_output": ""
+  },
+  {
+    "id": 7,
+    "title": "Research competencia mercado",
+    "prompt": "Analiza [COMPETIDOR] en mercado [INDUSTRIA]. Identifica: 1) Propuesta valor única, 2) Pricing strategy, 3) Canales distribución, 4) Fortalezas/debilidades, 5) Gaps aprovechar. Formato: executive summary + análisis detallado.",
+    "category": "servicios",
+    "subcategory": "research",
+    "sector": "consultoria",
+    "llm": "Claude",
+    "difficulty": "avanzado",
+    "tags": [
+      "competencia",
+      "análisis",
+      "estrategia"
+    ],
+    "use_case": "Decisiones estratégicas",
+    "example_output": ""
+  },
+  {
+    "id": 8,
+    "title": "Pitch deck startup",
+    "prompt": "Crea outline pitch deck para startup [SECTOR]. 10 slides: 1) Problem, 2) Solution, 3) Market size, 4) Product, 5) Business model, 6) Traction, 7) Competition, 8) Team, 9) Financials, 10) Ask. Qué incluir en cada slide.",
+    "category": "servicios",
+    "subcategory": "presentaciones",
+    "sector": "consultoria",
+    "llm": "ChatGPT",
+    "difficulty": "avanzado",
+    "tags": [
+      "pitch",
+      "startup",
+      "inversores"
+    ],
+    "use_case": "Levantar capital",
+    "example_output": ""
+  },
+  {
+    "id": 9,
+    "title": "Interpretación datos analytics",
+    "prompt": "Analiza estos datos Google Analytics [PEGAR DATOS]. Identifica: 1) Tendencias clave, 2) Anomalías, 3) Oportunidades optimización, 4) Red flags. Genera 5 recomendaciones accionables priorizadas por impacto.",
+    "category": "servicios",
+    "subcategory": "analisis",
+    "sector": "agencia",
+    "llm": "Gemini",
+    "difficulty": "intermedio",
+    "tags": [
+      "analytics",
+      "insights",
+      "optimización"
+    ],
+    "use_case": "Decisiones data-driven",
+    "example_output": ""
+  },
+  {
+    "id": 10,
+    "title": "SOP proceso operativo",
+    "prompt": "Documenta SOP (Standard Operating Procedure) para proceso [NOMBRE PROCESO] en [DEPARTAMENTO]. Incluye: objetivo, responsables, pasos detallados, herramientas usadas, KPIs, troubleshooting común. Formato checklist.",
+    "category": "servicios",
+    "subcategory": "documentacion",
+    "sector": "consultoria",
+    "llm": "ChatGPT",
+    "difficulty": "intermedio",
+    "tags": [
+      "sop",
+      "procesos",
+      "documentación"
+    ],
+    "use_case": "Estandarizar operaciones",
+    "example_output": ""
+  },
+  {
+    "id": 11,
+    "title": "Plantilla contrato servicios",
+    "prompt": "Genera plantilla contrato servicios profesionales para [TIPO SERVICIO]. Incluye: partes, objeto, precio, forma pago, duración, obligaciones ambas partes, causas resolución, jurisdicción. Lenguaje claro. Placeholders marcados.",
+    "category": "legal",
+    "subcategory": "contratos",
+    "sector": "bufete",
+    "llm": "Claude",
+    "difficulty": "avanzado",
+    "tags": [
+      "contrato",
+      "servicios",
+      "template"
+    ],
+    "use_case": "Automatizar contratos estándar",
+    "example_output": ""
+  },
+  {
+    "id": 12,
+    "title": "Research jurisprudencia rápida",
+    "prompt": "Busca jurisprudencia española sobre [TEMA LEGAL]. Identifica: sentencias relevantes últimos 5 años, tribunal, fecha, resumen fallo, ratio decidendi. Prioriza Tribunal Supremo. Formato: tabla resumen + análisis tendencias.",
+    "category": "legal",
+    "subcategory": "research",
+    "sector": "bufete",
+    "llm": "ChatGPT",
+    "difficulty": "avanzado",
+    "tags": [
+      "jurisprudencia",
+      "research",
+      "sentencias"
+    ],
+    "use_case": "Preparación casos",
+    "example_output": ""
+  },
+  {
+    "id": 13,
+    "title": "Checklist compliance RGPD",
+    "prompt": "Crea checklist compliance RGPD para empresa [SECTOR] con [TAMAÑO]. Incluye: bases legales, medidas técnicas, derechos usuarios, DPO necesario, registro actividades, brechas seguridad. Formato: checklist con Sí/No/N/A.",
+    "category": "legal",
+    "subcategory": "compliance",
+    "sector": "legal",
+    "llm": "Gemini",
+    "difficulty": "intermedio",
+    "tags": [
+      "rgpd",
+      "compliance",
+      "privacidad"
+    ],
+    "use_case": "Auditoría cumplimiento",
+    "example_output": ""
+  },
+  {
+    "id": 14,
+    "title": "Resumen sentencia ejecutivo",
+    "prompt": "Resume sentencia [REFERENCIA] en formato ejecutivo. Estructura: 1) Hechos (100 palabras), 2) Fundamentos jurídicos clave, 3) Fallo, 4) Implicaciones prácticas. Lenguaje no-jurista. 500 palabras máximo.",
+    "category": "legal",
+    "subcategory": "resumenes",
+    "sector": "bufete",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "sentencia",
+      "resumen",
+      "análisis"
+    ],
+    "use_case": "Comunicar clientes",
+    "example_output": ""
+  },
+  {
+    "id": 15,
+    "title": "Cláusula personalizada contrato",
+    "prompt": "Redacta cláusula [TIPO: confidencialidad/no-competencia/propiedad intelectual] para contrato [CONTEXTO]. Considera legislación española. Equilibrada (protege ambas partes). Clara, ejecutable. Incluye ejemplos específicos sector [INDUSTRIA].",
+    "category": "legal",
+    "subcategory": "contratos",
+    "sector": "legal",
+    "llm": "ChatGPT",
+    "difficulty": "avanzado",
+    "tags": [
+      "cláusula",
+      "contrato",
+      "personalización"
+    ],
+    "use_case": "Contratos a medida",
+    "example_output": ""
+  },
+  {
+    "id": 16,
+    "title": "Descripción producto e-commerce",
+    "prompt": "Escribe descripción producto para [PRODUCTO] en tienda online [NICHO]. Incluye: beneficios (no solo características), casos uso específicos, para quién es ideal, especificaciones técnicas, call-to-action. SEO-friendly. 200-300 palabras.",
+    "category": "retail",
+    "subcategory": "descripciones",
+    "sector": "ecommerce",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "producto",
+      "ecommerce",
+      "seo"
+    ],
+    "use_case": "Fichas producto atractivas",
+    "example_output": ""
+  },
+  {
+    "id": 17,
+    "title": "Respuesta review negativo",
+    "prompt": "Responde review negativo de cliente sobre [PRODUCTO/SERVICIO]. Problema: [DESCRIBIR]. Tono: empático, profesional, no defensivo. Reconoce problema, ofrece solución específica, invita a contacto privado. 100-150 palabras.",
+    "category": "retail",
+    "subcategory": "atencion_cliente",
+    "sector": "retail",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "reviews",
+      "atención",
+      "reputación"
+    ],
+    "use_case": "Gestión reputación online",
+    "example_output": ""
+  },
+  {
+    "id": 18,
+    "title": "Email abandono carrito",
+    "prompt": "Crea secuencia 3 emails recuperación carrito abandonado. Email 1 (1h): recordatorio suave. Email 2 (24h): beneficios producto + urgencia. Email 3 (72h): descuento 10% + FOMO. Tono [marca]. Incluye subject lines.",
+    "category": "retail",
+    "subcategory": "marketing",
+    "sector": "ecommerce",
+    "llm": "ChatGPT",
+    "difficulty": "intermedio",
+    "tags": [
+      "abandono",
+      "recuperación",
+      "automatización"
+    ],
+    "use_case": "Recuperar ventas perdidas",
+    "example_output": ""
+  },
+  {
+    "id": 19,
+    "title": "Análisis inventario dead stock",
+    "prompt": "Analiza inventario [DATOS PRODUCTO: SKU, stock, ventas últimos 90 días, margen]. Identifica dead stock (sin movimiento 60+ días). Recomienda acciones: descuento %, bundling, donación. Prioriza por capital inmovilizado.",
+    "category": "retail",
+    "subcategory": "inventario",
+    "sector": "retail",
+    "llm": "Gemini",
+    "difficulty": "avanzado",
+    "tags": [
+      "inventario",
+      "optimización",
+      "dead stock"
+    ],
+    "use_case": "Liberar capital",
+    "example_output": ""
+  },
+  {
+    "id": 20,
+    "title": "Solicitud review post-compra",
+    "prompt": "Email solicitud review enviado [DÍAS] días post-entrega [PRODUCTO]. Tono: agradecimiento genuino, no presión. Facilita proceso (link directo). Incentivo opcional: [descuento próxima compra/sorteo]. 80-100 palabras.",
+    "category": "retail",
+    "subcategory": "reviews",
+    "sector": "ecommerce",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "reviews",
+      "post-venta",
+      "testimonios"
+    ],
+    "use_case": "Generar social proof",
+    "example_output": ""
+  },
+  {
+    "id": 21,
+    "title": "Descripción plato menú gourmet",
+    "prompt": "Describe plato [NOMBRE PLATO] para menú restaurante [TIPO COCINA]. Incluye: ingredientes principales, técnica cocina, presentación, maridaje sugerido. Lenguaje evocativo (sin exagerar). 50-80 palabras.",
+    "category": "hosteleria",
+    "subcategory": "menus",
+    "sector": "restaurante",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "menú",
+      "gastronomía",
+      "descripción"
+    ],
+    "use_case": "Menús atractivos",
+    "example_output": ""
+  },
+  {
+    "id": 22,
+    "title": "Post Instagram evento especial",
+    "prompt": "Post Instagram promocionando evento [TIPO: cena temática/showcooking/degustación] en restaurante [NOMBRE]. Fecha: [FECHA]. Hook emocional. Detalles clave (qué incluye, precio). CTA reservas. Hashtags locales. Incluye idea caption + descripción imagen.",
+    "category": "hosteleria",
+    "subcategory": "marketing",
+    "sector": "restaurante",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "instagram",
+      "eventos",
+      "marketing"
+    ],
+    "use_case": "Llenar eventos",
+    "example_output": ""
+  },
+  {
+    "id": 23,
+    "title": "Email confirmación reserva",
+    "prompt": "Email confirmación reserva restaurante. Datos: [NOMBRE], [FECHA], [HORA], [PERSONAS]. Tono: profesional-cálido. Incluye: confirmación datos, políticas cancelación, mapa/indicaciones, recomendaciones (parking, dress code si aplica). Link modificar/cancelar.",
+    "category": "hosteleria",
+    "subcategory": "reservas",
+    "sector": "restaurante",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "reservas",
+      "confirmación",
+      "automatización"
+    ],
+    "use_case": "Reducir no-shows",
+    "example_output": ""
+  },
+  {
+    "id": 24,
+    "title": "Respuesta review TripAdvisor",
+    "prompt": "Responde review [POSITIVO/NEGATIVO] TripAdvisor sobre [ASPECTO: comida/servicio/ambiente]. Tono: [TIPO ESTABLECIMIENTO]. Si positivo: agradece específico. Si negativo: empatía, solución, invita volver. Menciona nombre reviewer. 80-120 palabras.",
+    "category": "hosteleria",
+    "subcategory": "atencion_cliente",
+    "sector": "hotel",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "tripadvisor",
+      "reviews",
+      "reputación"
+    ],
+    "use_case": "Gestión reputación",
+    "example_output": ""
+  },
+  {
+    "id": 25,
+    "title": "Procedimiento apertura local",
+    "prompt": "Documenta checklist apertura diaria [TIPO LOCAL: restaurante/cafetería/bar]. Incluye: limpieza, mise en place, verificación stock crítico, encendido equipos, briefing equipo. Formato: checklist con tiempos estimados. Responsable por tarea.",
+    "category": "hosteleria",
+    "subcategory": "gestion",
+    "sector": "hosteleria",
+    "llm": "ChatGPT",
+    "difficulty": "intermedio",
+    "tags": [
+      "procedimientos",
+      "operaciones",
+      "checklist"
+    ],
+    "use_case": "Estandarizar apertura",
+    "example_output": ""
+  },
+  {
+    "title": "Subject line A/B test",
+    "prompt": "Crea 5 subject lines para email sobre [TEMA]. Variar: urgencia, curiosidad, personalización, beneficio, pregunta. Indica cuál para cada objetivo (apertura/CTR).",
+    "category": "marketing",
+    "subcategory": "email",
+    "sector": "general",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "email",
+      "ab-test"
+    ],
+    "use_case": "Optimizar aperturas",
+    "id": 26,
+    "example_output": ""
+  },
+  {
+    "title": "Hook TikTok/Reels",
+    "prompt": "Escribe hook primeros 3 segundos para Reel/TikTok sobre [TEMA] sector [INDUSTRIA]. Pattern ganador: problema específico + promesa. Provoca 'espera, qué?' Máximo 15 palabras.",
+    "category": "marketing",
+    "subcategory": "social_media",
+    "sector": "general",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "tiktok",
+      "reels",
+      "hook"
+    ],
+    "use_case": "Detener scroll",
+    "id": 27,
+    "example_output": ""
+  },
+  {
+    "title": "Buyer persona detallado",
+    "prompt": "Crea buyer persona para [PRODUCTO/SERVICIO]. Incluye: demografía, psicografía, pain points (3), goals (3), objeciones compra (3), donde consume info, quote típico. Nombre ficticio + foto descripción.",
+    "category": "marketing",
+    "subcategory": "estrategia",
+    "sector": "general",
+    "llm": "Gemini",
+    "difficulty": "intermedio",
+    "tags": [
+      "persona",
+      "estrategia"
+    ],
+    "use_case": "Targeting preciso",
+    "id": 28,
+    "example_output": ""
+  },
+  {
+    "title": "Headline landing page",
+    "prompt": "Escribe headline para landing page [PRODUCTO]. Fórmula: [Beneficio específico] para [audiencia específica] sin [objeción principal]. Incluye 5 variantes. Indica cuál testear primero.",
+    "category": "marketing",
+    "subcategory": "copywriting",
+    "sector": "saas",
+    "llm": "ChatGPT",
+    "difficulty": "avanzado",
+    "tags": [
+      "landing",
+      "headline",
+      "conversión"
+    ],
+    "use_case": "Aumentar conversión",
+    "id": 29,
+    "example_output": ""
+  },
+  {
+    "title": "Plan contenido mensual",
+    "prompt": "Crea calendario contenido mes [MES] para [MARCA] sector [INDUSTRIA]. 4 semanas × 3 posts/semana. Mix: educativo 40%, entretenimiento 30%, venta 20%, UGC 10%. Incluye temas + formato + CTA.",
+    "category": "marketing",
+    "subcategory": "contenido",
+    "sector": "general",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "calendario",
+      "contenido",
+      "planificación"
+    ],
+    "use_case": "Consistencia contenido",
+    "id": 30,
+    "example_output": ""
+  },
+  {
+    "title": "Propuesta comercial ejecutiva",
+    "prompt": "Estructura propuesta comercial [SERVICIO] para [CLIENTE TIPO]. Secciones: situación actual, objetivo, solución propuesta, metodología, entregables, timeline, inversión, próximos pasos. Formato ejecutivo 3-4 páginas.",
+    "category": "servicios",
+    "subcategory": "propuestas",
+    "sector": "consultoria",
+    "llm": "ChatGPT",
+    "difficulty": "avanzado",
+    "tags": [
+      "propuesta",
+      "comercial",
+      "ventas"
+    ],
+    "use_case": "Cerrar contratos",
+    "id": 31,
+    "example_output": ""
+  },
+  {
+    "title": "Dashboard KPIs ejecutivo",
+    "prompt": "Define KPIs dashboard ejecutivo para [DEPARTAMENTO/EMPRESA]. Categorías: financieros, operacionales, clientes, empleados. Por KPI: métrica, cálculo, frecuencia, target, semáforo. Máximo 12 KPIs.",
+    "category": "servicios",
+    "subcategory": "analisis",
+    "sector": "consultoria",
+    "llm": "Gemini",
+    "difficulty": "avanzado",
+    "tags": [
+      "kpis",
+      "dashboard",
+      "métricas"
+    ],
+    "use_case": "Decisiones informadas",
+    "id": 32,
+    "example_output": ""
+  },
+  {
+    "title": "Minuta reunión estructurada",
+    "prompt": "Template minuta reunión profesional. Secciones: asistentes, agenda, decisiones tomadas, action items (responsable + deadline), temas pendientes, fecha próxima reunión. Formato: tabla + bullet points.",
+    "category": "servicios",
+    "subcategory": "documentacion",
+    "sector": "general",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "reuniones",
+      "minuta",
+      "documentación"
+    ],
+    "use_case": "Seguimiento compromisos",
+    "id": 33,
+    "example_output": ""
+  },
+  {
+    "title": "SWOT análisis completo",
+    "prompt": "Realiza análisis SWOT para [EMPRESA/PROYECTO]. 4 cuadrantes: Fortalezas (internas positivas), Debilidades (internas negativas), Oportunidades (externas positivas), Amenazas (externas negativas). 5 puntos por cuadrante con evidencia.",
+    "category": "servicios",
+    "subcategory": "analisis",
+    "sector": "consultoria",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "swot",
+      "estrategia",
+      "análisis"
+    ],
+    "use_case": "Planificación estratégica",
+    "id": 34,
+    "example_output": ""
+  },
+  {
+    "title": "Onboarding checklist empleado",
+    "prompt": "Checklist onboarding nuevo empleado [ROL] en [EMPRESA]. Día 1, Semana 1, Mes 1. Incluye: documentación, herramientas, formaciones, reuniones clave, objetivos 30-60-90 días. Responsable por item.",
+    "category": "servicios",
+    "subcategory": "rrhh",
+    "sector": "general",
+    "llm": "ChatGPT",
+    "difficulty": "intermedio",
+    "tags": [
+      "onboarding",
+      "rrhh",
+      "checklist"
+    ],
+    "use_case": "Integración efectiva",
+    "id": 35,
+    "example_output": ""
+  },
+  {
+    "title": "Términos y condiciones web",
+    "prompt": "Genera términos y condiciones para sitio web [TIPO: ecommerce/blog/saas]. Incluye: usuario, propiedad intelectual, limitaciones responsabilidad, privacidad (referencia), jurisdicción España. Lenguaje claro, placeholders marcados.",
+    "category": "legal",
+    "subcategory": "documentos",
+    "sector": "general",
+    "llm": "Claude",
+    "difficulty": "avanzado",
+    "tags": [
+      "términos",
+      "web",
+      "legal"
+    ],
+    "use_case": "Compliance web",
+    "id": 36,
+    "example_output": ""
+  },
+  {
+    "title": "Política privacidad RGPD",
+    "prompt": "Redacta política privacidad RGPD para [EMPRESA] sector [INDUSTRIA]. Datos tratados: [LISTAR]. Incluye: responsable, finalidad, base legal, destinatarios, derechos usuario, DPO (si aplica), cookies. Lenguaje accesible.",
+    "category": "legal",
+    "subcategory": "compliance",
+    "sector": "general",
+    "llm": "Gemini",
+    "difficulty": "avanzado",
+    "tags": [
+      "rgpd",
+      "privacidad",
+      "cookies"
+    ],
+    "use_case": "Cumplimiento normativa",
+    "id": 37,
+    "example_output": ""
+  },
+  {
+    "title": "Carta cese relación laboral",
+    "prompt": "Redacta carta cese relación laboral [CAUSA: mutuo acuerdo/fin contrato/despido objetivo]. Datos: trabajador, empresa, fecha inicio, fecha fin, liquidación. Tono: profesional, neutro. Incluye elementos legales mínimos España.",
+    "category": "legal",
+    "subcategory": "laboral",
+    "sector": "asesoria",
+    "llm": "ChatGPT",
+    "difficulty": "intermedio",
+    "tags": [
+      "laboral",
+      "cese",
+      "contrato"
+    ],
+    "use_case": "Finiquitos correctos",
+    "id": 38,
+    "example_output": ""
+  },
+  {
+    "title": "NDA (acuerdo confidencialidad)",
+    "prompt": "Plantilla NDA bilateral para [CONTEXTO: alianza/proveedor/empleado]. Define información confidencial, excepciones, duración (típico 2-5 años), consecuencias incumplimiento, jurisdicción. Equilibrado ambas partes.",
+    "category": "legal",
+    "subcategory": "contratos",
+    "sector": "legal",
+    "llm": "Claude",
+    "difficulty": "avanzado",
+    "tags": [
+      "nda",
+      "confidencialidad",
+      "contrato"
+    ],
+    "use_case": "Proteger información",
+    "id": 39,
+    "example_output": ""
+  },
+  {
+    "title": "Advertencia legal email/footer",
+    "prompt": "Redacta disclaimer/advertencia legal para footer emails corporativos [SECTOR]. Incluye: confidencialidad, uso destinatario, no-responsabilidad transmisión, protección datos, sostenibilidad (opcional). Conciso 3-4 líneas.",
+    "category": "legal",
+    "subcategory": "documentos",
+    "sector": "general",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "disclaimer",
+      "email",
+      "legal"
+    ],
+    "use_case": "Cobertura legal",
+    "id": 40,
+    "example_output": ""
+  },
+  {
+    "title": "FAQ producto anticipando objeciones",
+    "prompt": "Crea FAQ para [PRODUCTO] anticipando objeciones venta. 8-10 preguntas: funcionamiento, garantía, envío, devoluciones, comparación competencia, para quién NO es, casos uso. Respuestas honestas, confianza.",
+    "category": "retail",
+    "subcategory": "contenido",
+    "sector": "ecommerce",
+    "llm": "ChatGPT",
+    "difficulty": "intermedio",
+    "tags": [
+      "faq",
+      "objeciones",
+      "conversión"
+    ],
+    "use_case": "Despejar dudas pre-venta",
+    "id": 41,
+    "example_output": ""
+  },
+  {
+    "title": "Email reactivación cliente inactivo",
+    "prompt": "Email reactivación para cliente sin compra [DÍAS] días. Tono: 'te echamos de menos' genuino (no desesperado). Incluye: novedad/mejora desde última visita, incentivo exclusivo (10-15%), CTA simple. Opcional: feedback request.",
+    "category": "retail",
+    "subcategory": "email",
+    "sector": "ecommerce",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "reactivación",
+      "retención",
+      "lapsed"
+    ],
+    "use_case": "Recuperar clientes perdidos",
+    "id": 42,
+    "example_output": ""
+  },
+  {
+    "title": "Bundle productos estratégico",
+    "prompt": "Propón 3 bundles para incrementar ticket medio tienda [TIPO]. Criterio: producto principal + complementario natural. Precio bundle: 15-20% descuento vs separado. Nombra bundle (no 'bundle 1'), beneficio claro.",
+    "category": "retail",
+    "subcategory": "estrategia",
+    "sector": "ecommerce",
+    "llm": "Gemini",
+    "difficulty": "intermedio",
+    "tags": [
+      "bundle",
+      "ticket medio",
+      "upsell"
+    ],
+    "use_case": "Aumentar valor pedido",
+    "id": 43,
+    "example_output": ""
+  },
+  {
+    "title": "Copy producto aspiracional vs funcional",
+    "prompt": "Escribe 2 versiones copy para [PRODUCTO]. Versión A: aspiracional (estilo vida, identidad, emoción). Versión B: funcional (specs, problema-solución, racional). Mismo producto, 2 audiencias. 150 palabras cada.",
+    "category": "retail",
+    "subcategory": "copywriting",
+    "sector": "retail",
+    "llm": "Claude",
+    "difficulty": "avanzado",
+    "tags": [
+      "copywriting",
+      "psicología",
+      "persuasión"
+    ],
+    "use_case": "A/B testing copy",
+    "id": 44,
+    "example_output": ""
+  },
+  {
+    "title": "Política devoluciones clara",
+    "prompt": "Redacta política devoluciones [TIPO PRODUCTO] tienda [NOMBRE]. Plazo (14-30 días), condiciones (sin usar, embalaje original), proceso (solicitud, envío, reembolso), quién paga envío, exclusiones. Lenguaje accesible, confianza.",
+    "category": "retail",
+    "subcategory": "politicas",
+    "sector": "ecommerce",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "devoluciones",
+      "políticas",
+      "confianza"
+    ],
+    "use_case": "Reducir fricción compra",
+    "id": 45,
+    "example_output": ""
+  },
+  {
+    "title": "Carta vinos narrativa",
+    "prompt": "Describe vino [NOMBRE] en carta restaurante [ESTILO]. Incluye: origen (región), uvas, notas cata (aroma, sabor), cuerpo, maridaje ideal. Lenguaje evocativo no-snob. Ayuda elegir sin intimidar. 60-80 palabras.",
+    "category": "hosteleria",
+    "subcategory": "menus",
+    "sector": "restaurante",
+    "llm": "Claude",
+    "difficulty": "intermedio",
+    "tags": [
+      "vinos",
+      "carta",
+      "maridaje"
+    ],
+    "use_case": "Vender vinos premium",
+    "id": 46,
+    "example_output": ""
+  },
+  {
+    "title": "Menú especial San Valentín",
+    "prompt": "Diseña menú especial San Valentín [TIPO RESTAURANTE]. 3 platos + postre. Romántico sin cursi. Ingredientes compartibles (ej: fondue). Nombres sugerentes. Precio/persona. Bebidas recomendadas. Alergenos marcados.",
+    "category": "hosteleria",
+    "subcategory": "menus",
+    "sector": "restaurante",
+    "llm": "ChatGPT",
+    "difficulty": "intermedio",
+    "tags": [
+      "menú",
+      "evento",
+      "especial"
+    ],
+    "use_case": "Eventos rentables",
+    "id": 47,
+    "example_output": ""
+  },
+  {
+    "title": "Post local Google My Business",
+    "prompt": "Post Google My Business promocionando [NOVEDAD: plato nuevo/evento/oferta]. Hook primera línea. Beneficio claro. CTA (reserva/visita). Foto descripción. Hashtags local. Incluye call-now button si aplica. 100-150 palabras.",
+    "category": "hosteleria",
+    "subcategory": "marketing",
+    "sector": "hosteleria",
+    "llm": "ChatGPT",
+    "difficulty": "basico",
+    "tags": [
+      "google",
+      "local seo",
+      "marketing"
+    ],
+    "use_case": "Visibilidad local",
+    "id": 48,
+    "example_output": ""
+  },
+  {
+    "title": "Email recordatorio reserva",
+    "prompt": "Email recordatorio reserva enviado [HORAS] horas antes. Incluye: saludo personal, confirmación (fecha, hora, personas, mesa si especial), políticas no-show, link modificar, mapa/parking, contacto dudas. Tono cálido-profesional.",
+    "category": "hosteleria",
+    "subcategory": "reservas",
+    "sector": "restaurante",
+    "llm": "Claude",
+    "difficulty": "basico",
+    "tags": [
+      "recordatorio",
+      "reservas",
+      "no-show"
+    ],
+    "use_case": "Reducir ausencias",
+    "id": 49,
+    "example_output": ""
+  },
+  {
+    "title": "Respuesta queja food delivery",
+    "prompt": "Responde queja cliente delivery [PROBLEMA: frío/falta producto/retraso]. Tono: disculpa genuina, responsabilidad (no culpar rider), solución inmediata (reenvío/reembolso), compensación futura. Personalizado, empático. 80-100 palabras.",
+    "category": "hosteleria",
+    "subcategory": "atencion_cliente",
+    "sector": "restaurante",
+    "llm": "ChatGPT",
+    "difficulty": "intermedio",
+    "tags": [
+      "delivery",
+      "quejas",
+      "reputación"
+    ],
+    "use_case": "Recuperar confianza",
+    "id": 50,
+    "example_output": ""
+  }
+]
