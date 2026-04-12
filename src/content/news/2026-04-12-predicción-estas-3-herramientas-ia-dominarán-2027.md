@@ -2,7 +2,7 @@
 title: "Predicción: Estas 3 Herramientas IA Dominarán 2027"
 description: "Olvídate de ChatGPT como lo conoces. En 2027, tres herramientas completamente diferentes van a cambiar cómo trabajas. Y no son las que crees...."
 date: 2026-04-12
-category: "News"
+category: "otros"
 tags: ["predicciones", "tendencias ia", "2027"]
 image: "/images/default-cover.jpg"
 quality_score: 8.0
