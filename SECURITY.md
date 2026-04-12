@@ -73,16 +73,25 @@ Before committing:
 Check for leaked secrets:
 ```bash
 # From project root
-grep -r "AIza\|sk-\|ghp_\|api[_-]key.*=.*['\"]" . \
+grep -r "AIza\|sk-\|sk-or-v1-\|ghp_\|api[_-]key.*=.*['\"]" . \
   --exclude-dir=node_modules \
   --exclude-dir=venv \
   --exclude-dir=.git \
   --include="*.py" \
   --include="*.js" \
-  --include="*.ts"
+  --include="*.ts" \
+  --include="*.yaml" \
+  --include="*.yml"
 ```
 
 Should return ZERO results (or only `.env.example` with placeholders).
+
+**Common key patterns to watch:**
+- Gemini: `AIza...`
+- OpenAI: `sk-...`
+- OpenRouter: `sk-or-v1-...`
+- GitHub: `ghp_...`
+- Anthropic: `sk-ant-...`
 
 ## 🚑 If You Already Leaked
 

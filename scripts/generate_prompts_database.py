@@ -11,7 +11,13 @@ import time
 from pathlib import Path
 
 # Configuration
-OPENROUTER_API_KEY = "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"
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+if not OPENROUTER_API_KEY:
+    print("❌ Error: OPENROUTER_API_KEY not found in environment")
+    print("   Set it with: export OPENROUTER_API_KEY='your_key_here'")
+    print("   Or add to .env file in project root")
+    sys.exit(1)
+
 MODEL = "anthropic/claude-sonnet-4"
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
