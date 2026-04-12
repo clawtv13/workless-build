@@ -25,11 +25,11 @@ const difficulties = ['principiante', 'intermedio', 'avanzado'];
       
       <!-- Category Filter -->
       <div class="flex flex-wrap gap-3 mb-12">
-        <button class="px-4 py-2 rounded-lg bg-primary text-dark font-medium">
+        <button class="px-4 py-2 rounded-lg bg-primary text-dark font-medium hover:bg-primary/90 transition-colors">
           Todas
         </button>
         {difficulties.map(diff => (
-          <button class="px-4 py-2 rounded-lg bg-dark border border-gray-700 hover:border-primary transition-colors capitalize">
+          <button class="px-4 py-2 rounded-lg bg-secondary/50 text-white border border-gray-700 hover:border-primary hover:bg-secondary transition-colors capitalize">
             {diff}
           </button>
         ))}

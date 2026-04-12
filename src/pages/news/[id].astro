@@ -49,6 +49,15 @@ const { Content } = await render(post);
             {post.data.description}
           </p>
         )}
+        
+        {/* Hero Image */}
+        {post.data.image && (
+          <img 
+            src={post.data.image} 
+            alt={post.data.title}
+            class="w-full rounded-lg mt-6 shadow-sm"
+          />
+        )}
       </header>
       
       <!-- Article Content -->

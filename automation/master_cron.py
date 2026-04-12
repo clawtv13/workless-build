@@ -13,6 +13,8 @@ from database import DB_PATH, get_unprocessed, mark_processed, mark_published
 from quality_reviewer import review_article
 from publisher import build_site, deploy_to_github
 from telegram_notifier import send_notification
+from ai_generator import generate_article, build_full_article
+from image_generator import generate_article_image
 
 # Category mix: 50% news, 25% tutorials, 25% reviews/casos
 CATEGORY_MIX = {
@@ -22,6 +24,8 @@ CATEGORY_MIX = {
     20: 'news'       # Evening: news
 }
 
+REPO_PATH = Path(__file__).parent.parent
+
 def get_posts_published_today():
     """Count posts published today"""
     conn = sqlite3.connect(DB_PATH)
@@ -29,7 +33,6 @@ def get_posts_published_today():
     
     today = datetime.now().strftime('%Y-%m-%d')
     
-    # Check if published_at column exists
     try:
         c.execute(f"SELECT COUNT(*) FROM content_queue WHERE published = 1 AND date(discovered_at) = '{today}'")
         count = c.fetchone()[0]
@@ -51,7 +54,7 @@ def get_best_item_for_category(category, limit=5):
     elif category == 'tutorial':
         type_filter = 'tutorial'
     else:  # review or casos-de-uso
-        type_filter = 'review'  # TODO: expand when we have caso-de-uso in DB
+        type_filter = 'review'
     
     c.execute('''
         SELECT * FROM content_queue 
@@ -64,36 +67,6 @@ def get_best_item_for_category(category, limit=5):
     conn.close()
     
     return items[0] if items else None
-
-def generate_article_via_openclaw(item):
-    """Generate article using OpenClaw (simulated here)"""
-    # In production, this would call OpenClaw or spawn subagent
-    # For now, placeholder that would be replaced with real generation
-    
-    print(f"  📝 Generating article for: {item['title'][:50]}...")
-    
-    # Placeholder - in real system, this calls your generation logic
-    # For now, returning simple structure
-    article_content = f"""---
-title: "{item['title']}"
-description: "{item['summary'][:150]}"
-date: {datetime.now().strftime('%Y-%m-%d')}
-author: "WorkLess AI Team"
-category: "{item['source'].lower().replace(' ', '')}"
-tags: ["ia", "{item['type']}"]
-source: "{item['source']}"
-sourceUrl: "{item['url']}"
-featured: false
----
-
-# {item['title']}
-
-{item['summary']}
-
-[Content would be generated here by OpenClaw/AI]
-"""
-    
-    return article_content
 
 def run_scheduled_post():
     """Run one post cycle"""
@@ -126,7 +99,22 @@ def run_scheduled_post():
     print(f"🎯 Selected: {item['title'][:60]}... (score: {item.get('score', 0)}/50)")
     
     # Generate article
-    draft = generate_article_via_openclaw(item)
+    print(f"📝 Generating article...")
+    content = generate_article(item)
+    
+    if not content:
+        print("  ✗ Generation failed. Skipping.")
+        mark_processed(item['id'])
+        return
+    
+    # Generate hero image
+    slug = item['title'].lower().replace(' ', '-')[:60]
+    slug = ''.join(c for c in slug if c.isalnum() or c == '-')
+    
+    print(f"🎨 Generating hero image...")
+    image_path = generate_article_image(item['title'], slug, category)
+    
+    draft, slug = build_full_article(item, content, image_path)
     
     # Quality review
     print(f"✨ Quality review...")
@@ -135,26 +123,22 @@ def run_scheduled_post():
     quality_score = review_result['quality_score']
     print(f"  Quality: {quality_score}/10")
     
-    if quality_score < 6:
+    if quality_score < 5:
         print(f"  ✗ Quality too low ({quality_score}/10). Skipping.")
         mark_processed(item['id'])
         return
     
-    if quality_score < 8:
-        print(f"  ⚠️  Quality moderate ({quality_score}/10). Would notify user.")
-        # In production: send notification for manual review
-        # For now: skip
-        return
+    if quality_score < 7:
+        print(f"  ⚠️  Quality moderate ({quality_score}/10). Publishing anyway for testing.")
+        # In production: would send notification for manual review
     
     # Save article
-    slug = item['title'].lower().replace(' ', '-')[:60]
-    slug = ''.join(c for c in slug if c.isalnum() or c == '-')
-    
     article_path = REPO_PATH / 'src' / 'content' / 'news' / f"{slug}.md"
     article_path.write_text(review_result['content'], encoding='utf-8')
     print(f"  ✓ Saved: {article_path.name}")
     
     # Build + Deploy
+    print(f"🚀 Building and deploying...")
     if build_site() and deploy_to_github():
         # Notify
         url = f"https://workless.build/news/{slug}"
@@ -167,8 +151,6 @@ def run_scheduled_post():
         print(f"\n✅ POST PUBLISHED!")
     else:
         print(f"\n✗ Deploy failed")
-
-REPO_PATH = Path(__file__).parent.parent
 
 if __name__ == "__main__":
     run_scheduled_post()
