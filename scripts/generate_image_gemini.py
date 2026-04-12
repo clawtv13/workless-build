@@ -10,7 +10,7 @@ import google.generativeai as genai
 from PIL import Image
 import io
 
-GEMINI_API_KEY = "AIzaSyD6m56ySGiImUIMHDo-O1QYNrN8YwbDEvM"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 def generate_image(prompt, output_path, aspect_ratio="16:9"):
     """

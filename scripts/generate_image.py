@@ -9,7 +9,7 @@ import os
 import requests
 import json
 
-GEMINI_API_KEY = "AIzaSyD6m56ySGiImUIMHDo-O1QYNrN8YwbDEvM"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # Gemini models for image generation (2026)
 MODELS = {
