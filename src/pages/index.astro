@@ -3,202 +3,640 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
-import Card from '../components/Card.astro';
 import Newsletter from '../components/Newsletter.astro';
 
+// Get actual PILAR content
 const allNews = await getCollection('news');
-const sortedNews = allNews.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const featuredPosts = sortedNews.slice(0, 3).map(post => ({
-  title: post.data.title,
-  excerpt: post.data.description,
-  href: `/news/${post.id}`,
-  date: post.data.date.toLocaleDateString('es-ES'),
-  category: "Noticias",
-  image: post.data.image
-}));
 
-const categories = [
-  { 
-    title: "Noticias", 
-    icon: "📰", 
-    description: "Últimas actualizaciones del mundo IA",
-    href: "/news",
-    color: "from-blue-500 to-cyan-500"
+// Featured PILARs - These are the actual 3 long-form pieces
+const featuredPilars = [
+  {
+    title: "Guía Definitiva IA España 2026",
+    wordCount: "13.8K",
+    description: "Todo lo que necesitas saber sobre IA en España. Regulación, herramientas, casos reales.",
+    href: "/news/guia-definitiva-ia-espana-2026",
+    image: "/images/pilars/guia-ia-espana.jpg"
   },
-  { 
-    title: "Tutoriales", 
-    icon: "📚", 
-    description: "Guías paso a paso para dominar IA",
-    href: "/tutoriales",
-    color: "from-purple-500 to-pink-500"
+  {
+    title: "Benchmark LLMs Español 2026",
+    wordCount: "7.2K",
+    description: "15 modelos probados en español. Data real, no marketing. Descubre cuál es mejor para tu caso.",
+    href: "/news/benchmark-llms-espanol-2026",
+    image: "/images/pilars/benchmark-llms.jpg"
   },
-  { 
-    title: "Herramientas", 
-    icon: "⚙️", 
-    description: "Reviews de las mejores tools IA",
-    href: "/herramientas",
-    color: "from-orange-500 to-red-500"
-  },
-  { 
-    title: "Casos de Uso", 
-    icon: "💼", 
-    description: "Implementaciones reales exitosas",
-    href: "/casos-de-uso",
-    color: "from-green-500 to-emerald-500"
-  },
+  {
+    title: "ROI Real IA: 30 Casos PyMEs",
+    wordCount: "13.4K",
+    description: "Implementaciones reales con números verificados. Qué funciona, qué no, y cuánto cuesta.",
+    href: "/news/roi-real-ia-pymes-espanolas-30-casos",
+    image: "/images/pilars/roi-pymes.jpg"
+  }
 ];
 ---
 
-<BaseLayout title="Inicio" description="La fuente definitiva de IA en español">
+<BaseLayout title="WorkLess - IA en Español con Data Real" description="34,446 palabras de análisis original · 25 tools comparadas · 30 casos ROI documentados. Sin fluff, solo lo que funciona.">
   <Navigation />
   
-  <!-- Hero -->
-  <section id="main-content" class="py-16 md:py-40 relative overflow-hidden">
-    <!-- Subtle background pattern -->
-    <div class="absolute inset-0 bg-gradient-to-b from-surface-variant/20 to-transparent pointer-events-none"></div>
+  <!-- HERO SECTION - Above Fold Conversion Priority -->
+  <section id="main-content" class="py-12 md:py-24 lg:py-32 relative overflow-hidden bg-gradient-to-b from-surface to-background">
+    <div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none"></div>
     
     <div class="container relative">
-      <div class="max-w-5xl mx-auto text-center">
-        <!-- Main headline - mobile-optimized sizing -->
-        <h1 class="text-4xl md:text-6xl lg:text-8xl font-heading font-bold mb-6 md:mb-8 leading-[1.15] tracking-tight">
-          <span class="block text-primary">LA Fuente Definitiva de</span>
-          <span class="block text-accent mt-1 md:mt-2">Inteligencia Artificial</span>
-          <span class="block text-primary mt-1 md:mt-2">en Español</span>
-        </h1>
-        
-        <!-- Authority subheadline -->
-        <p class="text-lg md:text-2xl lg:text-3xl font-semibold text-text-primary mb-8 md:mb-12 leading-relaxed px-4">
-          Research original · Guías profundas · Recursos exclusivos
-        </p>
-        
-        <!-- Trust signals grid -->
-        <div class="max-w-4xl mx-auto mb-8 md:mb-12 bg-surface/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 lg:p-10 shadow-2xl border border-border/50">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-left">
-            <div class="flex items-start gap-3 md:gap-4">
-              <div class="text-accent text-xl md:text-2xl flex-shrink-0 mt-0.5">✓</div>
-              <div>
-                <div class="font-semibold text-base md:text-lg text-primary">30,000+ palabras de research verificado</div>
-                <div class="text-text-secondary text-sm mt-0.5 md:mt-1">Análisis profundos y documentados</div>
-              </div>
-            </div>
-            
-            <div class="flex items-start gap-3 md:gap-4">
-              <div class="text-accent text-xl md:text-2xl flex-shrink-0 mt-0.5">✓</div>
-              <div>
-                <div class="font-semibold text-base md:text-lg text-primary">Benchmarks originales de 15+ LLMs</div>
-                <div class="text-text-secondary text-sm mt-0.5 md:mt-1">Probados específicamente en español</div>
-              </div>
-            </div>
-            
-            <div class="flex items-start gap-3 md:gap-4">
-              <div class="text-accent text-xl md:text-2xl flex-shrink-0 mt-0.5">✓</div>
-              <div>
-                <div class="font-semibold text-base md:text-lg text-primary">500+ prompts curados por expertos</div>
-                <div class="text-text-secondary text-sm mt-0.5 md:mt-1">Listos para usar en tu negocio</div>
-              </div>
-            </div>
-            
-            <div class="flex items-start gap-3 md:gap-4">
-              <div class="text-accent text-xl md:text-2xl flex-shrink-0 mt-0.5">✓</div>
-              <div>
-                <div class="font-semibold text-base md:text-lg text-primary">Casos de estudio reales de PyMEs españolas</div>
-                <div class="text-text-secondary text-sm mt-0.5 md:mt-1">Implementaciones verificadas y medibles</div>
-              </div>
-            </div>
-          </div>
+      <div class="max-w-5xl mx-auto">
+        <!-- Main Headline -->
+        <div class="text-center mb-8 md:mb-10">
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-4 md:mb-6 leading-[1.1] tracking-tight">
+            <span class="block text-primary">Inteligencia Artificial en Español.</span>
+            <span class="block text-accent mt-2 md:mt-3">Con Data Real.</span>
+          </h1>
+          
+          <!-- Subheadline with stats -->
+          <p class="text-base md:text-xl lg:text-2xl text-text-secondary leading-relaxed max-w-4xl mx-auto px-4">
+            <span class="font-semibold text-primary">34,446 palabras de análisis original</span> · 
+            <span class="font-semibold text-primary">25 tools comparadas</span> · 
+            <span class="font-semibold text-primary">30 casos ROI documentados</span>
+            <span class="block mt-2 text-sm md:text-base text-text-tertiary">
+              Actualizado 2026 · Sin fluff · Solo lo que funciona
+            </span>
+          </p>
         </div>
         
-        <!-- CTA buttons - primary and secondary -->
-        <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-stretch sm:items-center px-4">
-          <a href="#featured" class="btn btn-accent text-base md:text-lg px-6 md:px-8 py-3 md:py-4 font-semibold shadow-xl hover:shadow-2xl transition-all text-center">
-            Accede a Recursos Exclusivos
-          </a>
-          <a href="/news" class="btn btn-secondary text-base md:text-lg px-6 md:px-8 py-3 md:py-4 font-semibold text-center">
-            Ver Research Original
-          </a>
-        </div>
-        
-        <!-- Social proof indicator -->
-        <p class="text-text-secondary mt-8 text-sm">
-          Confiado por más de 50,000 profesionales cada mes
-        </p>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Featured Posts -->
-  <section id="featured" class="py-16 bg-surface" aria-labelledby="featured-heading">
-    <div class="container">
-      <h2 id="featured-heading" class="text-3xl md:text-4xl font-heading font-semibold mb-12 text-primary">
-        Destacados
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
-        {featuredPosts.map(post => (
-          <div role="listitem">
-            <Card {...post} />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-  
-  <!-- Categories -->
-  <section class="py-16 bg-surface-variant/30" aria-labelledby="categories-heading">
-    <div class="container">
-      <h2 id="categories-heading" class="text-3xl md:text-4xl font-heading font-semibold mb-12 text-center text-primary">
-        Explora por Categoría
-      </h2>
-      <nav class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" aria-label="Categorías de contenido">
-        {categories.map(cat => (
-          <a 
-            href={cat.href}
-            class="group card hover:scale-[1.02] transition-all duration-200"
-          >
-            <div class="w-16 h-16 rounded-xl bg-accent/10 flex items-center justify-center mb-4 text-3xl group-hover:bg-accent/20 transition-colors">
-              {cat.icon}
+        <!-- Newsletter INLINE - First Capture Opportunity -->
+        <div class="max-w-2xl mx-auto mb-8 md:mb-10 bg-surface/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl border-2 border-accent/30">
+          <div class="text-center mb-5">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent/20 mb-3">
+              <span class="text-2xl">📬</span>
             </div>
-            <h3 class="text-xl font-heading font-semibold mb-2 group-hover:text-accent transition-colors">
-              {cat.title}
-            </h3>
-            <p class="text-text-secondary text-sm">
-              {cat.description}
+            <p class="text-base md:text-lg text-text-primary font-medium">
+              Análisis semanal + recursos exclusivos. Únete a 10,000+ profesionales.
             </p>
+          </div>
+          
+          <form class="newsletter-form-hero flex flex-col sm:flex-row gap-3" aria-label="Suscripción newsletter">
+            <label for="hero-email" class="sr-only">Correo electrónico</label>
+            <input 
+              id="hero-email"
+              type="email" 
+              name="email"
+              placeholder="tu@email.com" 
+              required
+              aria-required="true"
+              autocomplete="email"
+              class="flex-1 px-5 py-4 rounded-lg bg-surface text-text-primary border-2 border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all text-base md:text-lg"
+            />
+            <button 
+              type="submit" 
+              class="btn btn-accent text-base md:text-lg px-8 py-4 whitespace-nowrap font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]" 
+              aria-label="Acceder gratis"
+            >
+              Acceder Gratis
+            </button>
+          </form>
+          <p class="text-xs md:text-sm text-text-tertiary text-center mt-3">
+            Sin spam · Cancela cuando quieras
+          </p>
+        </div>
+        
+        <!-- CTA Secundario -->
+        <div class="text-center">
+          <a href="#pilars" class="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold text-base md:text-lg transition-colors group">
+            Ver PILARs
+            <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
           </a>
-        ))}
-      </nav>
+        </div>
+      </div>
     </div>
   </section>
   
-  <!-- Newsletter -->
-  <Newsletter 
-    variant="default" 
-    headline="No te pierdas nada" 
-    description="Noticias de IA semanales + recursos exclusivos directamente en tu bandeja" 
-  />
-  
-  <!-- Stats -->
-  <section class="py-16">
+  <!-- STATS ROW - Trust Signals Visual -->
+  <section class="py-12 md:py-16 bg-surface-variant/30">
     <div class="container">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div class="text-center">
-          <div class="text-4xl font-display font-bold text-primary mb-2">500+</div>
-          <div class="text-gray-400">Artículos</div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
+        <div class="text-center p-6 bg-surface rounded-xl border border-border hover:border-accent/50 transition-colors">
+          <div class="text-4xl md:text-5xl mb-3">📊</div>
+          <div class="text-2xl md:text-3xl font-bold text-primary mb-1">3 PILARs</div>
+          <div class="text-sm text-text-secondary">34K palabras análisis</div>
         </div>
-        <div class="text-center">
-          <div class="text-4xl font-display font-bold text-secondary mb-2">50K+</div>
-          <div class="text-gray-400">Lectores/mes</div>
+        
+        <div class="text-center p-6 bg-surface rounded-xl border border-border hover:border-accent/50 transition-colors">
+          <div class="text-4xl md:text-5xl mb-3">🛠️</div>
+          <div class="text-2xl md:text-3xl font-bold text-primary mb-1">25 Tools</div>
+          <div class="text-sm text-text-secondary">Comparadas en profundidad</div>
         </div>
-        <div class="text-center">
-          <div class="text-4xl font-display font-bold text-accent mb-2">3-5</div>
-          <div class="text-gray-400">Posts/día</div>
+        
+        <div class="text-center p-6 bg-surface rounded-xl border border-border hover:border-accent/50 transition-colors">
+          <div class="text-4xl md:text-5xl mb-3">💬</div>
+          <div class="text-2xl md:text-3xl font-bold text-primary mb-1">160 Prompts</div>
+          <div class="text-sm text-text-secondary">Curados y testeados</div>
         </div>
-        <div class="text-center">
-          <div class="text-4xl font-display font-bold text-primary mb-2">100%</div>
-          <div class="text-gray-400">Gratis</div>
+        
+        <div class="text-center p-6 bg-surface rounded-xl border border-border hover:border-accent/50 transition-colors">
+          <div class="text-4xl md:text-5xl mb-3">💰</div>
+          <div class="text-2xl md:text-3xl font-bold text-primary mb-1">30 Casos ROI</div>
+          <div class="text-sm text-text-secondary">PyMEs españolas reales</div>
         </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FEATURED PILARS - Best Content, Not Latest -->
+  <section id="pilars" class="py-16 md:py-20 bg-background scroll-mt-20">
+    <div class="container">
+      <div class="text-center mb-12 md:mb-16">
+        <h2 class="text-3xl md:text-5xl font-heading font-bold mb-4 text-primary">
+          Análisis Definitivos
+        </h2>
+        <p class="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto">
+          Investigación original que no encontrarás en ningún otro sitio
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        {featuredPilars.map(pilar => (
+          <article class="group bg-surface rounded-2xl overflow-hidden border border-border hover:border-accent/50 transition-all hover:shadow-2xl hover:scale-[1.02]">
+            <div class="aspect-video bg-gradient-to-br from-primary/20 to-accent/20 relative overflow-hidden">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-6xl opacity-30">📄</div>
+              </div>
+              <div class="absolute top-4 right-4 bg-accent/90 text-accent-fg px-3 py-1 rounded-full text-sm font-bold">
+                {pilar.wordCount} palabras
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <h3 class="text-xl md:text-2xl font-heading font-bold mb-3 text-primary group-hover:text-accent transition-colors">
+                {pilar.title}
+              </h3>
+              <p class="text-text-secondary mb-4 leading-relaxed">
+                {pilar.description}
+              </p>
+              <a 
+                href={pilar.href} 
+                class="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold transition-colors group/link"
+              >
+                Leer Análisis
+                <svg class="w-5 h-5 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- RECURSOS INTERACTIVOS - Engagement + Pageviews -->
+  <section class="py-16 md:py-20 bg-surface-variant/30">
+    <div class="container">
+      <div class="text-center mb-12 md:mb-16">
+        <h2 class="text-3xl md:text-5xl font-heading font-bold mb-4 text-primary">
+          Herramientas Gratuitas
+        </h2>
+        <p class="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto">
+          Recursos interactivos para implementar IA hoy mismo
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="bg-surface rounded-2xl p-8 border border-border hover:border-accent/50 transition-all hover:shadow-xl group">
+          <div class="text-5xl mb-4">💬</div>
+          <h3 class="text-xl md:text-2xl font-heading font-bold mb-3 text-primary">
+            Base Datos Prompts
+          </h3>
+          <p class="text-text-secondary mb-6">
+            160 prompts curados para marketing, ventas, legal y más
+          </p>
+          <a 
+            href="/prompts" 
+            class="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold transition-colors group-hover:gap-3"
+          >
+            Explorar Prompts →
+          </a>
+        </div>
+        
+        <div class="bg-surface rounded-2xl p-8 border border-border hover:border-accent/50 transition-all hover:shadow-xl group">
+          <div class="text-5xl mb-4">📊</div>
+          <h3 class="text-xl md:text-2xl font-heading font-bold mb-3 text-primary">
+            Calculadora ROI IA
+          </h3>
+          <p class="text-text-secondary mb-6">
+            Calcula el retorno real de implementar IA en tu negocio
+          </p>
+          <a 
+            href="/calculadora-roi" 
+            class="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold transition-colors group-hover:gap-3"
+          >
+            Calcular Ahora →
+          </a>
+        </div>
+        
+        <div class="bg-surface rounded-2xl p-8 border border-border hover:border-accent/50 transition-all hover:shadow-xl group">
+          <div class="text-5xl mb-4">🛠️</div>
+          <h3 class="text-xl md:text-2xl font-heading font-bold mb-3 text-primary">
+            Comparativa 25 Tools
+          </h3>
+          <p class="text-text-secondary mb-6">
+            Filtros interactivos para encontrar la herramienta perfecta
+          </p>
+          <a 
+            href="/herramientas" 
+            class="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold transition-colors group-hover:gap-3"
+          >
+            Comparar Tools →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- LEAD MAGNET SECTION - Email Gate -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-primary/10 to-accent/10">
+    <div class="container">
+      <div class="text-center mb-12 md:mb-16">
+        <h2 class="text-3xl md:text-5xl font-heading font-bold mb-4 text-primary">
+          Descarga Recursos Premium
+        </h2>
+        <p class="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto">
+          Guías y plantillas exclusivas para acelerar tu implementación IA
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Lead Magnet A: Checklist ROI -->
+        <div class="bg-surface rounded-2xl p-8 border-2 border-accent/30 hover:border-accent/50 transition-all hover:shadow-2xl">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="text-5xl flex-shrink-0">📋</div>
+            <div>
+              <div class="inline-block bg-accent/20 text-accent px-3 py-1 rounded-full text-xs font-bold mb-3">
+                PDF · 12 páginas
+              </div>
+              <h3 class="text-xl md:text-2xl font-heading font-bold mb-2 text-primary">
+                Checklist ROI IA PyMEs
+              </h3>
+              <p class="text-text-secondary">
+                Guía paso a paso para evaluar implementación IA en tu negocio
+              </p>
+            </div>
+          </div>
+          
+          <form class="lead-magnet-form" data-magnet="checklist-roi" aria-label="Descargar checklist">
+            <label for="email-checklist" class="sr-only">Correo electrónico</label>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input 
+                id="email-checklist"
+                type="email" 
+                name="email"
+                placeholder="tu@email.com" 
+                required
+                aria-required="true"
+                autocomplete="email"
+                class="flex-1 px-4 py-3 rounded-lg bg-background text-text-primary border-2 border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+              />
+              <button 
+                type="submit" 
+                class="btn btn-accent px-6 py-3 whitespace-nowrap font-semibold" 
+                aria-label="Descargar gratis"
+              >
+                Descargar Gratis
+              </button>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Lead Magnet B: 50 Prompts Avanzados -->
+        <div class="bg-surface rounded-2xl p-8 border-2 border-accent/30 hover:border-accent/50 transition-all hover:shadow-2xl">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="text-5xl flex-shrink-0">🎯</div>
+            <div>
+              <div class="inline-block bg-accent/20 text-accent px-3 py-1 rounded-full text-xs font-bold mb-3">
+                PDF · 50 prompts
+              </div>
+              <h3 class="text-xl md:text-2xl font-heading font-bold mb-2 text-primary">
+                50 Prompts Avanzados
+              </h3>
+              <p class="text-text-secondary">
+                Prompts probados para marketing, legal, ventas y más
+              </p>
+            </div>
+          </div>
+          
+          <form class="lead-magnet-form" data-magnet="prompts-avanzados" aria-label="Descargar prompts">
+            <label for="email-prompts" class="sr-only">Correo electrónico</label>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input 
+                id="email-prompts"
+                type="email" 
+                name="email"
+                placeholder="tu@email.com" 
+                required
+                aria-required="true"
+                autocomplete="email"
+                class="flex-1 px-4 py-3 rounded-lg bg-background text-text-primary border-2 border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+              />
+              <button 
+                type="submit" 
+                class="btn btn-accent px-6 py-3 whitespace-nowrap font-semibold" 
+                aria-label="Descargar gratis"
+              >
+                Descargar Gratis
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- VALUE PROPS - Why WorkLess vs Generic Blogs -->
+  <section class="py-16 md:py-20 bg-background">
+    <div class="container">
+      <div class="text-center mb-12 md:mb-16">
+        <h2 class="text-3xl md:text-5xl font-heading font-bold mb-4 text-primary">
+          Por Qué WorkLess Es Diferente
+        </h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div class="text-center p-6">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent/20 mb-4">
+            <span class="text-3xl">✅</span>
+          </div>
+          <h3 class="text-xl font-heading font-bold mb-2 text-primary">
+            Data Original
+          </h3>
+          <p class="text-text-secondary text-sm leading-relaxed">
+            No reescritura ChatGPT. Research verificado.
+          </p>
+        </div>
+        
+        <div class="text-center p-6">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent/20 mb-4">
+            <span class="text-3xl">🇪🇸</span>
+          </div>
+          <h3 class="text-xl font-heading font-bold mb-2 text-primary">
+            Casos Españoles
+          </h3>
+          <p class="text-text-secondary text-sm leading-relaxed">
+            PyMEs reales, no ejemplos USA traducidos.
+          </p>
+        </div>
+        
+        <div class="text-center p-6">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent/20 mb-4">
+            <span class="text-3xl">🔄</span>
+          </div>
+          <h3 class="text-xl font-heading font-bold mb-2 text-primary">
+            Actualizado 2026
+          </h3>
+          <p class="text-text-secondary text-sm leading-relaxed">
+            No guías obsoletas de 2022.
+          </p>
+        </div>
+        
+        <div class="text-center p-6">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent/20 mb-4">
+            <span class="text-3xl">🎯</span>
+          </div>
+          <h3 class="text-xl font-heading font-bold mb-2 text-primary">
+            Sin Fluff
+          </h3>
+          <p class="text-text-secondary text-sm leading-relaxed">
+            Directo al grano. Solo lo que funciona.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- NEWSLETTER BOTTOM - Second Opportunity -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-primary to-primary/90 text-primary-fg">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-5xl font-heading font-bold mb-6">
+          Análisis Semanal Directo a Tu Inbox
+        </h2>
+        
+        <p class="text-lg md:text-xl mb-4 text-primary-fg/90">
+          Únete a 10,000+ profesionales que reciben:
+        </p>
+        
+        <ul class="text-left max-w-xl mx-auto mb-8 space-y-3">
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            <span class="text-base md:text-lg">PILARs exclusivos antes que nadie</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            <span class="text-base md:text-lg">Herramientas testeadas cada semana</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            <span class="text-base md:text-lg">Casos de estudio con números reales</span>
+          </li>
+        </ul>
+        
+        <form class="newsletter-form-bottom flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto" aria-label="Suscripción newsletter final">
+          <label for="bottom-email" class="sr-only">Correo electrónico</label>
+          <input 
+            id="bottom-email"
+            type="email" 
+            name="email"
+            placeholder="tu@email.com" 
+            required
+            aria-required="true"
+            autocomplete="email"
+            class="flex-1 px-6 py-4 rounded-lg bg-surface text-text-primary border-2 border-transparent focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all text-lg"
+          />
+          <button 
+            type="submit" 
+            class="btn btn-accent text-lg px-8 py-4 whitespace-nowrap font-semibold shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02]" 
+            aria-label="Suscribirse gratis"
+          >
+            Suscribirme Gratis
+          </button>
+        </form>
+        
+        <div class="flex items-center justify-center gap-6 mt-6 text-sm text-primary-fg/70">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            Sin spam
+          </span>
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            Cancela cuando quieras
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SOCIAL PROOF -->
+  <section class="py-12 bg-surface-variant/30">
+    <div class="container">
+      <div class="text-center">
+        <p class="text-lg md:text-xl text-text-secondary font-semibold">
+          Confiado por <span class="text-primary font-bold">50K+ profesionales</span> cada mes
+        </p>
       </div>
     </div>
   </section>
   
   <Footer />
 </BaseLayout>
+
+<script>
+  // Handle all newsletter forms
+  const handleNewsletterSubmit = async (e: Event) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    
+    if (!emailInput || !submitButton) return;
+    
+    const email = emailInput.value;
+    const originalButtonText = submitButton.textContent;
+    
+    // Visual feedback
+    submitButton.disabled = true;
+    submitButton.textContent = 'Suscribiendo...';
+    submitButton.classList.add('opacity-70');
+    
+    try {
+      // TODO: Replace with actual email service integration (ConvertKit, Mailchimp, etc.)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Success state
+      submitButton.textContent = '✓ ¡Suscrito!';
+      submitButton.classList.add('bg-green-600', 'hover:bg-green-700');
+      emailInput.value = '';
+      
+      // Reset after 3 seconds
+      setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+        submitButton.classList.remove('opacity-70', 'bg-green-600', 'hover:bg-green-700');
+      }, 3000);
+      
+      console.log('Newsletter signup:', email);
+      
+    } catch (error) {
+      submitButton.textContent = 'Error - Inténtalo de nuevo';
+      submitButton.classList.add('bg-red-600', 'hover:bg-red-700');
+      
+      setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+        submitButton.classList.remove('opacity-70', 'bg-red-600', 'hover:bg-red-700');
+      }, 3000);
+      
+      console.error('Newsletter signup error:', error);
+    }
+  };
+  
+  // Handle lead magnet forms
+  const handleLeadMagnetSubmit = async (e: Event) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const magnetId = form.dataset.magnet;
+    const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    
+    if (!emailInput || !submitButton) return;
+    
+    const email = emailInput.value;
+    const originalButtonText = submitButton.textContent;
+    
+    submitButton.disabled = true;
+    submitButton.textContent = 'Enviando...';
+    submitButton.classList.add('opacity-70');
+    
+    try {
+      // TODO: Replace with actual lead magnet delivery system
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Success - would normally trigger download or email link
+      submitButton.textContent = '✓ Revisa tu email';
+      submitButton.classList.add('bg-green-600', 'hover:bg-green-700');
+      emailInput.value = '';
+      
+      setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+        submitButton.classList.remove('opacity-70', 'bg-green-600', 'hover:bg-green-700');
+      }, 4000);
+      
+      console.log('Lead magnet request:', magnetId, email);
+      
+    } catch (error) {
+      submitButton.textContent = 'Error - Inténtalo de nuevo';
+      submitButton.classList.add('bg-red-600', 'hover:bg-red-700');
+      
+      setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+        submitButton.classList.remove('opacity-70', 'bg-red-600', 'hover:bg-red-700');
+      }, 3000);
+      
+      console.error('Lead magnet error:', error);
+    }
+  };
+  
+  // Attach event listeners
+  document.querySelectorAll('.newsletter-form-hero, .newsletter-form-bottom').forEach(form => {
+    form.addEventListener('submit', handleNewsletterSubmit);
+  });
+  
+  document.querySelectorAll('.lead-magnet-form').forEach(form => {
+    form.addEventListener('submit', handleLeadMagnetSubmit);
+  });
+</script>
+
+<style>
+  /* Smooth scroll behavior for anchor links */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Ensure forms don't overflow on mobile */
+  input[type="email"] {
+    min-width: 0;
+  }
+  
+  /* Mobile-first responsive adjustments */
+  @media (max-width: 640px) {
+    .newsletter-form-hero,
+    .newsletter-form-bottom,
+    .lead-magnet-form {
+      flex-direction: column;
+    }
+    
+    .newsletter-form-hero button,
+    .newsletter-form-bottom button,
+    .lead-magnet-form button {
+      width: 100%;
+    }
+  }
+  
+  /* Ensure touch targets are at least 44px on mobile */
+  @media (max-width: 768px) {
+    button,
+    a.btn {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+</style>

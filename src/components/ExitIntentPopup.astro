@@ -1,6 +1,7 @@
 ---
-// Exit-intent popup for newsletter capture
-// Only triggers once per session when user moves cursor to leave page
+// Exit-intent popup with lead magnet (PDF)
+// Triggers when user attempts to leave (mouse exits top) OR after 30s on page
+// Only shows once per session, respects localStorage if dismissed
 ---
 
 <div id="exit-popup" class="exit-popup hidden" role="dialog" aria-labelledby="exit-popup-title" aria-modal="true">
@@ -14,19 +15,47 @@
     </button>
     
     <div class="text-center">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/20 mb-4">
-        <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      <!-- Icon with gradient background -->
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-accent/30 to-primary/30 mb-6 shadow-lg">
+        <svg class="w-10 h-10 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
       </div>
       
-      <h2 id="exit-popup-title" class="text-3xl font-heading font-semibold mb-3 text-primary">
-        ¡Espera un momento!
+      <h2 id="exit-popup-title" class="text-3xl md:text-4xl font-heading font-bold mb-4 text-primary">
+        Antes de Irte...
       </h2>
       
-      <p class="text-lg text-text-secondary mb-6 max-w-md mx-auto">
-        Únete a más de 50,000 profesionales que reciben nuestras noticias de IA semanales + recursos exclusivos
+      <p class="text-xl md:text-2xl font-semibold text-accent mb-3">
+        📥 Descarga 50 Prompts Avanzados
       </p>
+      
+      <p class="text-base md:text-lg text-text-secondary mb-6 max-w-lg mx-auto leading-relaxed">
+        Prompts probados para <strong>marketing, legal, ventas, contenido</strong> y más. 
+        Listos para usar en ChatGPT, Claude o Gemini.
+      </p>
+      
+      <!-- Benefits list -->
+      <div class="text-left max-w-md mx-auto mb-8 space-y-2">
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-text-primary">50 prompts curados por expertos</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-text-primary">Organizados por caso de uso</span>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-text-primary">PDF de 18 páginas (descarga inmediata)</span>
+        </div>
+      </div>
       
       <form class="newsletter-form-popup" id="popup-form">
         <label for="popup-email" class="sr-only">Correo electrónico</label>
@@ -39,31 +68,35 @@
             required
             aria-required="true"
             autocomplete="email"
-            class="flex-1 px-5 py-3 rounded-lg bg-surface text-text-primary border-2 border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+            class="flex-1 px-5 py-3.5 rounded-lg bg-surface text-text-primary border-2 border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all text-base"
           />
           <button 
             type="submit" 
-            class="btn btn-accent px-6 py-3 whitespace-nowrap font-semibold" 
+            class="btn btn-accent px-8 py-3.5 whitespace-nowrap font-bold text-base shadow-lg hover:shadow-xl" 
           >
-            Suscribirme Gratis
+            Descargar Gratis
           </button>
         </div>
       </form>
       
-      <div class="flex items-center justify-center gap-4 mt-4 text-sm text-text-tertiary">
-        <span class="flex items-center gap-1">
+      <div class="flex items-center justify-center gap-4 mt-5 text-sm text-text-tertiary">
+        <span class="flex items-center gap-1.5">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
           </svg>
           Sin spam
         </span>
-        <span class="flex items-center gap-1">
+        <span class="flex items-center gap-1.5">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
           </svg>
-          Cancela siempre
+          Cancela cuando quieras
         </span>
       </div>
+      
+      <p class="text-xs text-text-tertiary mt-4">
+        También recibirás nuestro análisis semanal de IA (opcional)
+      </p>
     </div>
   </div>
 </div>
@@ -77,7 +110,7 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    animation: fadeIn 0.2s ease-out;
+    animation: fadeIn 0.3s ease-out;
   }
   
   .exit-popup.hidden {
@@ -87,37 +120,43 @@
   .exit-popup-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
   }
   
   .exit-popup-content {
     position: relative;
-    background: white;
+    background: linear-gradient(to bottom, #0D111C, #1a1f2e);
     border-radius: 1.5rem;
-    padding: 2.5rem;
-    max-width: 600px;
+    padding: 3rem 2.5rem;
+    max-width: 650px;
     width: 100%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: slideUp 0.3s ease-out;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(102, 126, 234, 0.2);
   }
   
   .exit-popup-close {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: transparent;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
     border: none;
-    color: #71717A;
+    color: #9ca3af;
     cursor: pointer;
     transition: all 0.2s;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .exit-popup-close:hover {
-    background: #F4F4F5;
-    color: #18181B;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
   }
   
   @keyframes fadeIn {
@@ -131,18 +170,19 @@
   
   @keyframes slideUp {
     from {
-      transform: translateY(30px);
+      transform: translateY(40px) scale(0.96);
       opacity: 0;
     }
     to {
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
       opacity: 1;
     }
   }
   
   @media (max-width: 640px) {
     .exit-popup-content {
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 1.5rem;
+      max-width: 95%;
     }
     
     .newsletter-form-popup {
@@ -156,12 +196,18 @@
 </style>
 
 <script>
-  // Exit intent detection
+  // Exit intent + time-based trigger with localStorage persistence
   let popupShown = false;
-  const STORAGE_KEY = 'workless-exit-popup-shown';
+  const STORAGE_KEY = 'workless-exit-popup-dismissed';
+  const TRIGGER_DELAY = 30000; // 30 seconds
   
-  // Check if popup was already shown in this session
-  if (sessionStorage.getItem(STORAGE_KEY)) {
+  // Check if user permanently dismissed popup
+  if (localStorage.getItem(STORAGE_KEY)) {
+    popupShown = true;
+  }
+  
+  // Check if popup was shown this session
+  if (sessionStorage.getItem('popup-shown-this-session')) {
     popupShown = true;
   }
   
@@ -175,34 +221,45 @@
       popup.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
       popupShown = true;
-      sessionStorage.setItem(STORAGE_KEY, 'true');
+      sessionStorage.setItem('popup-shown-this-session', 'true');
     }
   }
   
-  function hidePopup() {
+  function hidePopup(permanent = false) {
     if (popup) {
       popup.classList.add('hidden');
       document.body.style.overflow = '';
+      
+      if (permanent) {
+        localStorage.setItem(STORAGE_KEY, 'true');
+      }
     }
   }
   
-  // Exit intent detection - trigger when mouse leaves viewport from top
+  // Exit intent detection - mouse leaves viewport from top
   document.addEventListener('mouseleave', (e) => {
     if (e.clientY <= 0 && !popupShown) {
       showPopup();
     }
   });
   
-  // Close popup on button click
-  closeBtn?.addEventListener('click', hidePopup);
+  // Time-based trigger (30s after page load)
+  setTimeout(() => {
+    if (!popupShown) {
+      showPopup();
+    }
+  }, TRIGGER_DELAY);
   
-  // Close popup on overlay click
-  overlay?.addEventListener('click', hidePopup);
+  // Close popup on button click (permanent dismiss)
+  closeBtn?.addEventListener('click', () => hidePopup(true));
   
-  // Close popup on ESC key
+  // Close popup on overlay click (temporary)
+  overlay?.addEventListener('click', () => hidePopup(false));
+  
+  // Close popup on ESC key (temporary)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !popup?.classList.contains('hidden')) {
-      hidePopup();
+      hidePopup(false);
     }
   });
   
@@ -219,36 +276,42 @@
     
     // Visual feedback
     submitButton.disabled = true;
-    submitButton.textContent = 'Suscribiendo...';
+    submitButton.textContent = 'Enviando...';
     submitButton.classList.add('opacity-70');
     
     try {
-      // TODO: Replace with actual email service integration
+      // TODO: Replace with actual email service integration (Convertkit, Mailchimp, etc.)
+      // For now, just simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Success state
-      submitButton.textContent = '✓ ¡Suscrito!';
+      submitButton.textContent = '✓ ¡Descarga tu PDF!';
+      submitButton.classList.remove('opacity-70');
       submitButton.classList.add('bg-green-600', 'hover:bg-green-700');
       
-      // Close popup after success
-      setTimeout(() => {
-        hidePopup();
-      }, 1500);
+      // TODO: Trigger PDF download
+      // window.location.href = '/downloads/50-prompts-avanzados.pdf';
       
-      console.log('Newsletter signup (popup):', email);
+      // Close popup after success and mark as permanently dismissed
+      setTimeout(() => {
+        hidePopup(true);
+      }, 2000);
+      
+      console.log('Lead magnet signup:', email);
       
     } catch (error) {
       // Error state
-      submitButton.textContent = 'Error - Inténtalo de nuevo';
+      submitButton.textContent = 'Error - Reintentar';
+      submitButton.classList.remove('opacity-70');
       submitButton.classList.add('bg-red-600', 'hover:bg-red-700');
       
       setTimeout(() => {
         submitButton.disabled = false;
         submitButton.textContent = originalButtonText;
-        submitButton.classList.remove('opacity-70', 'bg-red-600', 'hover:bg-red-700');
+        submitButton.classList.remove('bg-red-600', 'hover:bg-red-700');
       }, 3000);
       
-      console.error('Newsletter signup error:', error);
+      console.error('Lead magnet signup error:', error);
     }
   });
 </script>
