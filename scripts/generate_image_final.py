@@ -6,10 +6,16 @@ Uses official google-genai SDK (2026)
 
 import sys
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from PIL import Image
 from io import BytesIO
+
+# Load .env file from project root
+project_root = Path(__file__).parent.parent
+load_dotenv(project_root / ".env")
 
 # ⚠️ SECURITY: ALWAYS use environment variable for API keys
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -54,7 +60,7 @@ def generate_image(prompt, output_path, aspect_ratio="16:9", model=DEFAULT_MODEL
         client = genai.Client(api_key=GEMINI_API_KEY)
         
         # Configure generation
-        config = types.GenerateImageConfig(
+        config = types.GenerateImagesConfig(
             number_of_images=num_images,
             aspect_ratio=aspect_ratio,
             safety_filter_level="block_low_and_above",  # Enum: block_low_and_above
@@ -62,7 +68,7 @@ def generate_image(prompt, output_path, aspect_ratio="16:9", model=DEFAULT_MODEL
         )
         
         # Generate
-        response = client.models.generate_image(
+        response = client.models.generate_images(
             model=model_name,
             prompt=prompt,
             config=config
@@ -70,10 +76,8 @@ def generate_image(prompt, output_path, aspect_ratio="16:9", model=DEFAULT_MODEL
         
         # Save first image
         if response.generated_images:
-            img_data = response.generated_images[0]._image
-            
-            # Convert to PIL Image
-            image = Image.open(BytesIO(img_data))
+            # Image is already a PIL Image object
+            image = response.generated_images[0].image
             
             # Create output directory if needed
             os.makedirs(os.path.dirname(output_path) if os.path.dirname(output_path) else ".", exist_ok=True)
