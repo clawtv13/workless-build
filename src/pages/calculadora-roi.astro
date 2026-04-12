@@ -1,0 +1,426 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout 
+  title="Calculadora ROI de IA para PyMEs | WorkLess" 
+  description="Calcula el retorno de inversión de implementar inteligencia artificial en tu PyME. Basado en 30 casos reales con ROI promedio 740%."
+>
+  <Navigation />
+  
+  <main class="py-12">
+    <div class="container max-w-5xl">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">
+          📊 Calculadora ROI de IA
+        </h1>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          Descubre cuánto puedes ahorrar implementando IA en tu PyME. 
+          Basado en análisis de <a href="/news/roi-real-ia-pymes-espanolas-30-casos" class="text-primary hover:underline">30 casos reales</a>.
+        </p>
+      </div>
+
+      <!-- Presets -->
+      <div class="mb-8">
+        <p class="text-sm text-gray-400 mb-3">⚡ Rellena rápido con casos típicos:</p>
+        <div class="flex flex-wrap gap-3">
+          <button class="preset-btn px-4 py-2 rounded-lg bg-secondary/50 border border-gray-700 hover:border-primary hover:bg-secondary transition-colors" data-preset="chatbot">
+            💬 Chatbot Atención Cliente
+          </button>
+          <button class="preset-btn px-4 py-2 rounded-lg bg-secondary/50 border border-gray-700 hover:border-primary hover:bg-secondary transition-colors" data-preset="reporting">
+            📊 Automatización Informes
+          </button>
+          <button class="preset-btn px-4 py-2 rounded-lg bg-secondary/50 border border-gray-700 hover:border-primary hover:bg-secondary transition-colors" data-preset="inventory">
+            📦 Gestión Inventario ML
+          </button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Inputs Column -->
+        <div class="space-y-6">
+          <div class="card p-6">
+            <h2 class="text-2xl font-bold mb-6">⏱️ Tiempo Ahorrado</h2>
+            
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">Horas/semana actuales en tarea</label>
+                <input 
+                  type="number" 
+                  id="horasActuales" 
+                  class="w-full px-4 py-2 rounded-lg bg-secondary border border-gray-700 focus:border-primary outline-none"
+                  placeholder="Ej: 18"
+                  min="0"
+                  step="0.5"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">Horas/semana post-IA</label>
+                <input 
+                  type="number" 
+                  id="horasPostIA" 
+                  class="w-full px-4 py-2 rounded-lg bg-secondary border border-gray-700 focus:border-primary outline-none"
+                  placeholder="Ej: 5"
+                  min="0"
+                  step="0.5"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">Coste laboral (€/hora)</label>
+                <input 
+                  type="number" 
+                  id="costeLaboralHora" 
+                  class="w-full px-4 py-2 rounded-lg bg-secondary border border-gray-700 focus:border-primary outline-none"
+                  placeholder="Ej: 28"
+                  min="0"
+                  step="1"
+                />
+                <p class="text-xs text-gray-500 mt-1">Incluye salario + seguridad social</p>
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">Empleados afectados</label>
+                <input 
+                  type="number" 
+                  id="empleados" 
+                  class="w-full px-4 py-2 rounded-lg bg-secondary border border-gray-700 focus:border-primary outline-none"
+                  placeholder="1"
+                  value="1"
+                  min="1"
+                  step="1"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="card p-6">
+            <h2 class="text-2xl font-bold mb-6">💰 Inversión IA</h2>
+            
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">Coste setup inicial (€)</label>
+                <input 
+                  type="number" 
+                  id="costeSetup" 
+                  class="w-full px-4 py-2 rounded-lg bg-secondary border border-gray-700 focus:border-primary outline-none"
+                  placeholder="Ej: 5000"
+                  min="0"
+                  step="100"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">Coste mensual recurrente (€)</label>
+                <input 
+                  type="number" 
+                  id="costeMensual" 
+                  class="w-full px-4 py-2 rounded-lg bg-secondary border border-gray-700 focus:border-primary outline-none"
+                  placeholder="Ej: 200"
+                  min="0"
+                  step="10"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">Aumento ingresos % (opcional)</label>
+                <input 
+                  type="number" 
+                  id="aumentoIngresos" 
+                  class="w-full px-4 py-2 rounded-lg bg-secondary border border-gray-700 focus:border-primary outline-none"
+                  placeholder="Ej: 15"
+                  min="0"
+                  max="100"
+                  step="1"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm text-gray-400 mb-2">Ingresos anuales actuales (€, opcional)</label>
+                <input 
+                  type="number" 
+                  id="ingresosActuales" 
+                  class="w-full px-4 py-2 rounded-lg bg-secondary border border-gray-700 focus:border-primary outline-none"
+                  placeholder="Ej: 500000"
+                  min="0"
+                  step="1000"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Column -->
+        <div class="space-y-6">
+          <div class="card p-6 border-2 border-primary/30">
+            <h2 class="text-2xl font-bold mb-6">📈 Resultados Año 1</h2>
+            
+            <div class="space-y-4">
+              <div class="result-card p-4 rounded-lg bg-secondary/30">
+                <p class="text-sm text-gray-400 mb-1">Ahorro tiempo anual</p>
+                <p class="text-3xl font-bold text-primary" id="ahorroAnual">—</p>
+              </div>
+
+              <div class="result-card p-4 rounded-lg bg-secondary/30">
+                <p class="text-sm text-gray-400 mb-1">Inversión total año 1</p>
+                <p class="text-3xl font-bold" id="inversionTotal">—</p>
+              </div>
+
+              <div class="result-card p-4 rounded-lg bg-secondary/30">
+                <p class="text-sm text-gray-400 mb-1">Beneficio neto año 1</p>
+                <p class="text-3xl font-bold" id="beneficioNeto">—</p>
+              </div>
+
+              <div class="result-card p-4 rounded-lg bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/50">
+                <p class="text-sm text-gray-400 mb-1">ROI año 1</p>
+                <p class="text-5xl font-bold" id="roiPorcentaje">—</p>
+                <p class="text-xs text-gray-500 mt-2" id="roiComparacion"></p>
+              </div>
+
+              <div class="result-card p-4 rounded-lg bg-secondary/30">
+                <p class="text-sm text-gray-400 mb-1">Break-even</p>
+                <p class="text-3xl font-bold text-accent" id="breakEven">—</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card p-6">
+            <h3 class="text-xl font-bold mb-4">💡 Proyección 3 Años</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <span class="text-gray-400">Año 1:</span>
+                <span class="font-bold text-primary" id="proyeccion1">—</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-400">Año 2:</span>
+                <span class="font-bold text-primary" id="proyeccion2">—</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-400">Año 3:</span>
+                <span class="font-bold text-primary" id="proyeccion3">—</span>
+              </div>
+              <div class="border-t border-gray-700 pt-3 mt-3 flex justify-between items-center">
+                <span class="text-gray-300 font-semibold">Total 3 años:</span>
+                <span class="font-bold text-2xl text-primary" id="proyeccionTotal">—</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card p-6 bg-primary/10 border border-primary/30">
+            <p class="text-sm text-gray-300 mb-3">
+              📌 <strong>Benchmark industria:</strong> ROI promedio PyMEs españolas = <span class="text-primary font-bold">740%</span> año 1
+            </p>
+            <p class="text-xs text-gray-400">
+              Basado en <a href="/news/roi-real-ia-pymes-espanolas-30-casos" class="text-primary hover:underline">30 casos reales documentados</a>
+            </p>
+          </div>
+
+          <div class="text-center">
+            <a href="/news/roi-real-ia-pymes-espanolas-30-casos" class="inline-block px-6 py-3 rounded-lg bg-primary text-dark font-bold hover:bg-primary/90 transition-colors">
+              Ver 30 Casos Reales →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explicación -->
+      <div class="card p-8 mt-12">
+        <h2 class="text-2xl font-bold mb-4">🧮 Cómo Se Calcula</h2>
+        <div class="space-y-4 text-gray-300">
+          <div>
+            <p class="font-semibold text-white mb-2">1. Ahorro Anual:</p>
+            <code class="block p-3 bg-secondary rounded text-sm">
+              (Horas ahorradas/semana × 52 semanas × Coste €/hora × Empleados) + Aumento ingresos
+            </code>
+          </div>
+          
+          <div>
+            <p class="font-semibold text-white mb-2">2. Inversión Total Año 1:</p>
+            <code class="block p-3 bg-secondary rounded text-sm">
+              Coste setup + (Coste mensual × 12 meses)
+            </code>
+          </div>
+          
+          <div>
+            <p class="font-semibold text-white mb-2">3. ROI (%):</p>
+            <code class="block p-3 bg-secondary rounded text-sm">
+              ((Ahorro - Inversión) / Inversión) × 100
+            </code>
+          </div>
+
+          <div>
+            <p class="font-semibold text-white mb-2">4. Break-even (meses):</p>
+            <code class="block p-3 bg-secondary rounded text-sm">
+              Inversión total / (Ahorro mensual)
+            </code>
+          </div>
+
+          <p class="text-sm text-gray-400 mt-6">
+            💡 <strong>Nota:</strong> Años 2-3 solo incluyen coste recurrente (no setup), por eso el ROI es mucho mayor.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Presets data
+  const presets = {
+    chatbot: {
+      horasActuales: 12,
+      horasPostIA: 4,
+      costeLaboralHora: 25,
+      empleados: 1,
+      costeSetup: 3500,
+      costeMensual: 80,
+      aumentoIngresos: 0,
+      ingresosActuales: 0
+    },
+    reporting: {
+      horasActuales: 22,
+      horasPostIA: 9,
+      costeLaboralHora: 28,
+      empleados: 1,
+      costeSetup: 5500,
+      costeMensual: 200,
+      aumentoIngresos: 0,
+      ingresosActuales: 0
+    },
+    inventory: {
+      horasActuales: 15,
+      horasPostIA: 5,
+      costeLaboralHora: 22,
+      empleados: 2,
+      costeSetup: 18000,
+      costeMensual: 300,
+      aumentoIngresos: 0,
+      ingresosActuales: 0
+    }
+  };
+
+  // Load preset
+  document.querySelectorAll('.preset-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const presetName = btn.dataset.preset;
+      const preset = presets[presetName];
+      
+      if (preset) {
+        Object.keys(preset).forEach(key => {
+          const input = document.getElementById(key);
+          if (input) input.value = preset[key];
+        });
+        
+        calculate();
+      }
+    });
+  });
+
+  // Calculate on input change
+  const inputs = document.querySelectorAll('input[type="number"]');
+  inputs.forEach(input => {
+    input.addEventListener('input', calculate);
+  });
+
+  function calculate() {
+    // Get inputs
+    const horasActuales = parseFloat(document.getElementById('horasActuales').value) || 0;
+    const horasPostIA = parseFloat(document.getElementById('horasPostIA').value) || 0;
+    const costeLaboralHora = parseFloat(document.getElementById('costeLaboralHora').value) || 0;
+    const empleados = parseInt(document.getElementById('empleados').value) || 1;
+    const costeSetup = parseFloat(document.getElementById('costeSetup').value) || 0;
+    const costeMensual = parseFloat(document.getElementById('costeMensual').value) || 0;
+    const aumentoIngresos = parseFloat(document.getElementById('aumentoIngresos').value) || 0;
+    const ingresosActuales = parseFloat(document.getElementById('ingresosActuales').value) || 0;
+
+    // Validation
+    if (horasActuales === 0 || costeLaboralHora === 0 || costeSetup === 0) {
+      // Not enough data
+      return;
+    }
+
+    // Calculations
+    const horasAhorradas = horasActuales - horasPostIA;
+    const ahorroTiempoAnual = horasAhorradas * 52 * costeLaboralHora * empleados;
+    const aumentoIngresosAnual = (ingresosActuales * aumentoIngresos / 100);
+    const ahorroTotal = ahorroTiempoAnual + aumentoIngresosAnual;
+    
+    const inversionAno1 = costeSetup + (costeMensual * 12);
+    const beneficioNeto = ahorroTotal - inversionAno1;
+    const roi = inversionAno1 > 0 ? ((beneficioNeto / inversionAno1) * 100) : 0;
+    
+    const ahorroMensual = ahorroTotal / 12;
+    const breakEvenMeses = ahorroMensual > 0 ? (inversionAno1 / ahorroMensual) : 0;
+
+    // Proyección 3 años
+    const costeRecurrente = costeMensual * 12;
+    const proyeccion1 = beneficioNeto;
+    const proyeccion2 = ahorroTotal - costeRecurrente;
+    const proyeccion3 = ahorroTotal - costeRecurrente;
+    const proyeccionTotal = proyeccion1 + proyeccion2 + proyeccion3;
+
+    // Format currency
+    const fmt = (num) => new Intl.NumberFormat('es-ES', { 
+      style: 'currency', 
+      currency: 'EUR',
+      maximumFractionDigits: 0
+    }).format(num);
+
+    // Update UI
+    document.getElementById('ahorroAnual').textContent = fmt(ahorroTotal);
+    document.getElementById('inversionTotal').textContent = fmt(inversionAno1);
+    document.getElementById('beneficioNeto').textContent = fmt(beneficioNeto);
+    document.getElementById('roiPorcentaje').textContent = `${Math.round(roi)}%`;
+    document.getElementById('breakEven').textContent = 
+      breakEvenMeses < 1 ? `${Math.round(breakEvenMeses * 30)} días` : `${breakEvenMeses.toFixed(1)} meses`;
+
+    // ROI comparison
+    const roiComp = document.getElementById('roiComparacion');
+    if (roi > 740) {
+      roiComp.textContent = `🎉 Superior al promedio (740%)`;
+      roiComp.className = 'text-xs text-green-400 mt-2';
+    } else if (roi > 300) {
+      roiComp.textContent = `✅ Excelente ROI (Promedio: 740%)`;
+      roiComp.className = 'text-xs text-primary mt-2';
+    } else if (roi > 100) {
+      roiComp.textContent = `⚠️ ROI positivo pero bajo (Promedio: 740%)`;
+      roiComp.className = 'text-xs text-yellow-400 mt-2';
+    } else if (roi > 0) {
+      roiComp.textContent = `⚠️ ROI marginal - Revisar caso`;
+      roiComp.className = 'text-xs text-orange-400 mt-2';
+    } else {
+      roiComp.textContent = `❌ ROI negativo - No implementar`;
+      roiComp.className = 'text-xs text-red-400 mt-2';
+    }
+
+    // Proyecciones
+    document.getElementById('proyeccion1').textContent = fmt(proyeccion1);
+    document.getElementById('proyeccion2').textContent = fmt(proyeccion2);
+    document.getElementById('proyeccion3').textContent = fmt(proyeccion3);
+    document.getElementById('proyeccionTotal').textContent = fmt(proyeccionTotal);
+  }
+</script>
+
+<style>
+  .card {
+    @apply bg-secondary/20 border border-gray-800 rounded-lg;
+  }
+
+  input[type="number"]:focus {
+    @apply ring-2 ring-primary/50;
+  }
+
+  .result-card {
+    @apply transition-all duration-300;
+  }
+
+  .result-card:hover {
+    @apply transform scale-105;
+  }
+</style>
