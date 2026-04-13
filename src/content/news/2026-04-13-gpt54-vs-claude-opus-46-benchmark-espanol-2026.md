@@ -61,6 +61,10 @@ Antes de ver resultados, necesitas saber cómo los conseguimos. **Transparencia 
 
 Dividimos los tests en **8 categorías** que importan para PyMEs:
 
+<div class="table-wrapper">
+
+<div class="table-wrapper">
+
 | Categoría | Tests | Peso | Por Qué Importa |
 |-----------|-------|------|-----------------|
 | **Atención al Cliente** | 12 | 20% | Respuestas a clientes, quejas, dudas |
@@ -71,6 +75,11 @@ Dividimos los tests en **8 categorías** que importan para PyMEs:
 | **Traducción & Localización** | 8 | 10% | Adaptar contenido entre variantes |
 | **Razonamiento Complejo** | 8 | 7% | Estrategia, planificación, decisiones |
 | **Velocidad & Costo** | 7 | 5% | Tiempo de respuesta, tokens usados |
+
+</div>
+
+
+</div>
 
 **Total: 73 tests documentados**
 
@@ -150,6 +159,8 @@ Traducción: **Están empatados**. Pero el diablo está en los detalles.
 
 ### Desglose por Categoría
 
+<div class="table-wrapper">
+
 | Categoría | GPT-5.4 | Claude Opus 4.6 | Ganador |
 |-----------|---------|-----------------|---------|
 | **Atención al Cliente** | 8.6 | 8.3 | 🏆 GPT-5.4 |
@@ -161,9 +172,14 @@ Traducción: **Están empatados**. Pero el diablo está en los detalles.
 | **Razonamiento Complejo** | 8.0 | 8.3 | 🏆 Claude |
 | **Velocidad & Costo** | 8.4 | 7.8 | 🏆 GPT-5.4 |
 
+</div>
+
+
 ### Desglose por Variante de Español
 
 Aquí es donde se pone interesante:
+
+<div class="table-wrapper">
 
 | Variante | GPT-5.4 | Claude Opus 4.6 | Diferencia |
 |----------|---------|-----------------|------------|
@@ -171,6 +187,9 @@ Aquí es donde se pone interesante:
 | **Español México** | 8.2 | 8.7 | +0.5 Claude |
 | **Español Argentina** | 8.1 | 8.5 | +0.4 Claude |
 | **Español Colombia** | 8.4 | 8.4 | Empate |
+
+</div>
+
 
 **Insight clave:** GPT-5.4 fue entrenado con más datos de España. Claude Opus 4.6 con más datos de Latinoamérica. Se nota.
 
@@ -326,6 +345,8 @@ Ofrece solución concreta.
 
 ### Tabla Comparativa: Atención al Cliente
 
+<div class="table-wrapper">
+
 | Aspecto | GPT-5.4 | Claude Opus 4.6 | Ganador |
 |---------|---------|-----------------|---------|
 | **Velocidad respuesta** | 2.3s promedio | 3.9s promedio | 🏆 GPT |
@@ -336,6 +357,9 @@ Ofrece solución concreta.
 | **Español España** | 8.8/10 | 8.1/10 | 🏆 GPT |
 | **Español México** | 8.0/10 | 8.9/10 | 🏆 Claude |
 | **Español Argentina** | 8.2/10 | 8.5/10 | 🏆 Claude |
+
+</div>
+
 
 ### Veredicto: Atención al Cliente
 
@@ -494,6 +518,8 @@ Incluir: Beneficio claro, objeción común resuelta, CTA fuerte
 
 ### Tabla Comparativa: Copywriting
 
+<div class="table-wrapper">
+
 | Tipo de Copy | GPT-5.4 | Claude Opus 4.6 | Diferencia |
 |--------------|---------|-----------------|------------|
 | **Email marketing** | 7.6/10 | 9.2/10 | +1.6 Claude |
@@ -502,6 +528,9 @@ Incluir: Beneficio claro, objeción común resuelta, CTA fuerte
 | **Descripciones producto** | 8.1/10 | 8.5/10 | +0.4 Claude |
 | **Social media** | 7.9/10 | 9.0/10 | +1.1 Claude |
 | **Video scripts** | 7.5/10 | 8.7/10 | +1.2 Claude |
+
+</div>
+
 
 ### Por Qué Claude Gana en Copywriting
 
@@ -682,6 +711,8 @@ Explica posibles causas.
 
 ### Tabla Comparativa: Análisis de Datos
 
+<div class="table-wrapper">
+
 | Aspecto | GPT-5.4 | Claude Opus 4.6 | Ganador |
 |---------|---------|-----------------|---------|
 | **Precisión numérica** | 9.3/10 | 8.7/10 | 🏆 GPT |
@@ -690,6 +721,9 @@ Explica posibles causas.
 | **Insights accionables** | 8.9/10 | 8.3/10 | 🏆 GPT |
 | **Explicaciones claras** | 8.2/10 | 8.8/10 | 🏆 Claude |
 | **Detección anomalías** | 8.8/10 | 8.1/10 | 🏆 GPT |
+
+</div>
+
 
 ### Casos de Error
 
@@ -891,6 +925,8 @@ newsletters normales. Es dinero en la mesa.
 
 ### Tabla Comparativa: Generación de Contenido
 
+<div class="table-wrapper">
+
 | Tipo de Contenido | GPT-5.4 | Claude Opus 4.6 | Diferencia |
 |-------------------|---------|-----------------|------------|
 | **Blog posts** | 8.1/10 | 8.6/10 | +0.5 Claude |
@@ -899,6 +935,9 @@ newsletters normales. Es dinero en la mesa.
 | **Guiones (audio/video)** | 8.0/10 | 8.4/10 | +0.4 Claude |
 | **Casos de estudio** | 8.4/10 | 8.3/10 | -0.1 GPT |
 | **Contenido técnico** | 8.6/10 | 7.9/10 | -0.7 GPT |
+
+</div>
+
 
 ### Por Qué Claude Gana en Contenido
 
@@ -1065,6 +1104,8 @@ Generó código similar pero:
 
 ### Tabla Comparativa: Tareas Técnicas
 
+<div class="table-wrapper">
+
 | Tipo de Tarea | GPT-5.4 | Claude Opus 4.6 | Ganador |
 |---------------|---------|-----------------|---------|
 | **Fórmulas Excel** | 9.3/10 | 8.2/10 | 🏆 GPT |
@@ -1073,6 +1114,9 @@ Generó código similar pero:
 | **Regex** | 8.9/10 | 8.1/10 | 🏆 GPT |
 | **Explicaciones técnicas** | 8.4/10 | 8.9/10 | 🏆 Claude |
 | **Troubleshooting** | 8.8/10 | 8.3/10 | 🏆 GPT |
+
+</div>
+
 
 ### Tasa de Error en Código
 
@@ -1206,6 +1250,8 @@ Colombia: "Empieza hoy. No necesitas tarjeta. Cancela cuando quieras."
 
 ### Tabla Comparativa: Traducción
 
+<div class="table-wrapper">
+
 | Aspecto | GPT-5.4 | Claude Opus 4.6 | Ganador |
 |---------|---------|-----------------|---------|
 | **Precisión literal** | 9.1/10 | 8.7/10 | 🏆 GPT |
@@ -1213,6 +1259,9 @@ Colombia: "Empieza hoy. No necesitas tarjeta. Cancela cuando quieras."
 | **Modismos** | 7.6/10 | 8.9/10 | 🏆 Claude |
 | **Tono consistente** | 8.4/10 | 8.5/10 | 🏆 Claude |
 | **Velocidad** | 2.1s | 3.4s | 🏆 GPT |
+
+</div>
+
 
 ### Cuándo Usar Cada Uno
 

@@ -63,6 +63,38 @@
   }
   
   /* Reading experience optimization - handled per-element, not on article wrapper */
+  
+  /* Tables - Mobile scroll horizontal */
+  table {
+    @apply w-full border-collapse;
+  }
+  
+  thead {
+    @apply bg-secondary text-secondary-fg;
+  }
+  
+  th {
+    @apply px-4 py-3 text-left font-semibold border-b border-border;
+  }
+  
+  td {
+    @apply px-4 py-3 border-b border-border;
+  }
+  
+  tbody tr:hover {
+    @apply bg-surface;
+  }
+  
+  /* Wrapper for horizontal scroll on mobile */
+  .table-wrapper {
+    @apply w-full overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0;
+    /* Smooth scroll on touch */
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .table-wrapper table {
+    @apply min-w-[600px];
+  }
 }
 
 @layer components {
