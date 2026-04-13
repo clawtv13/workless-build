@@ -5,6 +5,11 @@ import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import Newsletter from '../components/Newsletter.astro';
 
+// Import PILAR images as Astro assets
+import guiaIaEspana from '/public/images/pilars/guia-ia-espana.jpg';
+import benchmarkLlms from '/public/images/pilars/benchmark-llms.jpg';
+import roiPymes from '/public/images/pilars/roi-pymes.jpg';
+
 // Get actual PILAR content
 const allNews = await getCollection('news');
 
@@ -15,21 +20,21 @@ const featuredPilars = [
     wordCount: "13.8K",
     description: "Todo lo que necesitas saber sobre IA en España. Regulación, herramientas, casos reales.",
     href: "/news/guia-definitiva-ia-espana-2026",
-    image: "/images/pilars/guia-ia-espana.jpg"
+    image: guiaIaEspana.src
   },
   {
     title: "Benchmark LLMs Español 2026",
     wordCount: "7.2K",
     description: "15 modelos probados en español. Data real, no marketing. Descubre cuál es mejor para tu caso.",
     href: "/news/benchmark-llms-espanol-2026",
-    image: "/images/pilars/benchmark-llms.jpg"
+    image: benchmarkLlms.src
   },
   {
     title: "ROI Real IA: 30 Casos PyMEs",
     wordCount: "13.4K",
     description: "Implementaciones reales con números verificados. Qué funciona, qué no, y cuánto cuesta.",
     href: "/news/roi-real-ia-pymes-espanolas-30-casos",
-    image: "/images/pilars/roi-pymes.jpg"
+    image: roiPymes.src
   }
 ];
 ---
