@@ -4,7 +4,7 @@ description: "**Tiempo de lectura: 18 minutos**..."
 date: 2026-04-13
 category: "investigacion"
 tags: ["gpt-5", "claude opus", "benchmark espa\u00f1ol", "comparativa llm"]
-image: "/images/default-cover.jpg"
+image: "/images/covers/2026-04-13-gpt54-vs-claude-opus-46-benchmark-espanol-2026.png"
 quality_score: 9.0
 post_type: "pilar"
 ---
